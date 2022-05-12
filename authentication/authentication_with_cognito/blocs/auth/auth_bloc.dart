@@ -76,7 +76,7 @@
 //           await authRepositories.getStarted(event.body);
 //       emit(state.copyWith(
 //           getStartedModel: getStartedModel, getStartedRequesting: false));
-//       if (getStartedModel.userExist!) {
+//       if (getStartedModel.isRegistered!) {
 //         if (getStartedModel.isVerifiedUser!) {
 //           event.onSuccess(MyPluginAppConstraints.login);
 //         } else {
