@@ -4,9 +4,9 @@
 // import '../../api/apiUrl.dart';
 // import '../../models/auth/get_started_model.dart';
 // import '../../models/auth/profile_model.dart';
-// import 'package:plugin_helper/plugin_api.dart';
+// import '../../api/api.dart';
 
-// class AuthRepository extends MyPluginApi {
+// class AuthRepository extends Api {
 //   Future<ProfileModel> getProfile() async {
 //     final url = APIUrl.getProfile;
 //     final response = await request(
