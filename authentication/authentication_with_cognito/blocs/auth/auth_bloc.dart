@@ -1,6 +1,7 @@
 // import 'dart:io';
 
 // import 'package:bloc/bloc.dart';
+// import 'package:plugin_helper/plugin_app_environment.dart';
 // import '../../models/auth/get_started_model.dart';
 // import '../../models/auth/profile_model.dart';
 // import '../../repositories/auth/auth_repository.dart';
@@ -77,7 +78,11 @@
 //       emit(state.copyWith(
 //           getStartedModel: getStartedModel, getStartedRequesting: false));
 //       if (getStartedModel.isRegistered!) {
-//         if (getStartedModel.isVerifiedUser!) {
+//         bool isVerify =
+//             MyPluginAppEnvironment().defaultVerify == DefaultVerify.email
+//                 ? getStartedModel.isVerifiedEmail!
+//                 : getStartedModel.isVerifiedPhone!;
+//         if (isVerify) {
 //           event.onSuccess(MyPluginAppConstraints.login);
 //         } else {
 //           event.onSuccess(MyPluginAppConstraints.verify);
