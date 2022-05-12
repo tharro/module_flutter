@@ -58,10 +58,14 @@
 //               ));
 //               break;
 //             case MyPluginAppConstraints.verify:
-//               MyPluginNavigation.instance.push(Verify(
+//               if (MyPluginAppEnvironment().isVerifyEmailAndPhone!) {
+//               
+//               } else {
+//                MyPluginNavigation.instance.push(Verify(
 //                 isResend: true,
 //                 email: _controller.text,
-//               ));
+//                ));
+//               }
 //               break;
 //             default:
 //           }
