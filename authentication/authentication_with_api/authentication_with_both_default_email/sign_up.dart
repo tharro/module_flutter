@@ -1,3 +1,7 @@
+// import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
+
+// import '../../widgets/phone_number_custom.dart';
+
 // import '../../blocs/auth/auth_bloc.dart';
 // import '../../configs/app_constrains.dart';
 // import '../../screens/auth/get_started.dart';
@@ -8,7 +12,6 @@
 // import '../../widgets/text_field_custom.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:plugin_helper/plugin_helper.dart';
 // import 'package:plugin_helper/plugin_navigator.dart';
 // import 'package:plugin_helper/widgets/widget_text_field.dart';
 // import 'package:easy_localization/easy_localization.dart';
@@ -29,21 +32,22 @@
 //   final FocusNode _firstNameFocusNode = FocusNode();
 //   final TextEditingController _lastNameController = TextEditingController();
 //   final FocusNode _lastNameFocusNode = FocusNode();
+//   final TextEditingController _phoneController = TextEditingController();
+//   final FocusNode _phoneFocusNode = FocusNode();
 //   bool _obscureText = true;
 //   bool _isValidPassword = false,
 //       _isValidFirstName = false,
-//       _isValidLastName = false;
+//       _isValidLastName = false,
+//       _isValidPhone = true;
+//   String phoneNumber = '';
 
 //   _submit() {
-//     if (!_isValidPassword || !_isValidFirstName || !_isValidLastName) {
+//     if (!_isValidPassword ||
+//         !_isValidFirstName ||
+//         !_isValidLastName ||
+//         !_isValidPhone) {
 //       return;
 //     }
-//     List<AttributeArg> attr = [
-//       AttributeArg(name: 'email', value: widget.email),
-//       AttributeArg(
-//           name: 'name',
-//           value: _firstNameController.text.trim() + ' ' + _lastNameController.text.trim()),
-//     ];
 //     BlocProvider.of<AuthBloc>(context).add(AuthSignUp(
 //         onError: (code, message) {
 //           Helper.showErrorDialog(
@@ -55,16 +59,23 @@
 //               });
 //         },
 //         body: {
-//           'id':
-//               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
-//           'attr': attr,
-//           'password': _passwordController.text,
+//           'user_id': BlocProvider.of<AuthBloc>(context)
+//               .state
+//               .getStartedModel!
+//               .username!,
+//           'email': widget.email,
+//           'phone': phoneNumber,
+//           'first_name': _firstNameController.text.trim(),
+//           'last_name': _lastNameController.text.trim(),
+//           'password': _passwordController.text.trim(),
 //         },
 //         onSuccess: () {
 //           MyPluginNavigation.instance.replace(Verify(
+                // isFromSignUp: true,
 //             isResend: false,
 //             password: _passwordController.text,
-//             email: widget.email,
+//             user: widget.email,
+//             type: 'email',
 //           ));
 //         }));
 //   }
@@ -102,6 +113,22 @@
 //                             hintText: widget.email,
 //                             enabled: false,
 //                           ),
+//                           const SizedBox(
+//                             height: 10,
+//                           ),
+//                           PhoneNumberCustom(
+//                               autoFocus: true,
+//                               onInputValidated: (bool val) {
+//                                 setState(() {
+//                                   _isValidPhone = val;
+//                                 });
+//                               },
+//                               hasError: _isValidPhone,
+//                               onInputChanged: (PhoneNumber number) {
+//                                 phoneNumber = number.phoneNumber!;
+//                               },
+//                               controller: _phoneController,
+//                               focusNode: _phoneFocusNode),
 //                           const SizedBox(
 //                             height: 10,
 //                           ),

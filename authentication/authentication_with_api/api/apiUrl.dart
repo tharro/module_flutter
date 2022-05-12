@@ -4,10 +4,10 @@
 // final String baseUrl = MyPluginAppEnvironment().baseUrl!;
 
 // class APIUrl {
-// static String getStarted = '${baseUrl}general/auth/get-started/';
-// static String getProfile = '${baseUrl}general/auth/profile/';
-// static String fcm = '${baseUrl}general/auth/fcm-device/';
-// static String upload = '${baseUrl}general/auth/upload/';
+//   static String getStarted = '${baseUrl}general/auth/get-started/';
+//   static String getProfile = '${baseUrl}general/auth/profile/';
+//   static String fcm = '${baseUrl}general/auth/fcm-device/';
+//   static String upload = '${baseUrl}general/auth/upload/';
 
 //   //NOTIFICATION
 //   static final listNotification = '$baseUrl$versionApi/user/notifications/';

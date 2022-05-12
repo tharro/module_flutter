@@ -158,9 +158,19 @@
 //             expiredToken: DateTime.now().toString());
 //         ProfileModel profileModel = await authRepositories.getProfile();
 //         emit(state.copyWith(
-//             profileModel: profileModel, verifyCodeLoading: false));
+//           profileModel: profileModel,
+//           verifyCodeLoading: false,
+//           getStartedModel: event.type == 'email'
+//               ? state.getStartedModel!.copyWith(isVerifiedEmail: true)
+//               : state.getStartedModel!.copyWith(isVerifiedPhone: true),
+//         ));
 //       } else {
-//         emit(state.copyWith(verifyCodeLoading: false));
+//         emit(state.copyWith(
+//           verifyCodeLoading: false,
+//           getStartedModel: event.type == 'email'
+//               ? state.getStartedModel!.copyWith(isVerifiedEmail: true)
+//               : state.getStartedModel!.copyWith(isVerifiedPhone: true),
+//         ));
 //       }
 //       event.onSuccess();
 //     } catch (e) {

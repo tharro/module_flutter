@@ -74,10 +74,14 @@
 //     await request(url, Method.post, body: body, useIDToken: false);
 //   }
 
-//   Future<void> verify({required String userName, required String code, required String type}) async {
+//   Future<void> verify(
+//       {required String userName,
+//       required String code,
+//       required String type}) async {
 //     final url = APIUrl.verify;
 //     await request(url, Method.post,
-//         body: {'username': userName, 'code': code, 'type': type}, useIDToken: false);
+//         body: {'username': userName, 'code': code, 'type': type},
+//         useIDToken: false);
 //   }
 
 //   Future<void> resendPassword({required String userName}) async {
@@ -89,7 +93,8 @@
 //         useIDToken: false);
 //   }
 
-//   Future<void> resendCode({required String userName, required String type}) async {
+//   Future<void> resendCode(
+//       {required String userName, required String type}) async {
 //     final url = APIUrl.resendCode;
 //     await request(url, Method.post,
 //         body: {

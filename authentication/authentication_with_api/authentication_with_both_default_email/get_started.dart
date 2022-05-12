@@ -1,8 +1,9 @@
+// import '../../screens/auth/options_verify.dart';
+
 // import '../../blocs/auth/auth_bloc.dart';
 // import '../../configs/app_constrains.dart';
 // import '../../screens/auth/login.dart';
 // import '../../screens/auth/sign_up.dart';
-// import '../../screens/auth/verify.dart';
 // import '../../utils/helper.dart';
 // import '../../widgets/button_custom.dart';
 // import '../../widgets/overlay_loading_custom.dart';
@@ -54,14 +55,26 @@
 //               break;
 //             case MyPluginAppConstraints.login:
 //               MyPluginNavigation.instance.push(Login(
+//                 isVerify: true,
 //                 email: _controller.text.trim(),
 //               ));
 //               break;
 //             case MyPluginAppConstraints.verify:
-//                MyPluginNavigation.instance.push(Verify(
-//                 isResend: true,
-//                 email: _controller.text.trim(),
-//                ));
+//               if (BlocProvider.of<AuthBloc>(context)
+//                   .state
+//                   .getStartedModel!
+//                   .isVerifiedEmail!) {
+//                 MyPluginNavigation.instance.push(Login(
+//                   isVerify: false,
+//                   email: BlocProvider.of<AuthBloc>(context)
+//                       .state
+//                       .getStartedModel!
+//                       .email!,
+//                 ));
+//               } else {
+//                 MyPluginNavigation.instance.push(const OptionsVerify());
+//               }
+
 //               break;
 //             default:
 //           }

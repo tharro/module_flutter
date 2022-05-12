@@ -52,9 +52,9 @@
 //           'user_id':
 //               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
 //           'email': widget.email,
-//           'first_name': _firstNameController.text,
-//           'last_name': _lastNameController.text,
-//           'password': _passwordController.text,
+//           'first_name': _firstNameController.text.trim(),
+//           'last_name': _lastNameController.text.trim(),
+//           'password': _passwordController.text.trim(),
 //         },
 //         onSuccess: () {
 //           MyPluginNavigation.instance.replace(Verify(

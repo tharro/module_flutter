@@ -49,25 +49,25 @@
 //           switch (value) {
 //             case MyPluginAppConstraints.signUp:
 //               MyPluginNavigation.instance.replace(SignUp(
-//                 email: _controller.text,
+//                 email: _controller.text.trim(),
 //               ));
 //               break;
 //             case MyPluginAppConstraints.login:
 //               MyPluginNavigation.instance.push(Login(
-//                 email: _controller.text,
+//                 email: _controller.text.trim(),
 //               ));
 //               break;
 //             case MyPluginAppConstraints.verify:
 //               MyPluginNavigation.instance.push(Verify(
 //                 isResend: true,
-//                 email: _controller.text,
+//                 email: _controller.text.trim(),
 //               ));
 //               break;
 //             default:
 //           }
 //         },
 //         body: {
-//           'email': _controller.text,
+//           'email': _controller.text.trim(),
 //         }));
 //   }
 

@@ -1,71 +1,54 @@
+// import '../../screens/auth/options_verify.dart';
+
 // import '../../blocs/auth/auth_bloc.dart';
 // import '../../configs/app_constrains.dart';
+// import '../../screens/auth/forgot_password.dart';
 // import '../../screens/auth/get_started.dart';
-// import '../../screens/auth/verify.dart';
 // import '../../utils/helper.dart';
 // import '../../widgets/button_custom.dart';
 // import '../../widgets/overlay_loading_custom.dart';
 // import '../../widgets/text_field_custom.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:plugin_helper/plugin_helper.dart';
 // import 'package:plugin_helper/plugin_navigator.dart';
-// import 'package:plugin_helper/widgets/widget_text_field.dart';
 // import 'package:easy_localization/easy_localization.dart';
+// import 'package:plugin_helper/widgets/widget_text_field.dart';
 
-// class SignUp extends StatefulWidget {
-//   const SignUp({Key? key, required this.email}) : super(key: key);
+// class Login extends StatefulWidget {
+//   const Login({Key? key, required this.email, required this.isVerify})
+//       : super(key: key);
 //   final String email;
+//   final bool isVerify;
 //   @override
-//   State<SignUp> createState() => _SignUpState();
+//   State<Login> createState() => _LoginState();
 // }
 
-// class _SignUpState extends State<SignUp> {
+// class _LoginState extends State<Login> {
 //   final TextEditingController _emailController = TextEditingController();
 //   final FocusNode _emailFocusNode = FocusNode();
 //   final TextEditingController _passwordController = TextEditingController();
 //   final FocusNode _passwordFocusNode = FocusNode();
-//   final TextEditingController _firstNameController = TextEditingController();
-//   final FocusNode _firstNameFocusNode = FocusNode();
-//   final TextEditingController _lastNameController = TextEditingController();
-//   final FocusNode _lastNameFocusNode = FocusNode();
 //   bool _obscureText = true;
-//   bool _isValidPassword = false,
-//       _isValidFirstName = false,
-//       _isValidLastName = false;
-
 //   _submit() {
-//     if (!_isValidPassword || !_isValidFirstName || !_isValidLastName) {
-//       return;
-//     }
-//     List<AttributeArg> attr = [
-//       AttributeArg(name: 'email', value: widget.email),
-//       AttributeArg(
-//           name: 'name',
-//           value: _firstNameController.text.trim() + ' ' + _lastNameController.text.trim()),
-//     ];
-//     BlocProvider.of<AuthBloc>(context).add(AuthSignUp(
+//     BlocProvider.of<AuthBloc>(context).add(AuthLogin(
 //         onError: (code, message) {
 //           Helper.showErrorDialog(
-//               code: code,
 //               context: context,
+//               code: code,
 //               message: message,
 //               onPressPrimaryButton: () {
 //                 Navigator.pop(context);
 //               });
 //         },
-//         body: {
-//           'id':
-//               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
-//           'attr': attr,
-//           'password': _passwordController.text,
-//         },
+//         userName:
+//             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
+//         password: _passwordController.text,
 //         onSuccess: () {
-//           MyPluginNavigation.instance.replace(Verify(
-//             isResend: false,
-//             password: _passwordController.text,
-//             email: widget.email,
-//           ));
+//           if (widget.isVerify) {
+//             //TODO: go to home
+//           } else {
+//             MyPluginNavigation.instance.replace(const OptionsVerify());
+//           }
 //         }));
 //   }
 
@@ -73,7 +56,7 @@
 //   Widget build(BuildContext context) {
 //     return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
 //       return OverlayLoadingCustom(
-//           isLoading: state.signUpLoading!,
+//           isLoading: state.loginLoading!,
 //           child: Scaffold(
 //               bottomNavigationBar: Padding(
 //                 padding: EdgeInsets.only(
@@ -85,7 +68,7 @@
 //                   onPressed: () {
 //                     _submit();
 //                   },
-//                   title: 'key_sign_up'.tr(),
+//                   title: 'key_login'.tr(),
 //                 ),
 //               ),
 //               body: SingleChildScrollView(
@@ -111,6 +94,7 @@
 //                             validType: ValidType.password,
 //                             hintText: 'key_password'.tr(),
 //                             obscureText: _obscureText,
+//                             showError: false,
 //                             maxLines: 1,
 //                             suffixIcon: Icon(
 //                               Icons.remove_red_eye,
@@ -123,33 +107,9 @@
 //                                 _obscureText = !_obscureText;
 //                               });
 //                             },
-//                             onValid: (bool val) {
-//                               _isValidPassword = val;
-//                             },
 //                           ),
 //                           const SizedBox(
 //                             height: 10,
-//                           ),
-//                           TextFieldCustom(
-//                             controller: _firstNameController,
-//                             focusNode: _firstNameFocusNode,
-//                             validType: ValidType.notEmpty,
-//                             hintText: 'key_first_name'.tr(),
-//                             onValid: (bool val) {
-//                               _isValidFirstName = val;
-//                             },
-//                           ),
-//                           const SizedBox(
-//                             height: 10,
-//                           ),
-//                           TextFieldCustom(
-//                             controller: _lastNameController,
-//                             focusNode: _lastNameFocusNode,
-//                             validType: ValidType.notEmpty,
-//                             hintText: 'key_last_name'.tr(),
-//                             onValid: (bool val) {
-//                               _isValidLastName = val;
-//                             },
 //                           ),
 //                           GestureDetector(
 //                               onTap: () {
@@ -157,6 +117,30 @@
 //                                     .replace(const GetStarted());
 //                               },
 //                               child: Text('key_use_another_account'.tr())),
+//                           GestureDetector(
+//                               onTap: () {
+//                                 BlocProvider.of<AuthBloc>(context).add(
+//                                     AuthForgotPassword(
+//                                         userName:
+//                                             BlocProvider.of<AuthBloc>(context)
+//                                                 .state
+//                                                 .getStartedModel!
+//                                                 .username!,
+//                                         onError: (code, message) {
+//                                           Helper.showErrorDialog(
+//                                               code: code,
+//                                               context: context,
+//                                               message: message,
+//                                               onPressPrimaryButton: () {
+//                                                 Navigator.pop(context);
+//                                               });
+//                                         },
+//                                         onSuccess: () {
+//                                           MyPluginNavigation.instance
+//                                               .replace(const ForgotPassword());
+//                                         }));
+//                               },
+//                               child: Text('key_forgot_password'.tr())),
 //                         ],
 //                       )))));
 //     });

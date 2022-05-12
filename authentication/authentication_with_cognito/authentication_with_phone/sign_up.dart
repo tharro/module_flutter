@@ -42,7 +42,7 @@
 //       AttributeArg(name: 'phone_number', value: widget.phone),
 //       AttributeArg(
 //           name: 'name',
-//           value: _firstNameController.text + ' ' + _lastNameController.text),
+//           value: _firstNameController.text.trim() + ' ' + _lastNameController.text.trim()),
 //     ];
 //     BlocProvider.of<AuthBloc>(context).add(AuthSignUp(
 //         onError: (code, message) {
