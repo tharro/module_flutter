@@ -49,7 +49,7 @@
 //               });
 //         },
 //         body: {
-//           'user_id':
+//           'username':
 //               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
 //           'phone': widget.phone,
 //           'first_name': _firstNameController.text.trim(),

@@ -59,7 +59,7 @@
 //               });
 //         },
 //         body: {
-//           'user_id': BlocProvider.of<AuthBloc>(context)
+//           'username': BlocProvider.of<AuthBloc>(context)
 //               .state
 //               .getStartedModel!
 //               .username!,
