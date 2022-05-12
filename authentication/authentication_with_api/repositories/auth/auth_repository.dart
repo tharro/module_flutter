@@ -54,7 +54,7 @@
 //     final url = APIUrl.login;
 //     final response = await request(url, Method.post,
 //         body: {
-//           'user_name': userName,
+//           'username': userName,
 //           'password': password,
 //         },
 //         useIDToken: false);
@@ -74,26 +74,27 @@
 //     await request(url, Method.post, body: body, useIDToken: false);
 //   }
 
-//   Future<void> verify({required String userName, required String code}) async {
+//   Future<void> verify({required String userName, required String code, required String type}) async {
 //     final url = APIUrl.verify;
 //     await request(url, Method.post,
-//         body: {'user_name': userName, 'code': code}, useIDToken: false);
+//         body: {'username': userName, 'code': code, 'type': type}, useIDToken: false);
 //   }
 
 //   Future<void> resendPassword({required String userName}) async {
 //     final url = APIUrl.resendPassword;
 //     await request(url, Method.post,
 //         body: {
-//           'user_name': userName,
+//           'username': userName,
 //         },
 //         useIDToken: false);
 //   }
 
-//   Future<void> resendCode({required String userName}) async {
+//   Future<void> resendCode({required String userName, required String type}) async {
 //     final url = APIUrl.resendCode;
 //     await request(url, Method.post,
 //         body: {
-//           'user_name': userName,
+//           'username': userName,
+//           'type': type,
 //         },
 //         useIDToken: false);
 //   }
@@ -105,7 +106,7 @@
 //     final url = APIUrl.resetPassword;
 //     await request(url, Method.post,
 //         body: {
-//           'user_name': userName,
+//           'username': userName,
 //           'new_password': newPassword,
 //           'code': code,
 //         },

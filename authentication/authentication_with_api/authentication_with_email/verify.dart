@@ -35,8 +35,9 @@
 
 //   _resendCode(bool isShowPopup) {
 //     BlocProvider.of<AuthBloc>(context).add(AuthResendCode(
+//         type: 'email,
 //         userName:
-//             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.userId!,
+//             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
 //         onError: (code, message) {
 //           Helper.showErrorDialog(
 //               context: context,
@@ -61,9 +62,10 @@
 //   _submit() {
 //     if (_codeController.text.length == 6) {
 //       BlocProvider.of<AuthBloc>(context).add(AuthVerifyCode(
+//           type: 'email,
 //           code: _codeController.text,
 //           userName:
-//               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.userId!,
+//               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
 //           onError: (code, message) {
 //             _codeController.clear();
 //             Helper.showErrorDialog(
@@ -82,7 +84,7 @@
 //                 email: BlocProvider.of<AuthBloc>(context)
 //                     .state
 //                     .getStartedModel!
-//                     .user!,
+//                     .email!,
 //               ));
 //             }
 //           }));

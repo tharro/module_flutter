@@ -49,14 +49,14 @@
 //           userName: BlocProvider.of<AuthBloc>(context)
 //               .state
 //               .getStartedModel!
-//               .userId!));
+//               .username!));
 //     }
 //   }
 
 //   _resendCode() {
 //     BlocProvider.of<AuthBloc>(context).add(AuthForgotPassword(
 //         userName:
-//             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.userId!,
+//             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
 //         onError: (code, message) {
 //           Helper.showErrorDialog(
 //               context: context,

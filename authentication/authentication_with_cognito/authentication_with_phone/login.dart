@@ -37,7 +37,7 @@
 //               });
 //         },
 //         userName:
-//             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.userId!,
+//             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
 //         password: _passwordController.text,
 //         onSuccess: () {
 //           //TODO: go to home
@@ -116,7 +116,7 @@
 //                                             BlocProvider.of<AuthBloc>(context)
 //                                                 .state
 //                                                 .getStartedModel!
-//                                                 .userId!,
+//                                                 .name!,
 //                                         onError: (code, message) {
 //                                           Helper.showErrorDialog(
 //                                               code: code,

@@ -49,14 +49,16 @@
 
 // class AuthResendCode extends AuthEvent {
 //   final String userName;
+//   final String type;
 //   final Function onSuccess;
 //   final Function(String code, String message) onError;
 //   const AuthResendCode(
-//       {required this.userName, required this.onError, required this.onSuccess});
+//       {required this.userName, required this.type, required this.onError, required this.onSuccess});
 // }
 
 // class AuthVerifyCode extends AuthEvent {
 //   final String userName;
+//   final String type;
 //   final String? password;
 //   final String code;
 //   final Function onSuccess;
@@ -65,6 +67,7 @@
 //       {this.password,
 //       required this.code,
 //       required this.userName,
+//       required this.type,
 //       required this.onError,
 //       required this.onSuccess});
 // }

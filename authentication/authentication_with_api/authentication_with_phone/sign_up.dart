@@ -50,7 +50,7 @@
 //         },
 //         body: {
 //           'user_id':
-//               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.userId!,
+//               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
 //           'phone': widget.phone,
 //           'first_name': _firstNameController.text,
 //           'last_name': _lastNameController.text,

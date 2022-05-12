@@ -56,7 +56,7 @@
 //         },
 //         body: {
 //           'id':
-//               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.userId!,
+//               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
 //           'attr': attr,
 //           'password': _passwordController.text,
 //         },
