@@ -62,6 +62,7 @@
 //     if (_codeController.text.length == 6) {
 //       BlocProvider.of<AuthBloc>(context).add(AuthVerifyCode(
 //           code: _codeController.text,
+//            password: widget.password,
 //           userName:
 //               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
 //           onError: (code, message) {

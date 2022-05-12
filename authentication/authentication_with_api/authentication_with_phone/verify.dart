@@ -64,6 +64,7 @@
 //       BlocProvider.of<AuthBloc>(context).add(AuthVerifyCode(
 //           type: 'phone',
 //           code: _codeController.text,
+//            password: widget.password,
 //           userName:
 //               BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
 //           onError: (code, message) {
