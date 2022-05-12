@@ -91,8 +91,14 @@
 //       emit(state.copyWith(
 //           getStartedModel: getStartedModel, getStartedRequesting: false));
 //       if (getStartedModel.isRegistered!) {
-//         bool isDefaultVerify = MyPluginAppEnvironment().defaultVerify == DefaultVerify.email ? getStartedModel.isVerifiedEmail : getStartedModel.isVerifiedPhone;
-//         bool isSecondaryVerify = MyPluginAppEnvironment().defaultVerify == DefaultVerify.phone ? getStartedModel.isVerifiedPhone : getStartedModel.isVerifiedEmail;
+//         bool isDefaultVerify =
+//             MyPluginAppEnvironment().defaultVerify == DefaultVerify.email
+//                 ? getStartedModel.isVerifiedEmail!
+//                 : getStartedModel.isVerifiedPhone!;
+//         bool isSecondaryVerify =
+//             MyPluginAppEnvironment().defaultVerify == DefaultVerify.phone
+//                 ? getStartedModel.isVerifiedPhone!
+//                 : getStartedModel.isVerifiedEmail!;
 //         if (isDefaultVerify && isSecondaryVerify) {
 //           event.onSuccess(MyPluginAppConstraints.login);
 //         } else {
@@ -111,7 +117,8 @@
 //   void authResendCode(AuthResendCode event, Emitter<AuthState> emit) async {
 //     try {
 //       emit(state.copyWith(verifyCodeLoading: true));
-//       await authRepositories.resendCode(userName: event.userName, type: event.type);
+//       await authRepositories.resendCode(
+//           userName: event.userName, type: event.type);
 //       emit(state.copyWith(verifyCodeLoading: false));
 //       event.onSuccess();
 //     } catch (e) {
@@ -137,7 +144,8 @@
 //   void authVerifyCode(AuthVerifyCode event, Emitter<AuthState> emit) async {
 //     try {
 //       emit(state.copyWith(verifyCodeLoading: true));
-//       await authRepositories.verify(userName: event.userName, code: event.code, type: event.type);
+//       await authRepositories.verify(
+//           userName: event.userName, code: event.code, type: event.type);
 //       if (event.password != null) {
 //         final TokenModel tokenModel = await authRepositories.login(
 //           password: event.password!,
