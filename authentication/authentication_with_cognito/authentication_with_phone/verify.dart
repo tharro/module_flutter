@@ -50,7 +50,7 @@
 //           if (isShowPopup) {
 //             Helper.showSuccessDialog(
 //                 context: context,
-//                 message: 'key_resend_success'.tr(),
+//                 message: 'key_resend_code_success'.tr(),
 //                 onPressPrimaryButton: () {
 //                   Navigator.pop(context);
 //                 });
