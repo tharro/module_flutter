@@ -67,7 +67,7 @@
 //           }
 //         },
 //         body: {
-//           'email': _controller.text.trim(),
+//           'username': _controller.text.trim(),
 //         }));
 //   }
 

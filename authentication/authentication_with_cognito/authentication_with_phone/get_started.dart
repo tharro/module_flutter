@@ -69,7 +69,7 @@
 //           }
 //         },
 //         body: {
-//           'phone': phoneNumber,
+//           'username': phoneNumber,
 //         }));
 //   }
 
