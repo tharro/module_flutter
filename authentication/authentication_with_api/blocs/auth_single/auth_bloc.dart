@@ -43,7 +43,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               userId: users.userId!,
               token: tokenModel.token,
               refreshToken: tokenModel.refreshToken,
-              expiredToken: DateTime.now().toString());
+              expiredToken:
+                  DateTime.now().add(const Duration(days: 355)).toString());
         }
         final profile = await authRepositories.getProfile();
         emit(state.copyWith(profileModel: profile));
@@ -68,7 +69,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           userId: event.userName,
           token: tokenModel.token,
           refreshToken: tokenModel.refreshToken,
-          expiredToken: DateTime.now().toString());
+          expiredToken:
+              DateTime.now().add(const Duration(days: 355)).toString());
       ProfileModel profileModel = await authRepositories.getProfile();
       emit(state.copyWith(profileModel: profileModel, loginLoading: false));
       event.onSuccess();
@@ -152,7 +154,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             userId: event.userName,
             token: tokenModel.token,
             refreshToken: tokenModel.refreshToken,
-            expiredToken: DateTime.now().toString());
+            expiredToken:
+                DateTime.now().add(const Duration(days: 355)).toString());
         ProfileModel profileModel = await authRepositories.getProfile();
         emit(state.copyWith(
             profileModel: profileModel, verifyCodeLoading: false));
@@ -200,7 +203,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           userId: event.userName,
           token: tokenModel.token,
           refreshToken: tokenModel.refreshToken,
-          expiredToken: DateTime.now().toString());
+          expiredToken:
+              DateTime.now().add(const Duration(days: 355)).toString());
       ProfileModel profileModel = await authRepositories.getProfile();
       emit(state.copyWith(
           profileModel: profileModel, resetPasswordLoading: false));
