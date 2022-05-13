@@ -8,7 +8,6 @@ import '../../widgets/overlay_loading_custom.dart';
 import '../../widgets/text_field_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plugin_helper/plugin_helper.dart';
 import 'package:plugin_helper/plugin_navigator.dart';
 import 'package:plugin_helper/widgets/widget_text_field.dart';
 import 'package:easy_localization/easy_localization.dart';
