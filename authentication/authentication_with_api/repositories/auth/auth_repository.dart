@@ -64,7 +64,7 @@ class AuthRepository extends Api {
   Future<TokenModel> refreshToken({required String refreshToken}) async {
     final url = APIUrl.refreshToken;
     final response = await request(url, Method.post, body: {
-      'refresh_token': refreshToken,
+      'refresh': refreshToken,
     });
     return TokenModel.fromJson(response.data);
   }
