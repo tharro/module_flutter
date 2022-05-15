@@ -34,7 +34,6 @@ class _SignUpState extends State<SignUp> {
   final FocusNode _lastNameFocusNode = FocusNode();
   final TextEditingController _phoneController = TextEditingController();
   final FocusNode _phoneFocusNode = FocusNode();
-  bool _obscureText = true;
   bool _isValidPassword = false,
       _isValidFirstName = false,
       _isValidLastName = false,
@@ -137,19 +136,7 @@ class _SignUpState extends State<SignUp> {
                             focusNode: _passwordFocusNode,
                             validType: ValidType.password,
                             hintText: 'key_password'.tr(),
-                            obscureText: _obscureText,
                             maxLines: 1,
-                            suffixIcon: Icon(
-                              Icons.remove_red_eye,
-                              color: _obscureText
-                                  ? Colors.grey[400]
-                                  : Colors.yellow,
-                            ),
-                            onSuffixIconTap: () {
-                              setState(() {
-                                _obscureText = !_obscureText;
-                              });
-                            },
                             onValid: (bool val) {
                               _isValidPassword = val;
                             },

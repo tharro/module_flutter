@@ -24,7 +24,6 @@
 //   final FocusNode _phoneFocusNode = FocusNode();
 //   final TextEditingController _passwordController = TextEditingController();
 //   final FocusNode _passwordFocusNode = FocusNode();
-//   bool _obscureText = true;
 //   _submit() {
 //     BlocProvider.of<AuthBloc>(context).add(AuthLogin(
 //         onError: (code, message) {
@@ -84,20 +83,8 @@
 //                             focusNode: _passwordFocusNode,
 //                             validType: ValidType.password,
 //                             hintText: 'key_password'.tr(),
-//                             obscureText: _obscureText,
 //                             showError: false,
 //                             maxLines: 1,
-//                             suffixIcon: Icon(
-//                               Icons.remove_red_eye,
-//                               color: _obscureText
-//                                   ? Colors.grey[400]
-//                                   : Colors.yellow,
-//                             ),
-//                             onSuffixIconTap: () {
-//                               setState(() {
-//                                 _obscureText = !_obscureText;
-//                               });
-//                             },
 //                           ),
 //                           const SizedBox(
 //                             height: 10,

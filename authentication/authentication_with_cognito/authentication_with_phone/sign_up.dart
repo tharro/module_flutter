@@ -29,7 +29,6 @@
 //   final FocusNode _firstNameFocusNode = FocusNode();
 //   final TextEditingController _lastNameController = TextEditingController();
 //   final FocusNode _lastNameFocusNode = FocusNode();
-//   bool _obscureText = true;
 //   bool _isValidPassword = false,
 //       _isValidFirstName = false,
 //       _isValidLastName = false;
@@ -109,19 +108,7 @@
 //                             focusNode: _passwordFocusNode,
 //                             validType: ValidType.password,
 //                             hintText: 'key_password'.tr(),
-//                             obscureText: _obscureText,
 //                             maxLines: 1,
-//                             suffixIcon: Icon(
-//                               Icons.remove_red_eye,
-//                               color: _obscureText
-//                                   ? Colors.grey[400]
-//                                   : Colors.yellow,
-//                             ),
-//                             onSuffixIconTap: () {
-//                               setState(() {
-//                                 _obscureText = !_obscureText;
-//                               });
-//                             },
 //                             onValid: (bool val) {
 //                               _isValidPassword = val;
 //                             },

@@ -115,19 +115,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             focusNode: _passwordFocusNode,
                             validType: ValidType.password,
                             hintText: 'key_password'.tr(),
-                            obscureText: _obscureText,
                             maxLines: 1,
-                            suffixIcon: Icon(
-                              Icons.remove_red_eye,
-                              color: _obscureText
-                                  ? Colors.grey[400]
-                                  : Colors.yellow,
-                            ),
-                            onSuffixIconTap: () {
-                              setState(() {
-                                _obscureText = !_obscureText;
-                              });
-                            },
                           ),
                           const SizedBox(
                             height: 10,
@@ -137,20 +125,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             focusNode: _confirmPasswordFocusNode,
                             validType: ValidType.password,
                             hintText: 'key_confirm_password'.tr(),
-                            obscureText: _obscureTextConfirm,
                             maxLines: 1,
                             textError: _errorConfirmPassword,
-                            suffixIcon: Icon(
-                              Icons.remove_red_eye,
-                              color: _obscureTextConfirm
-                                  ? Colors.grey[400]
-                                  : Colors.yellow,
-                            ),
-                            onSuffixIconTap: () {
-                              setState(() {
-                                _obscureTextConfirm = !_obscureTextConfirm;
-                              });
-                            },
                             onChanged: (String pass) {
                               if (pass != _passwordController.text) {
                                 setState(() {
