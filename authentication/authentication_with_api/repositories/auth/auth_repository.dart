@@ -35,7 +35,7 @@ class AuthRepository extends Api {
   Future<GetStartedModel> getStarted(Map<String, dynamic> body) async {
     final url = APIUrl.getStarted;
     final response =
-        await request(url, Method.post, body: body, useIDToken: false);
+        await request(url, Method.get, params: body, useIDToken: false);
     return GetStartedModel.fromJson(response.data);
   }
 
