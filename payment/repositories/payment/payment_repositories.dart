@@ -1,6 +1,6 @@
 import '../../api/apiUrl.dart';
 import '../../api/api.dart';
-import '../../models/credit_card_model.dart';
+import '../../models/payment/credit_card_model.dart';
 
 class PaymentRepositories extends Api {
   Future<void> addBank({required Map<String, dynamic> body}) async {

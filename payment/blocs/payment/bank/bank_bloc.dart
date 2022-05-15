@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import '../../repositories/payment/payment_repositories.dart';
-import '../../utils/parse_error.dart';
+import '../../../repositories/payment/payment_repositories.dart';
+import '../../../utils/parse_error.dart';
 import 'package:equatable/equatable.dart';
 
 part 'bank_event.dart';
@@ -15,7 +15,7 @@ class BankBloc extends Bloc<BankEvent, BankState> {
   void _addCreditCard(AddBank event, Emitter<BankState> emit) async {
     try {
       emit(state.copyWith(addBankLoading: true));
-      await paymentRepositories.addOrUpdateBank(body: event.body);
+      await paymentRepositories.addBank(body: event.body);
       emit(state.copyWith(addBankLoading: false));
       event.onSuccess();
     } catch (e) {

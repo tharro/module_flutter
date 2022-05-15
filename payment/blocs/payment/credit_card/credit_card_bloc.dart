@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import '../../repositories/payment/payment_repositories.dart';
-import '../../utils/parse_error.dart';
+import '../../../repositories/payment/payment_repositories.dart';
+import '../../../utils/parse_error.dart';
 import 'package:equatable/equatable.dart';
 
 part 'credit_card_event.dart';
