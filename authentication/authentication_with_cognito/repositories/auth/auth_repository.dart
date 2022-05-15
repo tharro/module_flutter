@@ -31,10 +31,10 @@
 //     );
 //   }
 
-// Future<GetStartedModel> getStarted(Map<String, dynamic> body) async {
+// Future<GetStartedModel> getStarted(Map<String, dynamic> params) async {
 //   final url = APIUrl.getStarted;
 //   final response =
-//       await request(url, Method.get, params: body, useIDToken: false);
+//       await request(url, Method.get, params: params, useIDToken: false);
 //   return GetStartedModel.fromJson(response.data);
 // }
 
