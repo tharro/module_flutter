@@ -10,11 +10,11 @@ class APIUrl {
   static String upload = '${baseUrl}general/auth/upload/';
 
   //NOTIFICATION
-  static final listNotification = '$baseUrl$versionApi/user/notifications/';
+  static final listNotification = '${baseUrl}user/notification/';
   static final readAllNotifications =
-      '$baseUrl$versionApi/user/notifications/read-all/';
+      '${baseUrl}user/notification/make-as-read/';
   static final readANotification =
-      '$baseUrl$versionApi/user/notifications/read/{notification_id}/';
+      '${baseUrl}user/notification/read/{notification_id}/';
 
   static String login = '${baseUrl}general/auth/login/';
   static String refreshToken = '${baseUrl}general/auth/refresh-token/';
