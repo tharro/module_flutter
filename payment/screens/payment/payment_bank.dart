@@ -67,7 +67,9 @@ class _PaymentBankState extends State<PaymentBank> {
               context: context,
               message: message,
               code: code,
-              onPressPrimaryButton: () {});
+              onPressPrimaryButton: () {
+                Navigator.pop(context);
+              });
         },
         body: body));
   }
@@ -91,9 +93,7 @@ class _PaymentBankState extends State<PaymentBank> {
                       _isValidAccountHolder = val;
                     },
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   TextFieldCustom(
                     controller: _accountNumberController,
                     focusNode: _accountNumberFocusNode,
@@ -104,9 +104,7 @@ class _PaymentBankState extends State<PaymentBank> {
                       _isValidAccountNumber = val;
                     },
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   TextFieldCustom(
                     controller: _routingController,
                     focusNode: _routingFocusNode,
@@ -115,9 +113,7 @@ class _PaymentBankState extends State<PaymentBank> {
                     hintText: 'key_routing'.tr(),
                     showError: false,
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   ButtonCustom(title: 'Add Bank', onPressed: _submit)
                 ],
               ),
