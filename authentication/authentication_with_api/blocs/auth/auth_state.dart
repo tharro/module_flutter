@@ -6,7 +6,8 @@ class AuthState extends Equatable {
       signUpLoading,
       verifyCodeLoading,
       resetPasswordLoading,
-      updateProfileLoading;
+      updateProfileLoading,
+      updatePasswordLoading;
 
   final GetStartedModel? getStartedModel;
   final ProfileModel? profileModel;
@@ -21,6 +22,7 @@ class AuthState extends Equatable {
       loginLoading: false,
       signUpLoading: false,
       updateProfileLoading: false,
+      updatePasswordLoading: false,
     );
   }
 
@@ -33,6 +35,7 @@ class AuthState extends Equatable {
     this.loginLoading,
     this.signUpLoading,
     this.updateProfileLoading,
+    this.updatePasswordLoading,
   });
 
   AuthState copyWith({
@@ -41,6 +44,7 @@ class AuthState extends Equatable {
     resetPasswordLoading,
     loginLoading,
     signUpLoading,
+    updatePasswordLoading,
     GetStartedModel? getStartedModel,
     ProfileModel? profileModel,
     bool? updateProfileLoading,
@@ -54,6 +58,8 @@ class AuthState extends Equatable {
       profileModel: profileModel ?? this.profileModel,
       loginLoading: loginLoading ?? this.loginLoading,
       signUpLoading: signUpLoading ?? this.signUpLoading,
+      updatePasswordLoading:
+          updatePasswordLoading ?? this.updatePasswordLoading,
     );
   }
 
@@ -67,5 +73,6 @@ class AuthState extends Equatable {
         profileModel,
         loginLoading,
         signUpLoading,
+        updatePasswordLoading,
       ];
 }

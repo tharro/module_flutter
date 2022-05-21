@@ -121,7 +121,6 @@ class _SignUpState extends State<SignUp> {
                             focusNode: _passwordFocusNode,
                             validType: ValidType.password,
                             hintText: 'key_password'.tr(),
-                            maxLines: 1,
                             onValid: (bool val) {
                               _isValidPassword = val;
                             },

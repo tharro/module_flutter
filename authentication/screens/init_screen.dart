@@ -51,7 +51,7 @@ class _InitScreenState extends State<InitScreen> {
       messageReconnecting: 'key_reconnecting'.tr(),
       messageCanNotEmpty: 'key_can_not_empty'.tr(),
       messageInvalidEmail: 'key_invalid_email'.tr(),
-      messageWeakPassword: 'key_invalid_email'.tr(),
+      messageWeakPassword: 'key_weak_password'.tr(),
       messageCancel: 'key_cancel'.tr(),
     );
   }

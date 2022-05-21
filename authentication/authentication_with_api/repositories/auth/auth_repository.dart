@@ -112,14 +112,18 @@ class AuthRepository extends Api {
     await request(url, Method.post,
         body: {
           'username': userName,
-          'new_password': newPassword,
+          'password': newPassword,
           'code': code,
         },
         useIDToken: false);
   }
 
-  Future<void> updatePassword({required String newPassword}) async {
+  Future<void> updatePassword(
+      {required String newPassword, required String currentPassword}) async {
     final url = APIUrl.updatePassword;
-    await request(url, Method.post, body: {'new_password': newPassword});
+    await request(url, Method.post, body: {
+      'new_password': newPassword,
+      'current_password': currentPassword
+    });
   }
 }

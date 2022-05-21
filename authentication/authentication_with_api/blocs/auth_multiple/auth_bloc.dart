@@ -27,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthUpdateProfile>(authUpdateProfile);
     on<AuthForgotPassword>(authForgotPassword);
     on<AuthResetPassword>(authResetPassword);
+    on<AuthUpdatePassword>(authUpdatePassword);
     on<AuthFCM>(authFCM);
   }
 
@@ -250,6 +251,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       ParseError error = ParseError.fromJson(e);
       emit(state.copyWith(updateProfileLoading: false));
+      event.onError(error.code, error.message);
+    }
+  }
+
+  void authUpdatePassword(
+      AuthUpdatePassword event, Emitter<AuthState> emit) async {
+    try {
+      emit(state.copyWith(updatePasswordLoading: true));
+      await authRepositories.updatePassword(
+          currentPassword: event.currentPassword,
+          newPassword: event.newPassword);
+      emit(state.copyWith(updatePasswordLoading: false));
+      event.onSuccess();
+    } catch (e) {
+      ParseError error = ParseError.fromJson(e);
+      emit(state.copyWith(updatePasswordLoading: false));
       event.onError(error.code, error.message);
     }
   }

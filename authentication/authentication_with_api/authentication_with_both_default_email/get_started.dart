@@ -115,9 +115,7 @@ class _GetStartedState extends State<GetStarted> {
                             focusNode: _focusNode,
                             validType: ValidType.email,
                             onValid: (bool val) {
-                              if (_isValidEmail != val) {
-                                _isValidEmail = val;
-                              }
+                              _isValidEmail = val;
                             },
                             hintText: 'key_enter_a_email'.tr(),
                           ),

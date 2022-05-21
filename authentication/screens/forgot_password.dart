@@ -115,7 +115,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             focusNode: _passwordFocusNode,
                             validType: ValidType.password,
                             hintText: 'key_password'.tr(),
-                            maxLines: 1,
                           ),
                           const SizedBox(
                             height: 10,
@@ -125,19 +124,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             focusNode: _confirmPasswordFocusNode,
                             validType: ValidType.password,
                             hintText: 'key_confirm_password'.tr(),
-                            maxLines: 1,
                             textError: _errorConfirmPassword,
-                            onChanged: (String pass) {
-                              if (pass != _passwordController.text) {
+                            onListenController: () {
+                              if (_confirmPasswordController.text.trim() !=
+                                  _passwordController.text.trim()) {
                                 setState(() {
                                   _errorConfirmPassword =
                                       'key_confirm_password_not_match'.tr();
                                 });
-                              } else {
-                                setState(() {
-                                  _errorConfirmPassword = null;
-                                });
                               }
+                              setState(() {
+                                _errorConfirmPassword = null;
+                              });
                             },
                           ),
                           GestureDetector(

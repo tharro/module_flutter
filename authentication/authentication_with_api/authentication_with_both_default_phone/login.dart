@@ -93,7 +93,6 @@ class _LoginState extends State<Login> {
                             validType: ValidType.password,
                             hintText: 'key_password'.tr(),
                             showError: false,
-                            maxLines: 1,
                           ),
                           const SizedBox(
                             height: 10,
