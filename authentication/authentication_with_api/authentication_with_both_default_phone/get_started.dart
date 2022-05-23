@@ -82,7 +82,7 @@ class _GetStartedState extends State<GetStarted> {
           }
         },
         body: {
-          'username': phoneNumber,
+          'phone': phoneNumber,
         }));
   }
 

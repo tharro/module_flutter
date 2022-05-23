@@ -67,7 +67,7 @@ class _GetStartedState extends State<GetStarted> {
           }
         },
         body: {
-          'username': _controller.text.trim(),
+          'email': _controller.text.trim(),
         }));
   }
 
