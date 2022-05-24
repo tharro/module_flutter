@@ -25,7 +25,7 @@ class GetStarted extends StatefulWidget {
 class _GetStartedState extends State<GetStarted> {
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
-  bool _isValidPhone = true;
+  bool _isValidPhone = false;
   String phoneNumber = '';
 
   @override
