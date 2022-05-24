@@ -1,3 +1,7 @@
+import '../../blocs/auth/auth_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plugin_helper/plugin_helper.dart';
+import 'package:plugin_helper/plugin_notification.dart';
 import '../../configs/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/widgets/bottom_tab_navigator/index.dart';
@@ -48,7 +52,25 @@ class _MainTabState extends State<MainTab> {
         ),
       ),
     ];
+    MyPluginNotification.settingNotification(
+        colorNotification: Colors.red,
+        onMessage: (RemoteMessage remoteMessage) {},
+        onOpenLocalMessage: (String message) {},
+        onOpenFCMMessage: (RemoteMessage remote) {},
+        onRegisterFCM: (Map<String, dynamic> data) {
+          BlocProvider.of<AuthBloc>(context).add(AuthFCM(body: data));
+        },
+        iconNotification: 'icon_notification',
+        chanelId: 'chanel',
+        chanelName: 'app_channel',
+        channelDescription: 'chanel description');
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    MyPluginNotification.dispose();
+    super.dispose();
   }
 
   @override
