@@ -112,6 +112,7 @@ class _SignUpState extends State<SignUp> {
                             onValid: (bool val) {
                               _isValidPassword = val;
                             },
+                            textInputAction: TextInputAction.next,
                           ),
                           const SizedBox(
                             height: 10,
@@ -124,6 +125,7 @@ class _SignUpState extends State<SignUp> {
                             onValid: (bool val) {
                               _isValidFirstName = val;
                             },
+                            textInputAction: TextInputAction.next,
                           ),
                           const SizedBox(
                             height: 10,
@@ -135,6 +137,9 @@ class _SignUpState extends State<SignUp> {
                             hintText: 'key_last_name'.tr(),
                             onValid: (bool val) {
                               _isValidLastName = val;
+                            },
+                            onFieldSubmitted: (text) {
+                              _submit();
                             },
                           ),
                           GestureDetector(

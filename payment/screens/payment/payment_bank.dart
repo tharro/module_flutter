@@ -92,6 +92,7 @@ class _PaymentBankState extends State<PaymentBank> {
                     onValid: (bool val) {
                       _isValidAccountHolder = val;
                     },
+                    textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(height: 10),
                   TextFieldCustom(
@@ -103,6 +104,7 @@ class _PaymentBankState extends State<PaymentBank> {
                     onValid: (bool val) {
                       _isValidAccountNumber = val;
                     },
+                    textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(height: 10),
                   TextFieldCustom(
@@ -112,6 +114,9 @@ class _PaymentBankState extends State<PaymentBank> {
                     keyboardType: TextInputType.number,
                     hintText: 'key_routing'.tr(),
                     showError: false,
+                    onFieldSubmitted: (text) {
+                      _submit();
+                    },
                   ),
                   const SizedBox(height: 10),
                   ButtonCustom(title: 'Add Bank', onPressed: _submit)

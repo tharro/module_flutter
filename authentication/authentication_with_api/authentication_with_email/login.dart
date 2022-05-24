@@ -81,6 +81,9 @@ class _LoginState extends State<Login> {
                             validType: ValidType.password,
                             hintText: 'key_password'.tr(),
                             showError: false,
+                            onFieldSubmitted: (text) {
+                              _submit();
+                            },
                           ),
                           const SizedBox(
                             height: 10,

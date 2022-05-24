@@ -115,6 +115,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             onValid: (bool valid) {
                               _isValidPassword = valid;
                             },
+                            textInputAction: TextInputAction.next,
                           ),
                           const SizedBox(
                             height: 10,
@@ -136,6 +137,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               setState(() {
                                 _errorConfirmPassword = null;
                               });
+                            },
+                            onFieldSubmitted: (text) {
+                              _submit();
                             },
                           ),
                           GestureDetector(

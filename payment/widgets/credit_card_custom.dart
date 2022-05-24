@@ -61,6 +61,7 @@ class _CreditCardCustomState extends State<CreditCardCustom> {
         onValid: (bool valid) {
           _validCardHolder = valid;
         },
+        textInputAction: TextInputAction.next,
       ),
       const SizedBox(height: AppConstrains.paddingHorizontal),
       TextFieldCustom(
@@ -71,6 +72,7 @@ class _CreditCardCustomState extends State<CreditCardCustom> {
         onValid: (bool valid) {
           _validCardNumber = valid;
         },
+        textInputAction: TextInputAction.next,
       ),
       const SizedBox(height: AppConstrains.paddingHorizontal),
       Row(
@@ -85,6 +87,7 @@ class _CreditCardCustomState extends State<CreditCardCustom> {
               onValid: (bool valid) {
                 _validExpired = valid;
               },
+              textInputAction: TextInputAction.next,
             ),
           ),
           const SizedBox(width: AppConstrains.paddingHorizontal),

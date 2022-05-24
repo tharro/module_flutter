@@ -25,7 +25,7 @@ class GetStarted extends StatefulWidget {
 class _GetStartedState extends State<GetStarted> {
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
-  bool _isValidEmail = true;
+  bool _isValidEmail = false;
 
   @override
   void initState() {
@@ -113,6 +113,9 @@ class _GetStartedState extends State<GetStarted> {
                               _isValidEmail = val;
                             },
                             hintText: 'key_enter_a_email'.tr(),
+                            onFieldSubmitted: (text) {
+                              _submit();
+                            },
                           ),
                         ],
                       )))));
