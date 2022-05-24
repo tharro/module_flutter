@@ -4,7 +4,6 @@ import '../../utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plugin_helper/plugin_navigator.dart';
-import 'package:plugin_helper/plugin_navigator.dart';
 import 'package:plugin_helper/plugin_message_require.dart';
 import 'package:easy_localization/easy_localization.dart';
 
