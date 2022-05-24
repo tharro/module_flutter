@@ -1,7 +1,6 @@
 import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
-
+import '../../widgets/bottom_appbar_custom.dart';
 import '../../widgets/phone_number_custom.dart';
-
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
 import '../../screens/auth/get_started.dart';
@@ -85,12 +84,7 @@ class _SignUpState extends State<SignUp> {
       return OverlayLoadingCustom(
           isLoading: state.signUpLoading!,
           child: Scaffold(
-              bottomNavigationBar: Padding(
-                padding: EdgeInsets.only(
-                    bottom: AppConstrains.paddingVertical,
-                    left: AppConstrains.paddingHorizontal,
-                    right: AppConstrains.paddingHorizontal,
-                    top: 5),
+              bottomNavigationBar: BottomAppBarCustom(
                 child: ButtonCustom(
                   onPressed: () {
                     _submit();

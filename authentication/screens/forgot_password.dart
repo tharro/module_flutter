@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:plugin_helper/plugin_navigator.dart';
 import 'package:plugin_helper/widgets/widget_text_field.dart';
+import '../../widgets/bottom_appbar_custom.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -82,12 +83,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       return OverlayLoadingCustom(
           isLoading: state.resetPasswordLoading!,
           child: Scaffold(
-              bottomNavigationBar: Padding(
-                padding: EdgeInsets.only(
-                    bottom: AppConstrains.paddingVertical,
-                    left: AppConstrains.paddingHorizontal,
-                    right: AppConstrains.paddingHorizontal,
-                    top: 5),
+              bottomNavigationBar: BottomAppBarCustom(
                 child: ButtonCustom(
                   onPressed: () {
                     _submit();

@@ -1,5 +1,5 @@
 import '../../screens/auth/options_verify.dart';
-
+import '../../widgets/bottom_appbar_custom.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
 import '../../screens/auth/forgot_password.dart';
@@ -57,12 +57,7 @@ class _LoginState extends State<Login> {
       return OverlayLoadingCustom(
           isLoading: state.loginLoading!,
           child: Scaffold(
-              bottomNavigationBar: Padding(
-                padding: EdgeInsets.only(
-                    bottom: AppConstrains.paddingVertical,
-                    left: AppConstrains.paddingHorizontal,
-                    right: AppConstrains.paddingHorizontal,
-                    top: 5),
+              bottomNavigationBar: BottomAppBarCustom(
                 child: ButtonCustom(
                   onPressed: () {
                     _submit();

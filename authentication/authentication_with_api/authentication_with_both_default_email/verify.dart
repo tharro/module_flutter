@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:plugin_helper/plugin_navigator.dart';
+import '../../widgets/bottom_appbar_custom.dart';
 
 class Verify extends StatefulWidget {
   const Verify({
@@ -116,12 +117,7 @@ class _VerifyState extends State<Verify> {
       return OverlayLoadingCustom(
           isLoading: state.verifyCodeLoading!,
           child: Scaffold(
-              bottomNavigationBar: Padding(
-                padding: EdgeInsets.only(
-                    bottom: AppConstrains.paddingVertical,
-                    left: AppConstrains.paddingHorizontal,
-                    right: AppConstrains.paddingHorizontal,
-                    top: 5),
+              bottomNavigationBar: BottomAppBarCustom(
                 child: ButtonCustom(
                   onPressed: () {
                     _submit();

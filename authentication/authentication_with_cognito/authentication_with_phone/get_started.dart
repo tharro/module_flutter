@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:plugin_helper/plugin_authentication.dart';
 import 'package:plugin_helper/plugin_navigator.dart';
+import '../../widgets/bottom_appbar_custom.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);
@@ -79,12 +80,7 @@ class _GetStartedState extends State<GetStarted> {
       return OverlayLoadingCustom(
           isLoading: state.getStartedRequesting!,
           child: Scaffold(
-              bottomNavigationBar: Padding(
-                padding: EdgeInsets.only(
-                    bottom: AppConstrains.paddingVertical,
-                    left: AppConstrains.paddingHorizontal,
-                    right: AppConstrains.paddingHorizontal,
-                    top: 5),
+              bottomNavigationBar: BottomAppBarCustom(
                 child: ButtonCustom(
                   onPressed: () {
                     _submit();

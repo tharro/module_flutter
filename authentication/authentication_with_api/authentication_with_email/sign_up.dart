@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plugin_helper/plugin_navigator.dart';
 import 'package:plugin_helper/widgets/widget_text_field.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../../widgets/bottom_appbar_custom.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key, required this.email}) : super(key: key);
@@ -71,12 +72,7 @@ class _SignUpState extends State<SignUp> {
       return OverlayLoadingCustom(
           isLoading: state.signUpLoading!,
           child: Scaffold(
-              bottomNavigationBar: Padding(
-                padding: EdgeInsets.only(
-                    bottom: AppConstrains.paddingVertical,
-                    left: AppConstrains.paddingHorizontal,
-                    right: AppConstrains.paddingHorizontal,
-                    top: 5),
+              bottomNavigationBar: BottomAppBarCustom(
                 child: ButtonCustom(
                   onPressed: () {
                     _submit();

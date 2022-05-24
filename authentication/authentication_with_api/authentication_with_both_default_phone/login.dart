@@ -1,5 +1,4 @@
 import '../../screens/auth/options_verify.dart';
-
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
 import '../../screens/auth/forgot_password.dart';
@@ -13,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plugin_helper/plugin_navigator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:plugin_helper/widgets/widget_text_field.dart';
+import '../../widgets/bottom_appbar_custom.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key, required this.phone, required this.isVerify})
@@ -58,12 +58,7 @@ class _LoginState extends State<Login> {
       return OverlayLoadingCustom(
           isLoading: state.loginLoading!,
           child: Scaffold(
-              bottomNavigationBar: Padding(
-                padding: EdgeInsets.only(
-                    bottom: AppConstrains.paddingVertical,
-                    left: AppConstrains.paddingHorizontal,
-                    right: AppConstrains.paddingHorizontal,
-                    top: 5),
+              bottomNavigationBar: BottomAppBarCustom(
                 child: ButtonCustom(
                   onPressed: () {
                     _submit();
