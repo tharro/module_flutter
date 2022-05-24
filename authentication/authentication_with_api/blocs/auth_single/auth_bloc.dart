@@ -41,12 +41,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           final TokenModel tokenModel = await authRepositories.refreshToken(
               refreshToken: users.refreshToken!);
           await MyPluginAuthentication.persistUser(
-              userId: users.userId!,
-              token: tokenModel.token,
-              refreshToken: tokenModel.refreshToken,
-              expiredToken: DateTime.fromMillisecondsSinceEpoch(
-                      tokenModel.expiredToken * 1000)
-                  .toString());
+            userId: users.userId!,
+            token: tokenModel.token,
+            refreshToken: tokenModel.refreshToken,
+            expiredToken: DateTime.fromMillisecondsSinceEpoch(
+                    tokenModel.expiredToken * 1000)
+                .toString(),
+            expiredRefreshToken: DateTime.fromMillisecondsSinceEpoch(
+                    tokenModel.expiredRefreshToken * 1000)
+                .toString(),
+          );
         }
         final profile = await authRepositories.getProfile();
         emit(state.copyWith(profileModel: profile));
@@ -68,12 +72,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         userName: event.userName,
       );
       await MyPluginAuthentication.persistUser(
-          userId: event.userName,
-          token: tokenModel.token,
-          refreshToken: tokenModel.refreshToken,
-          expiredToken: DateTime.fromMillisecondsSinceEpoch(
-                  tokenModel.expiredToken * 1000)
-              .toString());
+        userId: event.userName,
+        token: tokenModel.token,
+        refreshToken: tokenModel.refreshToken,
+        expiredToken:
+            DateTime.fromMillisecondsSinceEpoch(tokenModel.expiredToken * 1000)
+                .toString(),
+        expiredRefreshToken: DateTime.fromMillisecondsSinceEpoch(
+                tokenModel.expiredRefreshToken * 1000)
+            .toString(),
+      );
       ProfileModel profileModel = await authRepositories.getProfile();
       emit(state.copyWith(profileModel: profileModel, loginLoading: false));
       event.onSuccess();
@@ -154,12 +162,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           userName: event.userName,
         );
         await MyPluginAuthentication.persistUser(
-            userId: event.userName,
-            token: tokenModel.token,
-            refreshToken: tokenModel.refreshToken,
-            expiredToken: DateTime.fromMillisecondsSinceEpoch(
-                    tokenModel.expiredToken * 1000)
-                .toString());
+          userId: event.userName,
+          token: tokenModel.token,
+          refreshToken: tokenModel.refreshToken,
+          expiredToken: DateTime.fromMillisecondsSinceEpoch(
+                  tokenModel.expiredToken * 1000)
+              .toString(),
+          expiredRefreshToken: DateTime.fromMillisecondsSinceEpoch(
+                  tokenModel.expiredRefreshToken * 1000)
+              .toString(),
+        );
         ProfileModel profileModel = await authRepositories.getProfile();
         emit(state.copyWith(
             profileModel: profileModel, verifyCodeLoading: false));
@@ -204,12 +216,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         userName: event.userName,
       );
       await MyPluginAuthentication.persistUser(
-          userId: event.userName,
-          token: tokenModel.token,
-          refreshToken: tokenModel.refreshToken,
-          expiredToken: DateTime.fromMillisecondsSinceEpoch(
-                  tokenModel.expiredToken * 1000)
-              .toString());
+        userId: event.userName,
+        token: tokenModel.token,
+        refreshToken: tokenModel.refreshToken,
+        expiredToken:
+            DateTime.fromMillisecondsSinceEpoch(tokenModel.expiredToken * 1000)
+                .toString(),
+        expiredRefreshToken: DateTime.fromMillisecondsSinceEpoch(
+                tokenModel.expiredRefreshToken * 1000)
+            .toString(),
+      );
       ProfileModel profileModel = await authRepositories.getProfile();
       emit(state.copyWith(
           profileModel: profileModel, resetPasswordLoading: false));

@@ -63,12 +63,16 @@ class Api {
               onSendProgress: onSendProgress);
           final TokenModel tokenModel = TokenModel.fromJson(response.data);
           await MyPluginAuthentication.persistUser(
-              userId: users.userId!,
-              token: tokenModel.token,
-              refreshToken: tokenModel.refreshToken,
-              expiredToken: DateTime.fromMillisecondsSinceEpoch(
-                      tokenModel.expiredToken * 1000)
-                  .toString());
+            userId: users.userId!,
+            token: tokenModel.token,
+            refreshToken: tokenModel.refreshToken,
+            expiredToken: DateTime.fromMillisecondsSinceEpoch(
+                    tokenModel.expiredToken * 1000)
+                .toString(),
+            expiredRefreshToken: DateTime.fromMillisecondsSinceEpoch(
+                    tokenModel.expiredRefreshToken * 1000)
+                .toString(),
+          );
         }
       }
       final users = await MyPluginAuthentication.getUser();
