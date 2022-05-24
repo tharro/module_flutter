@@ -131,7 +131,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   _passwordController.text.trim()) {
                                 setState(() {
                                   _errorConfirmPassword =
-                                      'key_confirm_password_not_match'.tr();
+                                      'key_password_not_match'.tr();
                                 });
                               }
                               setState(() {
