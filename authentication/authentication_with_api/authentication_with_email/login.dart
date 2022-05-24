@@ -12,7 +12,6 @@ import 'package:plugin_helper/plugin_navigator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:plugin_helper/widgets/widget_text_field.dart';
 import '../../widgets/bottom_appbar_custom.dart';
-import '../../widgets/bottom_appbar_custom.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key, required this.email}) : super(key: key);

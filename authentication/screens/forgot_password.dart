@@ -27,7 +27,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       TextEditingController();
   final FocusNode _confirmPasswordFocusNode = FocusNode();
   final TextEditingController _codeController = TextEditingController();
-  bool _obscureText = true, _obscureTextConfirm = true;
   String? _errorConfirmPassword;
   _submit() {
     if (_codeController.text.length == 6 &&
