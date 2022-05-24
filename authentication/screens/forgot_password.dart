@@ -27,10 +27,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       TextEditingController();
   final FocusNode _confirmPasswordFocusNode = FocusNode();
   final TextEditingController _codeController = TextEditingController();
+  bool _isValidPassword = false;
   String? _errorConfirmPassword;
   _submit() {
     if (_codeController.text.length == 6 &&
-        _passwordController.text == _confirmPasswordController.text) {
+        _passwordController.text == _confirmPasswordController.text &&
+        _isValidPassword) {
       BlocProvider.of<AuthBloc>(context).add(AuthResetPassword(
           code: _codeController.text,
           password: _passwordController.text,
@@ -110,6 +112,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             focusNode: _passwordFocusNode,
                             validType: ValidType.password,
                             hintText: 'key_password'.tr(),
+                            onValid: (bool valid) {
+                              _isValidPassword = valid;
+                            },
                           ),
                           const SizedBox(
                             height: 10,
