@@ -52,6 +52,10 @@ class _InitScreenState extends State<InitScreen> {
       messageInvalidEmail: 'key_invalid_email'.tr(),
       messageWeakPassword: 'key_weak_password'.tr(),
       messageCancel: 'key_cancel'.tr(),
+      messageHour: 'key_hour'.tr(),
+      messageDay: 'key_day'.tr(),
+      messageMinute: 'key_minute'.tr(),
+      messageSecond: 'key_second'.tr(),
     );
   }
 
