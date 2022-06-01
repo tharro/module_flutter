@@ -129,14 +129,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             onListenController: () {
                               if (_confirmPasswordController.text.trim() !=
                                   _passwordController.text.trim()) {
+                                if (_errorConfirmPassword == null) {
+                                  setState(() {
+                                    _errorConfirmPassword =
+                                        'key_password_not_match'.tr();
+                                  });
+                                }
+                              } else if (_errorConfirmPassword != null) {
                                 setState(() {
-                                  _errorConfirmPassword =
-                                      'key_password_not_match'.tr();
+                                  _errorConfirmPassword = null;
                                 });
                               }
-                              setState(() {
-                                _errorConfirmPassword = null;
-                              });
                             },
                             onFieldSubmitted: (text) {
                               _submit();
