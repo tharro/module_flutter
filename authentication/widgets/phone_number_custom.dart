@@ -5,7 +5,7 @@ import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart'
 import 'package:plugin_helper/widgets/phone_number/widget_phone_number.dart';
 
 class PhoneNumberCustom extends StatefulWidget {
-  final bool? autoFocus;
+  final bool autoFocus;
   final bool? hasError;
   final PhoneNumber? initialValue;
   final bool isEnabled;
@@ -16,7 +16,7 @@ class PhoneNumberCustom extends StatefulWidget {
   final Function(bool)? onInputValidated;
   const PhoneNumberCustom({
     Key? key,
-    this.autoFocus,
+    this.autoFocus = false,
     this.hasError,
     this.initialValue,
     this.isEnabled = true,
