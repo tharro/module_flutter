@@ -2,7 +2,7 @@ import '../../configs/app_text_styles.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
-import 'package:plugin_helper/widgets/phone_number/widget_phone_number.dart';
+import 'package:plugin_helper/index.dart';
 
 class PhoneNumberCustom extends StatefulWidget {
   final bool autoFocus;

@@ -1,4 +1,4 @@
-import 'package:plugin_helper/plugin_helper.dart';
+import 'package:plugin_helper/index.dart';
 
 class TokenModel extends Equatable {
   final String token;

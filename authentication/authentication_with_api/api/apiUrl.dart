@@ -1,4 +1,4 @@
-import 'package:plugin_helper/plugin_app_environment.dart';
+import 'package:plugin_helper/index.dart';
 
 const String versionApi = 'v1_0';
 final String baseUrl = MyPluginAppEnvironment().baseUrl!;

@@ -5,9 +5,7 @@ import '../../api/apiUrl.dart';
 import '../../models/auth/token_model.dart';
 import 'package:flutter/services.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:plugin_helper/plugin_authentication.dart';
-import 'package:plugin_helper/plugin_helper.dart';
-import 'package:plugin_helper/plugin_message_require.dart';
+import 'package:plugin_helper/index.dart';
 
 //This plugin had used to make the HTTP method request
 enum Method { post, put, patch, delete, get }
