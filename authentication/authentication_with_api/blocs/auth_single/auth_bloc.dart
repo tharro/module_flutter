@@ -263,7 +263,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await authRepositories.registerFCMDevice(body: event.body);
     } catch (e) {
-      print(error);
+      print(e);
     }
   }
 }
