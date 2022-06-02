@@ -1,3 +1,4 @@
+import '../../widgets/bottom_appbar_custom.dart';
 import '../../widgets/phone_number_custom.dart';
 import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
 import '../../screens/auth/options_verify.dart';
@@ -5,15 +6,11 @@ import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
 import '../../screens/auth/login.dart';
 import '../../screens/auth/sign_up.dart';
-import '../../utils/helper.dart';
 import '../../widgets/button_custom.dart';
 import '../../widgets/overlay_loading_custom.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:plugin_helper/plugin_authentication.dart';
-import 'package:plugin_helper/plugin_navigator.dart';
-import '../../widgets/bottom_appbar_custom.dart';
+import 'package:plugin_helper/index.dart';
+import '../../index.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);

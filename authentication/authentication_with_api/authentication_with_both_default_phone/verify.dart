@@ -3,15 +3,14 @@ import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
 import '../../screens/auth/get_started.dart';
 import '../../screens/auth/login.dart';
-import '../../utils/helper.dart';
 import '../../widgets/button_custom.dart';
 import '../../widgets/overlay_loading_custom.dart';
 import '../../widgets/pin_put_custom.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:plugin_helper/plugin_navigator.dart';
 import '../../widgets/bottom_appbar_custom.dart';
+import 'package:plugin_helper/index.dart';
+import '../../index.dart';
 
 class Verify extends StatefulWidget {
   const Verify(
