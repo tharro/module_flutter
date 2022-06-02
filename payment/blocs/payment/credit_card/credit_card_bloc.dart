@@ -1,8 +1,7 @@
-import 'package:bloc/bloc.dart';
 import '../../../repositories/payment/payment_repositories.dart';
-import '../../../utils/parse_error.dart';
 import 'package:equatable/equatable.dart';
-
+import 'package:plugin_helper/index.dart';
+import '../../../index.dart';
 part 'credit_card_event.dart';
 part 'credit_card_state.dart';
 
@@ -21,8 +20,7 @@ class CreditCardBloc extends Bloc<CreditCardEvent, CreditCardState> {
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(addCardLoading: false));
-      ParseError error = ParseError.fromJson(e);
-      event.onError(error.code, error.message);
+      event.onError(e.parseError.code, e.parseError.message);
     }
   }
 }

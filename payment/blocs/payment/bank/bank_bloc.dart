@@ -1,8 +1,7 @@
-import 'package:bloc/bloc.dart';
 import '../../../repositories/payment/payment_repositories.dart';
-import '../../../utils/parse_error.dart';
 import 'package:equatable/equatable.dart';
-
+import 'package:plugin_helper/index.dart';
+import '../../../index.dart';
 part 'bank_event.dart';
 part 'bank_state.dart';
 
@@ -20,8 +19,7 @@ class BankBloc extends Bloc<BankEvent, BankState> {
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(addBankLoading: false));
-      ParseError error = ParseError.fromJson(e);
-      event.onError(error.code, error.message);
+      event.onError(e.parseError.code, e.parseError.message);
     }
   }
 }

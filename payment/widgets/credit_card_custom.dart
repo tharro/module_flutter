@@ -1,11 +1,9 @@
 import '../../configs/app_constrains.dart';
 import '../../widgets/text_field_custom.dart';
-import 'package:plugin_helper/models/credit_card/credit_card_model.dart';
-import 'package:plugin_helper/widgets/masked_controller.dart';
-import 'package:plugin_helper/widgets/widget_text_field.dart';
-import 'package:easy_localization/easy_localization.dart';
 import '../../widgets/button_custom.dart';
 import 'package:flutter/material.dart';
+import 'package:plugin_helper/index.dart';
+import '../../index.dart';
 
 class CreditCardCustom extends StatefulWidget {
   final Function(CreditCardModel) onSubmit;

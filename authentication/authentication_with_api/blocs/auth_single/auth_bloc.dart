@@ -54,8 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.onSuccess(false);
       }
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
-      event.onError(error.code, error.message);
+      event.onError(error.parseError.code, error.parseError.message);
     }
   }
 
@@ -81,13 +80,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(profileModel: profileModel, loginLoading: false));
       event.onSuccess();
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
       emit(state.copyWith(loginLoading: false));
       event.onError(
-          error.code,
-          error.code == 'NotAuthorizedException'
+          error.parseError.code,
+          error.parseError.code == 'NotAuthorizedException'
               ? 'key_wrong_password'.tr()
-              : error.message);
+              : error.parseError.message);
     }
   }
 
@@ -112,9 +110,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.onSuccess(MyPluginAppConstraints.signUp);
       }
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
       emit(state.copyWith(getStartedRequesting: false));
-      event.onError(error.code, error.message);
+      event.onError(error.parseError.code, error.parseError.message);
     }
   }
 
@@ -126,9 +123,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(verifyCodeLoading: false));
       event.onSuccess();
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
       emit(state.copyWith(verifyCodeLoading: false));
-      event.onError(error.code, error.message);
+      event.onError(error.parseError.code, error.parseError.message);
     }
   }
 
@@ -139,9 +135,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(signUpLoading: false));
       event.onSuccess();
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
       emit(state.copyWith(signUpLoading: false));
-      event.onError(error.code, error.message);
+      event.onError(error.parseError.code, error.parseError.message);
     }
   }
 
@@ -175,9 +170,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
       event.onSuccess();
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
       emit(state.copyWith(verifyCodeLoading: false));
-      event.onError(error.code, error.message);
+      event.onError(error.parseError.code, error.parseError.message);
     }
   }
 
@@ -189,11 +183,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.onSuccess();
       emit(state.copyWith(resetPasswordLoading: false));
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
       emit(state.copyWith(
         resetPasswordLoading: false,
       ));
-      event.onError(error.code, error.message);
+      event.onError(error.parseError.code, error.parseError.message);
     }
   }
 
@@ -226,9 +219,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           profileModel: profileModel, resetPasswordLoading: false));
       event.onSuccess();
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
       emit(state.copyWith(resetPasswordLoading: false));
-      event.onError(error.code, error.message);
+      event.onError(error.parseError.code, error.parseError.message);
     }
   }
 
@@ -247,9 +239,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           profileModel: profileModel, updateProfileLoading: false));
       event.onSuccess();
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
       emit(state.copyWith(updateProfileLoading: false));
-      event.onError(error.code, error.message);
+      event.onError(error.parseError.code, error.parseError.message);
     }
   }
 
@@ -263,9 +254,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(updatePasswordLoading: false));
       event.onSuccess();
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
       emit(state.copyWith(updatePasswordLoading: false));
-      event.onError(error.code, error.message);
+      event.onError(error.parseError.code, error.parseError.message);
     }
   }
 
@@ -273,7 +263,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await authRepositories.registerFCMDevice(body: event.body);
     } catch (e) {
-      ParseError error = ParseError.fromJson(e);
       print(error);
     }
   }
