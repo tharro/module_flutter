@@ -91,12 +91,12 @@ class _VerifyState extends State<Verify> {
             if (widget.type == 'phone') {
               if (widget.password != null) {
                 if (widget.isFromSignUp) {
-                  MyPluginNavigation.instance.replace(const OptionsVerify());
+                  replace(const OptionsVerify());
                   return;
                 }
                 Navigator.pop(context);
               } else {
-                MyPluginNavigation.instance.replace(Login(
+                replace(Login(
                   isVerify: false,
                   phone: BlocProvider.of<AuthBloc>(context)
                       .state

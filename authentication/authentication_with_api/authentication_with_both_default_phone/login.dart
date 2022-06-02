@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
           if (widget.isVerify) {
             //TODO: go to home
           } else {
-            MyPluginNavigation.instance.replace(const OptionsVerify());
+            replace(const OptionsVerify());
           }
         }));
   }

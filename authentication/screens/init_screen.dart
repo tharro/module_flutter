@@ -23,13 +23,13 @@ class _InitScreenState extends State<InitScreen> {
           message: message,
           barrierDismissible: false,
           onPressPrimaryButton: () {
-            MyPluginNavigation.instance.replace(const GetStarted());
+            replace(const GetStarted());
           });
     }, onSuccess: (bool isResume) {
       if (isResume) {
         //TODO: navigate to home screen
       } else {
-        MyPluginNavigation.instance.replace(const GetStarted());
+        replace(const GetStarted());
       }
     }));
     super.initState();

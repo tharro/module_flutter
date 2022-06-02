@@ -49,17 +49,17 @@ class _GetStartedState extends State<GetStarted> {
         onSuccess: (String value) {
           switch (value) {
             case MyPluginAppConstraints.signUp:
-              MyPluginNavigation.instance.replace(SignUp(
+              replace(SignUp(
                 email: _controller.text.trim(),
               ));
               break;
             case MyPluginAppConstraints.login:
-              MyPluginNavigation.instance.push(Login(
+              push(Login(
                 email: _controller.text.trim(),
               ));
               break;
             case MyPluginAppConstraints.verify:
-              MyPluginNavigation.instance.push(Verify(
+              push(Verify(
                 isResend: true,
                 email: _controller.text.trim(),
               ));

@@ -93,7 +93,7 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                                     onPressed: () {
                                       if (state
                                           .getStartedModel!.isVerifiedPhone!) {
-                                        MyPluginNavigation.instance.push(Verify(
+                                        push(Verify(
                                           isFromSignUp: false,
                                           isResend: true,
                                           user: state.getStartedModel!.email!,

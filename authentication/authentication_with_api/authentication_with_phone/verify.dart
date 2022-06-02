@@ -83,7 +83,7 @@ class _VerifyState extends State<Verify> {
             if (widget.password != null) {
               //TODO: go to home
             } else {
-              MyPluginNavigation.instance.replace(Login(
+              replace(Login(
                 phone: BlocProvider.of<AuthBloc>(context)
                     .state
                     .getStartedModel!

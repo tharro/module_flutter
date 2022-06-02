@@ -65,7 +65,7 @@ class _SignUpState extends State<SignUp> {
           'password': _passwordController.text,
         },
         onSuccess: () {
-          MyPluginNavigation.instance.replace(Verify(
+          replace(Verify(
             isResend: false,
             password: _passwordController.text,
             phone: widget.phone,

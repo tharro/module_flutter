@@ -48,12 +48,12 @@ class _GetStartedState extends State<GetStarted> {
         onSuccess: (String value) {
           switch (value) {
             case MyPluginAppConstraints.signUp:
-              MyPluginNavigation.instance.replace(SignUp(
+              replace(SignUp(
                 phone: phoneNumber,
               ));
               break;
             case MyPluginAppConstraints.login:
-              MyPluginNavigation.instance.push(Login(
+              push(Login(
                 isVerify: true,
                 phone: phoneNumber,
               ));
@@ -63,7 +63,7 @@ class _GetStartedState extends State<GetStarted> {
                   .state
                   .getStartedModel!
                   .isVerifiedPhone!) {
-                MyPluginNavigation.instance.push(Login(
+                push(Login(
                   isVerify: false,
                   phone: BlocProvider.of<AuthBloc>(context)
                       .state
@@ -71,7 +71,7 @@ class _GetStartedState extends State<GetStarted> {
                       .phone!,
                 ));
               } else {
-                MyPluginNavigation.instance.push(const OptionsVerify());
+                push(const OptionsVerify());
               }
               break;
             default:
