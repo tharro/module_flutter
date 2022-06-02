@@ -5,15 +5,12 @@ import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
 import '../../screens/auth/get_started.dart';
 import '../../screens/auth/verify.dart';
-import '../../utils/helper.dart';
 import '../../widgets/button_custom.dart';
 import '../../widgets/overlay_loading_custom.dart';
 import '../../widgets/text_field_custom.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plugin_helper/plugin_navigator.dart';
-import 'package:plugin_helper/widgets/widget_text_field.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:plugin_helper/index.dart';
+import '../../index.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key, required this.email}) : super(key: key);

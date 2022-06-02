@@ -1,16 +1,11 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import '../../models/auth/token_model.dart';
 import '../../models/auth/get_started_model.dart';
 import '../../models/auth/profile_model.dart';
 import '../../repositories/auth/auth_repository.dart';
-import '../../utils/parse_error.dart';
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-import 'package:plugin_helper/plugin_authentication.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:plugin_helper/plugin_app_environment.dart';
+import 'package:plugin_helper/index.dart';
+import '../../index.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

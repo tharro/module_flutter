@@ -5,9 +5,8 @@ import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
 import '../../screens/auth/get_started.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plugin_helper/plugin_navigator.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:plugin_helper/index.dart';
+import '../../index.dart';
 
 class OptionsVerify extends StatefulWidget {
   const OptionsVerify({Key? key}) : super(key: key);
@@ -92,7 +91,7 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                                     title: 'verify'.tr(),
                                     onPressed: () {
                                       if (state
-                                          .getStartedModel!.isVerifiedEmail) {
+                                          .getStartedModel!.isVerifiedEmail!) {
                                         MyPluginNavigation.instance.push(Verify(
                                           isFromSignUp: false,
                                           isResend: true,
