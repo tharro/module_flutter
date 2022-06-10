@@ -1,3 +1,5 @@
+import '../../widgets/text_field_custom.dart';
+import '../../widgets/bottom_appbar_custom.dart';
 import '../../screens/auth/options_verify.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
@@ -5,9 +7,7 @@ import '../../screens/auth/login.dart';
 import '../../screens/auth/sign_up.dart';
 import '../../widgets/button_custom.dart';
 import '../../widgets/overlay_loading_custom.dart';
-import '../../widgets/text_field_custom.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/bottom_appbar_custom.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
 
@@ -21,7 +21,6 @@ class GetStarted extends StatefulWidget {
 class _GetStartedState extends State<GetStarted> {
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
-  bool _isValidEmail = false;
 
   @override
   void initState() {
@@ -29,9 +28,6 @@ class _GetStartedState extends State<GetStarted> {
   }
 
   _submit() {
-    if (!_isValidEmail) {
-      return;
-    }
     BlocProvider.of<AuthBloc>(context).add(AuthGetStarted(
         onError: (code, message) {
           Helper.showErrorDialog(
@@ -46,37 +42,22 @@ class _GetStartedState extends State<GetStarted> {
           switch (value) {
             case MyPluginAppConstraints.signUp:
               replace(SignUp(
-                email: _controller.text.trim(),
+                phone: _controller.text.trim(),
               ));
               break;
             case MyPluginAppConstraints.login:
               push(Login(
-                isVerify: true,
-                email: _controller.text.trim(),
+                phone: _controller.text.trim(),
               ));
               break;
             case MyPluginAppConstraints.verify:
-              if (BlocProvider.of<AuthBloc>(context)
-                  .state
-                  .getStartedModel!
-                  .isVerifiedEmail!) {
-                push(Login(
-                  isVerify: false,
-                  email: BlocProvider.of<AuthBloc>(context)
-                      .state
-                      .getStartedModel!
-                      .email!,
-                ));
-              } else {
-                push(const OptionsVerify());
-              }
-
+              push(const OptionsVerify());
               break;
             default:
           }
         },
         body: {
-          'email': _controller.text.trim(),
+          'email_or_phone': _controller.text.trim(),
         }));
   }
 
@@ -104,14 +85,7 @@ class _GetStartedState extends State<GetStarted> {
                           TextFieldCustom(
                             controller: _controller,
                             focusNode: _focusNode,
-                            validType: ValidType.email,
-                            onValid: (bool val) {
-                              _isValidEmail = val;
-                            },
-                            hintText: 'key_enter_a_email'.tr(),
-                            onFieldSubmitted: (text) {
-                              _submit();
-                            },
+                            validType: ValidType.none,
                           ),
                         ],
                       )))));
