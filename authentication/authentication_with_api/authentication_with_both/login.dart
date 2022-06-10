@@ -1,4 +1,3 @@
-import '../../screens/auth/options_verify.dart';
 import '../../widgets/bottom_appbar_custom.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
@@ -12,10 +11,8 @@ import 'package:plugin_helper/index.dart';
 import '../../index.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key, required this.email, required this.isVerify})
-      : super(key: key);
-  final String email;
-  final bool isVerify;
+  const Login({Key? key, required this.emailOrPhone}) : super(key: key);
+  final String emailOrPhone;
   @override
   State<Login> createState() => _LoginState();
 }
@@ -40,11 +37,7 @@ class _LoginState extends State<Login> {
             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
         password: _passwordController.text,
         onSuccess: () {
-          if (widget.isVerify) {
-            //TODO: go to home
-          } else {
-            replace(const OptionsVerify());
-          }
+          //TODO: go to home
         }));
   }
 
@@ -64,7 +57,7 @@ class _LoginState extends State<Login> {
               ),
               body: SingleChildScrollView(
                   child: Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           vertical: AppConstrains.paddingVertical,
                           horizontal: AppConstrains.paddingHorizontal),
                       child: Column(
@@ -72,8 +65,7 @@ class _LoginState extends State<Login> {
                           TextFieldCustom(
                             controller: _emailController,
                             focusNode: _emailFocusNode,
-                            validType: ValidType.email,
-                            hintText: widget.email,
+                            hintText: widget.emailOrPhone,
                             enabled: false,
                           ),
                           const SizedBox(

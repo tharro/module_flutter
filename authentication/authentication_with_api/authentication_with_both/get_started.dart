@@ -42,16 +42,16 @@ class _GetStartedState extends State<GetStarted> {
           switch (value) {
             case MyPluginAppConstraints.signUp:
               replace(SignUp(
-                phone: _controller.text.trim(),
+                emailOrPhone: _controller.text.trim(),
               ));
               break;
             case MyPluginAppConstraints.login:
-              push(Login(
-                phone: _controller.text.trim(),
-              ));
+              push(Login(emailOrPhone: _controller.text.trim()));
               break;
             case MyPluginAppConstraints.verify:
-              push(const OptionsVerify());
+              push(OptionsVerify(
+                emailOrPhone: _controller.text.trim(),
+              ));
               break;
             default:
           }
@@ -77,7 +77,7 @@ class _GetStartedState extends State<GetStarted> {
               ),
               body: SingleChildScrollView(
                   child: Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           vertical: AppConstrains.paddingVertical,
                           horizontal: AppConstrains.paddingHorizontal),
                       child: Column(

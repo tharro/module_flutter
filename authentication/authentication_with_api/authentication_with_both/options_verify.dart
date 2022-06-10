@@ -10,7 +10,9 @@ import '../../index.dart';
 
 class OptionsVerify extends StatefulWidget {
   final String? password;
-  const OptionsVerify({Key? key, this.password}) : super(key: key);
+  final String emailOrPhone;
+  const OptionsVerify({Key? key, this.password, required this.emailOrPhone})
+      : super(key: key);
 
   @override
   State<OptionsVerify> createState() => _OptionsVerifyState();
@@ -23,7 +25,7 @@ class _OptionsVerifyState extends State<OptionsVerify> {
       return Scaffold(
           body: SingleChildScrollView(
               child: Padding(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                       vertical: AppConstrains.paddingVertical,
                       horizontal: AppConstrains.paddingHorizontal),
                   child: Column(
@@ -59,10 +61,13 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                                       title: 'verify'.tr(),
                                       onPressed: () async {
                                         push(Verify(
-                                          isResend: true,
-                                          user: state.getStartedModel!.phone!,
+                                          receiver:
+                                              state.getStartedModel!.phone!,
                                           type: 'phone',
                                           password: widget.password,
+                                          isVerifyEmail: state.getStartedModel!
+                                              .isVerifiedEmail!,
+                                          emailOrPhone: widget.emailOrPhone,
                                         ));
                                       }))
                             ],
@@ -94,10 +99,12 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                                     title: 'verify'.tr(),
                                     onPressed: () {
                                       push(Verify(
-                                        isResend: true,
-                                        user: state.getStartedModel!.email!,
+                                        receiver: state.getStartedModel!.email!,
+                                        emailOrPhone: widget.emailOrPhone,
                                         type: 'email',
                                         password: widget.password,
+                                        isVerifyPhone: state
+                                            .getStartedModel!.isVerifiedPhone!,
                                       ));
                                     }))
                           ],

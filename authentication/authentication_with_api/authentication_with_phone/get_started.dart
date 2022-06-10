@@ -23,7 +23,7 @@ class _GetStartedState extends State<GetStarted> {
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   bool _isValidPhone = false;
-  String phoneNumber = '';
+  String _phoneNumber = '';
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _GetStartedState extends State<GetStarted> {
     if (!_isValidPhone) {
       return;
     }
-    print(phoneNumber);
+    print(_phoneNumber);
     BlocProvider.of<AuthBloc>(context).add(AuthGetStarted(
         onError: (code, message) {
           Helper.showErrorDialog(
@@ -49,25 +49,25 @@ class _GetStartedState extends State<GetStarted> {
           switch (value) {
             case MyPluginAppConstraints.signUp:
               replace(SignUp(
-                phone: phoneNumber,
+                phone: _phoneNumber,
               ));
               break;
             case MyPluginAppConstraints.login:
               push(Login(
-                phone: phoneNumber,
+                phone: _phoneNumber,
               ));
               break;
             case MyPluginAppConstraints.verify:
               push(Verify(
                 isResend: true,
-                phone: phoneNumber,
+                phone: _phoneNumber,
               ));
               break;
             default:
           }
         },
         body: {
-          'phone': phoneNumber,
+          'phone': _phoneNumber,
         }));
   }
 
@@ -101,7 +101,7 @@ class _GetStartedState extends State<GetStarted> {
                               },
                               hasError: _isValidPhone,
                               onInputChanged: (PhoneNumber number) {
-                                phoneNumber = number.phoneNumber!;
+                                _phoneNumber = number.phoneNumber!;
                               },
                               controller: _controller,
                               focusNode: _focusNode)

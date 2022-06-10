@@ -97,15 +97,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(
           getStartedModel: getStartedModel, getStartedRequesting: false));
       if (getStartedModel.isRegistered!) {
-        bool isDefaultVerify =
-            MyPluginAppEnvironment().defaultVerify == DefaultVerify.email
-                ? getStartedModel.isVerifiedEmail!
-                : getStartedModel.isVerifiedPhone!;
-        bool isSecondaryVerify =
-            MyPluginAppEnvironment().defaultVerify == DefaultVerify.phone
-                ? getStartedModel.isVerifiedPhone!
-                : getStartedModel.isVerifiedEmail!;
-        if (isDefaultVerify && isSecondaryVerify) {
+        if (getStartedModel.isVerifiedEmail! &&
+            getStartedModel.isVerifiedPhone!) {
           event.onSuccess(MyPluginAppConstraints.login);
         } else {
           event.onSuccess(MyPluginAppConstraints.verify);

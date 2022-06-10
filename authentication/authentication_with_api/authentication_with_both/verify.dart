@@ -1,4 +1,3 @@
-import '../../screens/auth/options_verify.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
 import '../../screens/auth/get_started.dart';
@@ -7,7 +6,6 @@ import '../../widgets/button_custom.dart';
 import '../../widgets/overlay_loading_custom.dart';
 import '../../widgets/pin_put_custom.dart';
 import 'package:flutter/material.dart';
-import 'package:plugin_helper/plugin_navigator.dart';
 import '../../widgets/bottom_appbar_custom.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
@@ -15,17 +13,17 @@ import '../../index.dart';
 class Verify extends StatefulWidget {
   const Verify({
     Key? key,
-    required this.isResend,
     this.password,
-    required this.user,
+    required this.receiver,
     required this.type,
-    required this.isFromSignUp,
+    this.isVerifyEmail = false,
+    this.isVerifyPhone = false,
+    required this.emailOrPhone,
   }) : super(key: key);
-  final bool isResend;
   final String? password;
-  final String user;
+  final String receiver, emailOrPhone;
   final String type;
-  final bool isFromSignUp;
+  final bool isVerifyEmail, isVerifyPhone;
   @override
   State<Verify> createState() => _VerifyState();
 }
@@ -35,9 +33,7 @@ class _VerifyState extends State<Verify> {
 
   @override
   void initState() {
-    if (widget.isResend) {
-      _resendCode(false);
-    }
+    _resendCode(false);
     super.initState();
   }
 
@@ -67,12 +63,12 @@ class _VerifyState extends State<Verify> {
         }));
   }
 
-  _submit() {
-    if (_codeController.text.length == 6) {
+  _submit({String? code}) {
+    if ((code ?? _codeController.text).length == 6) {
       BlocProvider.of<AuthBloc>(context).add(AuthVerifyCode(
           type: widget.type,
           password: widget.password,
-          code: _codeController.text,
+          code: code ?? _codeController.text,
           userName: BlocProvider.of<AuthBloc>(context)
               .state
               .getStartedModel!
@@ -88,24 +84,17 @@ class _VerifyState extends State<Verify> {
                 });
           },
           onSuccess: () {
-            if (widget.type == 'email') {
+            if ((widget.type == 'email' && widget.isVerifyPhone) ||
+                (widget.type == 'phone' && widget.isVerifyEmail)) {
               if (widget.password != null) {
-                if (widget.isFromSignUp) {
-                  replace(const OptionsVerify());
-                  return;
-                }
-                Navigator.pop(context);
+                //TODO: home
               } else {
-                replace(Login(
-                  isVerify: false,
-                  email: BlocProvider.of<AuthBloc>(context)
-                      .state
-                      .getStartedModel!
-                      .email!,
+                popUtil(Login(
+                  emailOrPhone: widget.emailOrPhone,
                 ));
               }
             } else {
-              //go to home
+              Navigator.pop(context);
             }
           }));
     }
@@ -132,11 +121,13 @@ class _VerifyState extends State<Verify> {
                           horizontal: AppConstrains.paddingHorizontal),
                       child: Column(
                         children: [
-                          Text(widget.user),
+                          Text(widget.receiver),
                           PinPutCustom(
                             controller: _codeController,
                             onChange: (val) {},
-                            onCompleted: (code) {},
+                            onCompleted: (code) {
+                              _submit(code: code);
+                            },
                           ),
                           GestureDetector(
                               onTap: () {

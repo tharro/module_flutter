@@ -1,10 +1,10 @@
+import '../../screens/auth/options_verify.dart';
 import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
 import '../../widgets/bottom_appbar_custom.dart';
 import '../../widgets/phone_number_custom.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
 import '../../screens/auth/get_started.dart';
-import '../../screens/auth/verify.dart';
 import '../../widgets/button_custom.dart';
 import '../../widgets/overlay_loading_custom.dart';
 import '../../widgets/text_field_custom.dart';
@@ -13,8 +13,8 @@ import 'package:plugin_helper/index.dart';
 import '../../index.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key, required this.email}) : super(key: key);
-  final String email;
+  const SignUp({Key? key, required this.emailOrPhone}) : super(key: key);
+  final String emailOrPhone;
   @override
   State<SignUp> createState() => _SignUpState();
 }
@@ -33,14 +33,16 @@ class _SignUpState extends State<SignUp> {
   bool _isValidPassword = false,
       _isValidFirstName = false,
       _isValidLastName = false,
-      _isValidPhone = true;
-  String phoneNumber = '';
+      _isValidPhone = false,
+      _isValidEmail = false;
+  String _phoneNumber = '';
 
   _submit() {
     if (!_isValidPassword ||
         !_isValidFirstName ||
         !_isValidLastName ||
-        !_isValidPhone) {
+        !_isValidPhone ||
+        !_isValidEmail) {
       return;
     }
     BlocProvider.of<AuthBloc>(context).add(AuthSignUp(
@@ -58,21 +60,27 @@ class _SignUpState extends State<SignUp> {
               .state
               .getStartedModel!
               .username!,
-          'email': widget.email,
-          'phone': phoneNumber,
+          'email': _emailController.text.trim(),
+          'phone': _phoneNumber,
           'first_name': _firstNameController.text.trim(),
           'last_name': _lastNameController.text.trim(),
           'password': _passwordController.text.trim(),
         },
         onSuccess: () {
-          replace(Verify(
-            isFromSignUp: true,
-            isResend: false,
-            password: _passwordController.text,
-            user: widget.email,
-            type: 'email',
-          ));
+          replace(OptionsVerify(emailOrPhone: widget.emailOrPhone));
         }));
+  }
+
+  @override
+  void initState() {
+    if (widget.emailOrPhone.isPhoneNumber) {
+      _phoneNumber = widget.emailOrPhone;
+      _isValidPhone = true;
+    } else {
+      _emailController.text = widget.emailOrPhone;
+      _isValidEmail = true;
+    }
+    super.initState();
   }
 
   @override
@@ -91,7 +99,7 @@ class _SignUpState extends State<SignUp> {
               ),
               body: SingleChildScrollView(
                   child: Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           vertical: AppConstrains.paddingVertical,
                           horizontal: AppConstrains.paddingHorizontal),
                       child: Column(
@@ -100,25 +108,42 @@ class _SignUpState extends State<SignUp> {
                             controller: _emailController,
                             focusNode: _emailFocusNode,
                             validType: ValidType.email,
-                            hintText: widget.email,
-                            enabled: false,
+                            hintText: !widget.emailOrPhone.isPhoneNumber
+                                ? widget.emailOrPhone
+                                : 'key_email'.tr(),
+                            onValid: (bool val) {
+                              _isValidEmail = val;
+                            },
+                            enabled: widget.emailOrPhone.isPhoneNumber,
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (text) {
+                              _passwordFocusNode.requestFocus();
+                            },
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          PhoneNumberCustom(
-                              autoFocus: true,
-                              onInputValidated: (bool val) {
-                                setState(() {
-                                  _isValidPhone = val;
-                                });
-                              },
-                              hasError: _isValidPhone,
-                              onInputChanged: (PhoneNumber number) {
-                                phoneNumber = number.phoneNumber!;
-                              },
+                          if (!widget.emailOrPhone.isPhoneNumber)
+                            PhoneNumberCustom(
+                                autoFocus: true,
+                                onInputValidated: (bool val) {
+                                  setState(() {
+                                    _isValidPhone = val;
+                                  });
+                                },
+                                hasError: _isValidPhone,
+                                onInputChanged: (PhoneNumber number) {
+                                  _phoneNumber = number.phoneNumber!;
+                                },
+                                controller: _phoneController,
+                                focusNode: _phoneFocusNode)
+                          else
+                            TextFieldCustom(
                               controller: _phoneController,
-                              focusNode: _phoneFocusNode),
+                              focusNode: _phoneFocusNode,
+                              hintText: _phoneNumber,
+                              enabled: false,
+                            ),
                           const SizedBox(
                             height: 10,
                           ),
