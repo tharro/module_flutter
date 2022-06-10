@@ -142,6 +142,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(verifyCodeLoading: true));
       await authRepositories.verify(
           userName: event.userName, code: event.code, type: event.type);
+      GetStartedModel? _getStartedModel = event.type == 'email'
+          ? state.getStartedModel!.copyWith(isVerifiedEmail: true)
+          : state.getStartedModel!.copyWith(isVerifiedPhone: true);
       if (event.password != null) {
         final TokenModel tokenModel = await authRepositories.login(
           password: event.password!,
@@ -158,20 +161,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   tokenModel.expiredRefreshToken * 1000)
               .toString(),
         );
-        ProfileModel profileModel = await authRepositories.getProfile();
-        emit(state.copyWith(
-          profileModel: profileModel,
-          verifyCodeLoading: false,
-          getStartedModel: event.type == 'email'
-              ? state.getStartedModel!.copyWith(isVerifiedEmail: true)
-              : state.getStartedModel!.copyWith(isVerifiedPhone: true),
-        ));
+        if (_getStartedModel.isVerifiedEmail! &&
+            _getStartedModel.isVerifiedPhone!) {
+          ProfileModel? profileModel = await authRepositories.getProfile();
+          emit(state.copyWith(
+            profileModel: profileModel,
+            verifyCodeLoading: false,
+            getStartedModel: _getStartedModel,
+          ));
+        } else {
+          emit(state.copyWith(
+            verifyCodeLoading: false,
+            getStartedModel: _getStartedModel,
+          ));
+        }
       } else {
         emit(state.copyWith(
           verifyCodeLoading: false,
-          getStartedModel: event.type == 'email'
-              ? state.getStartedModel!.copyWith(isVerifiedEmail: true)
-              : state.getStartedModel!.copyWith(isVerifiedPhone: true),
+          getStartedModel: _getStartedModel,
         ));
       }
       event.onSuccess();
