@@ -9,7 +9,8 @@ import 'package:plugin_helper/index.dart';
 import '../../index.dart';
 
 class OptionsVerify extends StatefulWidget {
-  const OptionsVerify({Key? key}) : super(key: key);
+  final String? password;
+  const OptionsVerify({Key? key, this.password}) : super(key: key);
 
   @override
   State<OptionsVerify> createState() => _OptionsVerifyState();
@@ -32,7 +33,7 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 3),
                           decoration: BoxDecoration(
-                              color: state.getStartedModel!.isVerifiedEmail!
+                              color: state.getStartedModel!.isVerifiedPhone!
                                   ? Colors.green
                                   : Colors.white,
                               border: Border.all(color: Colors.grey),
@@ -42,26 +43,28 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Text('key_email'.tr()),
+                                    Text('key_phone'.tr()),
                                     const SizedBox(height: 3),
-                                    Text(state.getStartedModel!.email!),
+                                    Text(state.getStartedModel!.phone!),
                                   ],
                                 ),
                               ),
-                              if (!state.getStartedModel!.isVerifiedEmail!)
-                                SizedBox(
-                                    width: 100,
-                                    child: ButtonCustom(
-                                        title: 'verify'.tr(),
-                                        onPressed: () async {
-                                          MyPluginNavigation.instance
-                                              .push(Verify(
-                                            isFromSignUp: false,
-                                            isResend: true,
-                                            user: state.getStartedModel!.email!,
-                                            type: 'email',
-                                          ));
-                                        }))
+                              Container(
+                                  width: 100,
+                                  color:
+                                      !state.getStartedModel!.isVerifiedPhone!
+                                          ? Colors.white
+                                          : Colors.green,
+                                  child: ButtonCustom(
+                                      title: 'verify'.tr(),
+                                      onPressed: () async {
+                                        push(Verify(
+                                          isResend: true,
+                                          user: state.getStartedModel!.phone!,
+                                          type: 'phone',
+                                          password: widget.password,
+                                        ));
+                                      }))
                             ],
                           )),
                       const SizedBox(height: 20),
@@ -69,8 +72,8 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 3),
                         decoration: BoxDecoration(
-                            color: state.getStartedModel!.isVerifiedEmail!
-                                ? Colors.white
+                            color: state.getStartedModel!.isVerifiedPhone!
+                                ? Colors.green
                                 : Colors.grey,
                             border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(10)),
@@ -79,9 +82,9 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                             Expanded(
                               child: Column(
                                 children: [
-                                  Text('key_phone'.tr()),
+                                  Text('key_email'.tr()),
                                   const SizedBox(height: 3),
-                                  Text(state.getStartedModel!.phone!),
+                                  Text(state.getStartedModel!.email!),
                                 ],
                               ),
                             ),
@@ -90,15 +93,12 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                                 child: ButtonCustom(
                                     title: 'verify'.tr(),
                                     onPressed: () {
-                                      if (state
-                                          .getStartedModel!.isVerifiedEmail!) {
-                                        push(Verify(
-                                          isFromSignUp: false,
-                                          isResend: true,
-                                          user: state.getStartedModel!.phone!,
-                                          type: 'phone',
-                                        ));
-                                      }
+                                      push(Verify(
+                                        isResend: true,
+                                        user: state.getStartedModel!.email!,
+                                        type: 'email',
+                                        password: widget.password,
+                                      ));
                                     }))
                           ],
                         ),
@@ -106,8 +106,7 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                       const SizedBox(height: 10),
                       GestureDetector(
                           onTap: () {
-                            MyPluginNavigation.instance
-                                .replace(const GetStarted());
+                            replace(const GetStarted());
                           },
                           child: Text('key_use_another_account'.tr())),
                     ],
