@@ -9,7 +9,7 @@ class PhoneNumberCustom extends StatefulWidget {
   final bool? hasError;
   final PhoneNumber? initialValue;
   final bool isEnabled;
-  final String? label;
+  final String? label, labelSearch;
   final TextEditingController controller;
   final FocusNode focusNode;
   final Function? onFieldSubmitted, onInputChanged, onSaved;
@@ -27,6 +27,7 @@ class PhoneNumberCustom extends StatefulWidget {
     this.onSaved,
     required this.controller,
     required this.focusNode,
+    this.labelSearch,
   }) : super(key: key);
 
   @override
@@ -42,6 +43,7 @@ class _PhoneNumberCustomState extends State<PhoneNumberCustom> {
       initialValue: widget.initialValue,
       isEnabled: widget.isEnabled,
       label: widget.label,
+      labelSearch: widget.labelSearch,
       onFieldSubmitted: widget.onFieldSubmitted,
       onInputChanged: widget.onInputChanged,
       onInputValidated: widget.onInputValidated,
