@@ -36,6 +36,7 @@ class _SignUpState extends State<SignUp> {
       _isValidPhone = false,
       _isValidEmail = false;
   String _phoneNumber = '';
+  final PhoneNumber _initPhone = PhoneNumber(dialCode: '+61', isoCode: 'AU');
 
   _submit() {
     if (!_isValidPassword ||
@@ -125,6 +126,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                           if (!widget.emailOrPhone.isPhoneNumber)
                             PhoneNumberCustom(
+                                initialValue: _initPhone,
                                 autoFocus: true,
                                 onInputValidated: (bool val) {
                                   setState(() {
