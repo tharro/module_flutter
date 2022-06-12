@@ -97,10 +97,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(
           getStartedModel: getStartedModel, getStartedRequesting: false));
       if (getStartedModel.isRegistered!) {
-        bool isVerify =
-            MyPluginAppEnvironment().defaultVerify == DefaultVerify.email
-                ? getStartedModel.isVerifiedEmail!
-                : getStartedModel.isVerifiedPhone!;
+        bool isVerify = getStartedModel.isVerifiedEmail! ||
+            getStartedModel.isVerifiedPhone!;
         if (isVerify) {
           event.onSuccess(MyPluginAppConstraints.login);
         } else {
