@@ -243,7 +243,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (event.image != null) {
         imageUrl = await authRepositories.uploadImage(file: event.image!);
       }
-      event.body['key'] = imageUrl;
+      event.body['image'] = imageUrl;
       await authRepositories.updateProfile(body: event.body);
       ProfileModel profileModel = await authRepositories.getProfile();
       emit(state.copyWith(
