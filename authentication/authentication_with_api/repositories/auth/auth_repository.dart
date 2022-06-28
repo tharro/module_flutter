@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:plugin_helper/index.dart';
 
 import '../../models/auth/token_model.dart';
 import '../../api/apiUrl.dart';
@@ -16,11 +17,36 @@ class AuthRepository extends Api {
     return ProfileModel.fromJson(response.data);
   }
 
-  Future<String> uploadImage(File file) async {
+  Future<String> uploadImage(
+      {required File file, Function(int, int)? onSendProgress}) async {
     final url = APIUrl.upload;
-    final response = await requestUploadFile(url, Method.post, file,
-        body: {'type': 'image'});
-    return response.data['results'];
+    String fileName = file.path.split('/').last;
+    String fileType = mime(fileName)!.split('/').first;
+    final response = await request(url, Method.post,
+        body: {"file_type": fileType, "file_name": fileName});
+    final uploadUrl = response.data['url'];
+    final body = response.data['fields'];
+    FormData data = FormData.fromMap({
+      "file": await MultipartFile.fromFile(
+        file.path,
+        filename: fileName,
+      ),
+      "Content-Type": body["Content-Type"],
+      "key": body["key"],
+      "x-amz-algorithm": body["x-amz-algorithm"],
+      "x-amz-credential": body["x-amz-credential"],
+      "x-amz-date": body["x-amz-date"],
+      "policy": body["policy"],
+      "x-amz-signature": body["x-amz-signature"]
+    });
+    await request(
+      uploadUrl,
+      Method.post,
+      body: data,
+      customHeader: {},
+      onSendProgress: onSendProgress,
+    );
+    return response.data['fields']['key'];
   }
 
   Future<void> updateProfile({required Map<String, dynamic> body}) async {
