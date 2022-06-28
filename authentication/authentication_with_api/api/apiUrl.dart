@@ -6,14 +6,14 @@ class APIUrl {
   static String getStarted = '${baseUrl}general/auth/get-started/';
   static String getProfile = '${baseUrl}general/auth/profile/';
   static String fcm = '${baseUrl}general/auth/fcm-device/';
-  static String upload = '${baseUrl}general/auth/upload/';
+  static String upload = '${baseUrl}common/upload/policy/';
 
   //NOTIFICATION
   static final listNotification = '${baseUrl}user/notification/';
   static final readAllNotifications =
       '${baseUrl}user/notification/make-as-read/';
   static final readANotification =
-      '${baseUrl}user/notification/read/{notification_id}/';
+      '${baseUrl}user/notification/read/:notification_id/';
 
   static String login = '${baseUrl}general/auth/login/';
   static String refreshToken = '${baseUrl}general/auth/refresh-token/';

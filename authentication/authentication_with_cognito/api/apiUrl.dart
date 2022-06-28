@@ -13,5 +13,5 @@ class APIUrl {
   static final readAllNotifications =
       '$baseUrl$versionApi/user/notifications/read-all/';
   static final readANotification =
-      '$baseUrl$versionApi/user/notifications/read/{notification_id}/';
+      '$baseUrl$versionApi/user/notifications/read/:notification_id/';
 }
