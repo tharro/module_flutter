@@ -25,11 +25,17 @@ class _InitScreenState extends State<InitScreen> {
           onPressPrimaryButton: () {
             replace(const GetStarted());
           });
-    }, onSuccess: (bool isResume) {
+    }, onSuccess: (bool isResume) async {
+      bool isFirst = await MyPluginHelper.isFirstInstall();
       if (isResume) {
         //TODO: navigate to home screen
       } else {
-        replace(const GetStarted());
+        if (isFirst) {
+          await MyPluginHelper.setFirstInstall();
+          //TODO: intro
+        } else {
+          replace(const GetStarted());
+        }
       }
     }));
     super.initState();
