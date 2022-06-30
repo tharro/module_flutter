@@ -118,7 +118,7 @@ class _VerifyState extends State<Verify> {
                           Text(widget.email),
                           PinPutCustom(
                             controller: _codeController,
-                            onChange: (val) {},
+                            onChange: (code) {},
                             onCompleted: (code) {},
                           ),
                           GestureDetector(
