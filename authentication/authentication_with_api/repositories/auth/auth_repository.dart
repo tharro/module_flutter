@@ -147,7 +147,7 @@ class AuthRepository extends Api {
   Future<void> updatePassword(
       {required String newPassword, required String currentPassword}) async {
     final url = APIUrl.updatePassword;
-    await request(url, Method.post, body: {
+    await request(url, Method.put, body: {
       'new_password': newPassword,
       'current_password': currentPassword
     });
