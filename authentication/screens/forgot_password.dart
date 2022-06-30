@@ -52,7 +52,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     }
   }
 
-  _resendCode() {
+  _resendCode({bool isPopup = false}) {
     BlocProvider.of<AuthBloc>(context).add(AuthForgotPassword(
         userName:
             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
@@ -66,13 +66,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               });
         },
         onSuccess: () {
-          Helper.showSuccessDialog(
-              context: context,
-              message: 'key_resend_code_success'.tr(),
-              onPressPrimaryButton: () {
-                Navigator.pop(context);
-              });
+          if (isPopup) {
+            Helper.showSuccessDialog(
+                context: context,
+                message: 'key_resend_code_success'.tr(),
+                onPressPrimaryButton: () {
+                  Navigator.pop(context);
+                });
+          }
         }));
+  }
+  
+  @override
+  void initState() {
+    _resendCode(isPopup: false);
+    super.initState();
   }
 
   @override
