@@ -63,12 +63,12 @@ class _VerifyState extends State<Verify> {
         }));
   }
 
-  _submit({String? code}) {
-    if ((code ?? _codeController.text).length == 6) {
+  _submit() {
+    if (_codeController.text.length == 6) {
       BlocProvider.of<AuthBloc>(context).add(AuthVerifyCode(
           type: widget.type,
           password: widget.password,
-          code: code ?? _codeController.text,
+          code: _codeController.text,
           userName: BlocProvider.of<AuthBloc>(context)
               .state
               .getStartedModel!
@@ -124,9 +124,9 @@ class _VerifyState extends State<Verify> {
                           Text(widget.receiver),
                           PinPutCustom(
                             controller: _codeController,
-                            onChange: (val) {},
+                            onChange: (code) {},
                             onCompleted: (code) {
-                              _submit(code: code);
+                              _submit();
                             },
                           ),
                           GestureDetector(
