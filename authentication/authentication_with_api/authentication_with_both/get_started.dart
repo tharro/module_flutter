@@ -21,13 +21,17 @@ class GetStarted extends StatefulWidget {
 class _GetStartedState extends State<GetStarted> {
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  bool _isValid = false;
 
   _submit() {
+    if (!_isValid) {
+      return;
+    }
+    var _emailOrPhone = _controller.text.trim();
+    if (_emailOrPhone.isPhoneNumber) {
+      _emailOrPhone =
+          MyPluginHelper.parsePhoneWithCountry(phone: _emailOrPhone);
+    }
     BlocProvider.of<AuthBloc>(context).add(AuthGetStarted(
         onError: (code, message) {
           Helper.showErrorDialog(
@@ -57,7 +61,7 @@ class _GetStartedState extends State<GetStarted> {
           }
         },
         body: {
-          'email_or_phone': _controller.text.trim(),
+          'email_or_phone': _emailOrPhone,
         }));
   }
 
@@ -85,7 +89,10 @@ class _GetStartedState extends State<GetStarted> {
                           TextFieldCustom(
                             controller: _controller,
                             focusNode: _focusNode,
-                            validType: ValidType.none,
+                            validType: ValidType.notEmpty,
+                            onValid: (valid) {
+                              _isValid = valid;
+                            },
                           ),
                         ],
                       )))));
