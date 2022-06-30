@@ -27,16 +27,19 @@ class _InitScreenState extends State<InitScreen> {
           });
     }, onSuccess: (bool isResume) async {
       bool isFirst = await MyPluginHelper.isFirstInstall();
-      if (isResume) {
-        //TODO: navigate to home screen
+      if (isFirst) {
+        FlutterSecureStorage storage = const FlutterSecureStorage();
+        await storage.deleteAll();
+        await MyPluginHelper.setFirstInstall();
+        replace(const IntroCustom());
       } else {
-        if (isFirst) {
-          await MyPluginHelper.setFirstInstall();
-          //TODO: intro
+        if (isResume) {
+          replace(const MainTab());
         } else {
           replace(const GetStarted());
         }
       }
+      MyPluginHelper.remove();
     }));
     super.initState();
   }
