@@ -18,7 +18,7 @@ class AuthRepository extends Api {
   }
 
   Future<String> uploadImage(
-      {required File file, Function(int, int)? onSendProgress}) async {
+      {required PickedFile file, Function(int, int)? onSendProgress}) async {
     final url = APIUrl.upload;
     String fileName = file.path.split('/').last;
     String fileType = mime(fileName)!.split('/').first;
@@ -27,25 +27,20 @@ class AuthRepository extends Api {
     final uploadUrl = response.data['url'];
     final body = response.data['fields'];
     FormData data = FormData.fromMap({
+      ...body,
       "file": await MultipartFile.fromFile(
         file.path,
         filename: fileName,
       ),
-      "Content-Type": body["Content-Type"],
-      "key": body["key"],
-      "x-amz-algorithm": body["x-amz-algorithm"],
-      "x-amz-credential": body["x-amz-credential"],
-      "x-amz-date": body["x-amz-date"],
-      "policy": body["policy"],
-      "x-amz-signature": body["x-amz-signature"]
     });
-    await request(
-      uploadUrl,
-      Method.post,
-      body: data,
-      customHeader: {},
-      onSendProgress: onSendProgress,
-    );
+    await Dio().post(uploadUrl,
+        options: Options(headers: {
+          'cache-control': 'cache',
+          'Content-Type': 'multipart/form-data',
+          'Connection': 'keep-alive',
+          'Accept': '*/*'
+        }),
+        data: data);
     return response.data['fields']['key'];
   }
 

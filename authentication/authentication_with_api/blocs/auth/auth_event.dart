@@ -90,7 +90,7 @@ class AuthUpdatePassword extends AuthEvent {
 }
 
 class AuthUpdateProfile extends AuthEvent {
-  final File? image;
+  final PickedFile? image;
   final Map<String, dynamic> body;
   final Function() onSuccess;
   final Function(String code, String message) onError;
