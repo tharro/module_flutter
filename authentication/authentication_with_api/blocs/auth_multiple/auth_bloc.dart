@@ -6,7 +6,7 @@ import '../../models/auth/profile_model.dart';
 import '../../repositories/auth/auth_repository.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
-
+import '../../screens/auth/get_started.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -24,6 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthResetPassword>(authResetPassword);
     on<AuthUpdatePassword>(authUpdatePassword);
     on<AuthFCM>(authFCM);
+    on<AuthLogout>(authLogout);
   }
 
   void authResumeSession(
@@ -278,6 +279,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void authFCM(AuthFCM event, Emitter<AuthState> emit) async {
     try {
       await authRepositories.registerFCMDevice(body: event.body);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void authLogout(AuthLogout event, Emitter<AuthState> emit) async {
+    try {
+      popUtil(const GetStarted());
+      try {
+        Map<String, dynamic> body =
+            await MyPluginNotification.getInfoToRequest();
+        body['token'] = '';
+        authRepositories.removeFCMDevice(body: event.body);
+      } catch (e) {}
+      await Future.delayed(const Duration(milliseconds: 1500));
+      await MyPluginAuthentication.deleteUser();
+      await MyPluginHelper.setFirstInstall();
     } catch (e) {
       print(e);
     }

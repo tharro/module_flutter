@@ -128,3 +128,7 @@ class AuthFCM extends AuthEvent {
   final Map<String, dynamic> body;
   const AuthFCM({required this.body});
 }
+
+class AuthLogout extends AuthEvent {
+  const AuthLogout();
+}

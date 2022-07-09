@@ -76,7 +76,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           }
         }));
   }
-  
+
   @override
   void initState() {
     _resendCode(isPopup: false);
