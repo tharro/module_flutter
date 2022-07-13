@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import '../../models/auth/token_model.dart';
 import '../../models/auth/get_started_model.dart';
 import '../../models/auth/profile_model.dart';
@@ -291,7 +289,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         Map<String, dynamic> body =
             await MyPluginNotification.getInfoToRequest();
         body['token'] = '';
-        authRepositories.removeFCMDevice(body: event.body);
+        authRepositories.removeFCMDevice(body: body);
       } catch (e) {}
       await Future.delayed(const Duration(milliseconds: 1500));
       await MyPluginAuthentication.deleteUser();

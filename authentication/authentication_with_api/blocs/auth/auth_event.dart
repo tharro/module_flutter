@@ -42,9 +42,7 @@ class AuthSignUp extends AuthEvent {
 }
 
 class AuthLogout extends AuthEvent {
-  final Function onSuccess;
-
-  const AuthLogout({required this.onSuccess});
+  const AuthLogout();
 }
 
 class AuthResendCode extends AuthEvent {
@@ -127,8 +125,4 @@ class AuthResetPassword extends AuthEvent {
 class AuthFCM extends AuthEvent {
   final Map<String, dynamic> body;
   const AuthFCM({required this.body});
-}
-
-class AuthLogout extends AuthEvent {
-  const AuthLogout();
 }

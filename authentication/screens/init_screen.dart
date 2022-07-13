@@ -31,10 +31,10 @@ class _InitScreenState extends State<InitScreen> {
         FlutterSecureStorage storage = const FlutterSecureStorage();
         await storage.deleteAll();
         await MyPluginHelper.setFirstInstall();
-        popUtil(const IntroCustom());
+        //TODO: intro
       } else {
         if (isResume) {
-          popUtil(const MainTab());
+          //TODO: home
         } else {
           popUtil(const GetStarted());
         }
