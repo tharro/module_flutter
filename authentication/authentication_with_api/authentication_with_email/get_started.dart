@@ -45,7 +45,7 @@ class _GetStartedState extends State<GetStarted> {
         onSuccess: (String value) {
           switch (value) {
             case MyPluginAppConstraints.signUp:
-              replace(SignUp(
+              push(SignUp(
                 email: _controller.text.trim(),
               ));
               break;

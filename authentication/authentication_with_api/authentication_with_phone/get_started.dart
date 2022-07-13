@@ -48,7 +48,7 @@ class _GetStartedState extends State<GetStarted> {
         onSuccess: (String value) {
           switch (value) {
             case MyPluginAppConstraints.signUp:
-              replace(SignUp(
+              push(SignUp(
                 phone: _phoneNumber,
               ));
               break;

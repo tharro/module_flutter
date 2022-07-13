@@ -93,26 +93,7 @@ class _LoginState extends State<Login> {
                               child: Text('key_use_another_account'.tr())),
                           GestureDetector(
                               onTap: () {
-                                BlocProvider.of<AuthBloc>(context).add(
-                                    AuthForgotPassword(
-                                        userName:
-                                            BlocProvider.of<AuthBloc>(context)
-                                                .state
-                                                .getStartedModel!
-                                                .username!,
-                                        onError: (code, message) {
-                                          Helper.showErrorDialog(
-                                              code: code,
-                                              context: context,
-                                              message: message,
-                                              onPressPrimaryButton: () {
-                                                Navigator.pop(context);
-                                              });
-                                        },
-                                        onSuccess: () {
-                                          MyPluginNavigation.instance
-                                              .replace(const ForgotPassword());
-                                        }));
+                                push(const ForgotPassword());
                               },
                               child: Text('key_forgot_password'.tr())),
                         ],
