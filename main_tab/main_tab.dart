@@ -89,6 +89,8 @@ class _MainTabState extends State<MainTab> {
       }).toList(),
       selectedLabelStyle: AppTextStyles.textSize12(color: Colors.green),
       unselectedLabelStyle: AppTextStyles.textSize12(),
+      selectedItemColor: Colors.green,
+      unselectedItemColor: Colors.grey,
     );
   }
 }
