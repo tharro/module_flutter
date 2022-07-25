@@ -291,11 +291,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         body['token'] = '';
         await authRepositories.removeFCMDevice(body: body);
       } catch (e) {}
-      await Future.delayed(const Duration(milliseconds: 1500));
       await MyPluginAuthentication.deleteUser();
       await MyPluginHelper.setFirstInstall();
     } catch (e) {
-      print(e);
+      MyPluginHelper.showToast(message: e.parseError.message);
     }
   }
 }
