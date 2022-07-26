@@ -16,7 +16,14 @@ class _InitScreenState extends State<InitScreen> {
   void initState() {
     messageRequire();
     BlocProvider.of<AuthBloc>(context)
-        .add(AuthResumeSession(onError: (String code, message) {
+        .add(AuthResumeSession(onError: (String code, message) async {
+      bool isFirst = await MyPluginHelper.isFirstInstall();
+      MyPluginHelper.remove();
+      if (isFirst) {
+        FlutterSecureStorage storage = const FlutterSecureStorage();
+        await storage.deleteAll();
+        await MyPluginHelper.setFirstInstall();
+      }
       Helper.showErrorDialog(
           context: context,
           code: code,
