@@ -270,7 +270,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         Map<String, dynamic> body =
             await MyPluginNotification.getInfoToRequest();
-        body['token'] = '';
         await authRepositories.removeFCMDevice(body: body);
       } catch (e) {}
       await MyPluginAuthentication.deleteUser();

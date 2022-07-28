@@ -19,18 +19,20 @@ class _InitScreenState extends State<InitScreen> {
         .add(AuthResumeSession(onError: (String code, message) async {
       bool isFirst = await MyPluginHelper.isFirstInstall();
       MyPluginHelper.remove();
-      if (isFirst) {
-        FlutterSecureStorage storage = const FlutterSecureStorage();
-        await storage.deleteAll();
-        await MyPluginHelper.setFirstInstall();
-      }
       Helper.showErrorDialog(
           context: context,
           code: code,
           message: message,
           barrierDismissible: false,
-          onPressPrimaryButton: () {
-            replace(const GetStarted());
+          onPressPrimaryButton: () async {
+            if (isFirst) {
+              FlutterSecureStorage storage = const FlutterSecureStorage();
+              await storage.deleteAll();
+              await MyPluginHelper.setFirstInstall();
+              //TODO: intro
+            } else {
+              replace(const GetStarted());
+            }
           });
     }, onSuccess: (bool isResume) async {
       bool isFirst = await MyPluginHelper.isFirstInstall();
