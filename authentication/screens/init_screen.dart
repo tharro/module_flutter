@@ -15,10 +15,59 @@ class _InitScreenState extends State<InitScreen> {
   @override
   void initState() {
     messageRequire();
+    _checkUpdate();
+    super.initState();
+  }
+
+  _checkUpdate() async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    MyPluginHelper.checkUpdateApp(
+      onError: () {
+        _getData(isHideSplashScreen: true);
+      },
+      onUpdate: (status) {
+        if (status.canUpdate) {
+          MyPluginHelper.remove();
+          Helper.showErrorDialog(
+              context: context,
+              isShowSecondButton: true,
+              message: 'key_update_detail'
+                  .tr()
+                  .replaceAll(':localVersion', status.localVersion)
+                  .replaceAll(':storeVersion', status.storeVersion),
+              title: 'key_update'.tr(),
+              onPressSecondButton: () {
+                goBack();
+                _getData();
+              },
+              onPressPrimaryButton: () async {
+                goBack();
+                try {
+                  if (await canLaunchUrl(Uri.parse(status.appStoreLink))) {
+                    //
+                    await launchUrl(Uri.parse(status.appStoreLink));
+                  } else {
+                    throw 'Could not launch appStoreLink';
+                  }
+                } catch (e) {}
+                _getData();
+              });
+        } else {
+          _getData(isHideSplashScreen: true);
+        }
+      },
+      androidId: '',
+      iOSId: '',
+    );
+  }
+
+  _getData({bool isHideSplashScreen = false}) {
     BlocProvider.of<AuthBloc>(context)
         .add(AuthResumeSession(onError: (String code, message) async {
       bool isFirst = await MyPluginHelper.isFirstInstall();
-      MyPluginHelper.remove();
+      if (isHideSplashScreen) {
+        MyPluginHelper.remove();
+      }
       Helper.showErrorDialog(
           context: context,
           code: code,
@@ -29,10 +78,8 @@ class _InitScreenState extends State<InitScreen> {
               FlutterSecureStorage storage = const FlutterSecureStorage();
               await storage.deleteAll();
               await MyPluginHelper.setFirstInstall();
-              //TODO: intro
-            } else {
-              replace(const GetStarted());
             }
+            replace(const GetStarted());
           });
     }, onSuccess: (bool isResume) async {
       bool isFirst = await MyPluginHelper.isFirstInstall();
@@ -40,17 +87,18 @@ class _InitScreenState extends State<InitScreen> {
         FlutterSecureStorage storage = const FlutterSecureStorage();
         await storage.deleteAll();
         await MyPluginHelper.setFirstInstall();
-        //TODO: intro
+        popUtil(const GetStarted());
       } else {
         if (isResume) {
-          //TODO: home
+          //TODO: go to home
         } else {
           popUtil(const GetStarted());
         }
       }
-      MyPluginHelper.remove();
+      if (isHideSplashScreen) {
+        MyPluginHelper.remove();
+      }
     }));
-    super.initState();
   }
 
   void messageRequire() {
