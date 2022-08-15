@@ -87,7 +87,7 @@ class _MainTabState extends State<MainTab> {
           initialPageBuilder: (context) => flow.child,
         );
       }).toList(),
-      selectedLabelStyle: AppTextStyles.textSize12(color: Colors.green),
+      selectedLabelStyle: AppTextStyles.textSize12(),
       unselectedLabelStyle: AppTextStyles.textSize12(),
       selectedItemColor: Colors.green,
       unselectedItemColor: Colors.grey,

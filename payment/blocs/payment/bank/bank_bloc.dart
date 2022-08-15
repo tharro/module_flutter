@@ -8,10 +8,10 @@ part 'bank_state.dart';
 class BankBloc extends Bloc<BankEvent, BankState> {
   final PaymentRepositories paymentRepositories = PaymentRepositories();
   BankBloc() : super(BankState.empty()) {
-    on<AddBank>(_addCreditCard);
+    on<AddBank>(_addBank);
   }
 
-  void _addCreditCard(AddBank event, Emitter<BankState> emit) async {
+  void _addBank(AddBank event, Emitter<BankState> emit) async {
     try {
       emit(state.copyWith(addBankLoading: true));
       await paymentRepositories.addBank(body: event.body);
