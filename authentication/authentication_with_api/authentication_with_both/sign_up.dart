@@ -11,6 +11,7 @@ import '../../widgets/text_field_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
+import '../../widgets/loading_custom.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key, required this.emailOrPhone}) : super(key: key);
@@ -86,115 +87,118 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-      return OverlayLoadingCustom(
-          isLoading: state.signUpLoading!,
-          child: Scaffold(
-              bottomNavigationBar: BottomAppBarCustom(
-                child: ButtonCustom(
-                  onPressed: () {
-                    _submit();
-                  },
-                  title: 'key_sign_up'.tr(),
-                ),
+    return OverlayLoadingCustom(
+        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            return LoadingCustom(
+                isOverlay: true, isLoading: state.signUpLoading!);
+          },
+        ),
+        child: Scaffold(
+            bottomNavigationBar: BottomAppBarCustom(
+              child: ButtonCustom(
+                onPressed: () {
+                  _submit();
+                },
+                title: 'key_sign_up'.tr(),
               ),
-              body: SingleChildScrollView(
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: AppConstrains.paddingVertical,
-                          horizontal: AppConstrains.paddingHorizontal),
-                      child: Column(
-                        children: [
-                          TextFieldCustom(
-                            controller: _emailController,
-                            focusNode: _emailFocusNode,
-                            validType: ValidType.email,
-                            hintText: !widget.emailOrPhone.isPhoneNumber
-                                ? widget.emailOrPhone
-                                : 'key_email'.tr(),
-                            onValid: (bool val) {
-                              _isValidEmail = val;
-                            },
-                            enabled: widget.emailOrPhone.isPhoneNumber,
-                            textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (text) {
-                              _passwordFocusNode.requestFocus();
-                            },
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          if (!widget.emailOrPhone.isPhoneNumber)
-                            PhoneNumberCustom(
-                                initialValue: _initPhone,
-                                autoFocus: true,
-                                onInputValidated: (bool val) {
-                                  setState(() {
-                                    _isValidPhone = val;
-                                  });
-                                },
-                                hasError: _isValidPhone,
-                                onInputChanged: (PhoneNumber number) {
-                                  _phoneNumber = number.phoneNumber!;
-                                },
-                                controller: _phoneController,
-                                focusNode: _phoneFocusNode)
-                          else
-                            TextFieldCustom(
-                              controller: _phoneController,
-                              focusNode: _phoneFocusNode,
-                              hintText: _phoneNumber,
-                              enabled: false,
-                            ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldCustom(
-                            controller: _passwordController,
-                            focusNode: _passwordFocusNode,
-                            validType: ValidType.password,
-                            hintText: 'key_password'.tr(),
-                            onValid: (bool val) {
-                              _isValidPassword = val;
-                            },
-                            textInputAction: TextInputAction.next,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldCustom(
-                            controller: _firstNameController,
-                            focusNode: _firstNameFocusNode,
-                            validType: ValidType.notEmpty,
-                            hintText: 'key_first_name'.tr(),
-                            onValid: (bool val) {
-                              _isValidFirstName = val;
-                            },
-                            textInputAction: TextInputAction.next,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldCustom(
-                            controller: _lastNameController,
-                            focusNode: _lastNameFocusNode,
-                            validType: ValidType.notEmpty,
-                            hintText: 'key_last_name'.tr(),
-                            onValid: (bool val) {
-                              _isValidLastName = val;
-                            },
-                            onFieldSubmitted: (text) {
-                              _submit();
-                            },
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                MyPluginNavigation.instance
-                                    .replace(const GetStarted());
+            ),
+            body: SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: AppConstrains.paddingVertical,
+                        horizontal: AppConstrains.paddingHorizontal),
+                    child: Column(
+                      children: [
+                        TextFieldCustom(
+                          controller: _emailController,
+                          focusNode: _emailFocusNode,
+                          validType: ValidType.email,
+                          hintText: !widget.emailOrPhone.isPhoneNumber
+                              ? widget.emailOrPhone
+                              : 'key_email'.tr(),
+                          onValid: (bool val) {
+                            _isValidEmail = val;
+                          },
+                          enabled: widget.emailOrPhone.isPhoneNumber,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (text) {
+                            _passwordFocusNode.requestFocus();
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        if (!widget.emailOrPhone.isPhoneNumber)
+                          PhoneNumberCustom(
+                              initialValue: _initPhone,
+                              autoFocus: true,
+                              onInputValidated: (bool val) {
+                                setState(() {
+                                  _isValidPhone = val;
+                                });
                               },
-                              child: Text('key_use_another_account'.tr())),
-                        ],
-                      )))));
-    });
+                              hasError: _isValidPhone,
+                              onInputChanged: (PhoneNumber number) {
+                                _phoneNumber = number.phoneNumber!;
+                              },
+                              controller: _phoneController,
+                              focusNode: _phoneFocusNode)
+                        else
+                          TextFieldCustom(
+                            controller: _phoneController,
+                            focusNode: _phoneFocusNode,
+                            hintText: _phoneNumber,
+                            enabled: false,
+                          ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFieldCustom(
+                          controller: _passwordController,
+                          focusNode: _passwordFocusNode,
+                          validType: ValidType.password,
+                          hintText: 'key_password'.tr(),
+                          onValid: (bool val) {
+                            _isValidPassword = val;
+                          },
+                          textInputAction: TextInputAction.next,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFieldCustom(
+                          controller: _firstNameController,
+                          focusNode: _firstNameFocusNode,
+                          validType: ValidType.notEmpty,
+                          hintText: 'key_first_name'.tr(),
+                          onValid: (bool val) {
+                            _isValidFirstName = val;
+                          },
+                          textInputAction: TextInputAction.next,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFieldCustom(
+                          controller: _lastNameController,
+                          focusNode: _lastNameFocusNode,
+                          validType: ValidType.notEmpty,
+                          hintText: 'key_last_name'.tr(),
+                          onValid: (bool val) {
+                            _isValidLastName = val;
+                          },
+                          onFieldSubmitted: (text) {
+                            _submit();
+                          },
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              MyPluginNavigation.instance
+                                  .replace(const GetStarted());
+                            },
+                            child: Text('key_use_another_account'.tr())),
+                      ],
+                    )))));
   }
 }

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/bottom_appbar_custom.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
+import '../../widgets/loading_custom.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);
@@ -70,39 +71,42 @@ class _GetStartedState extends State<GetStarted> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-      return OverlayLoadingCustom(
-          isLoading: state.getStartedRequesting!,
-          child: Scaffold(
-              bottomNavigationBar: BottomAppBarCustom(
-                child: ButtonCustom(
-                  onPressed: () {
-                    _submit();
-                  },
-                  title: 'key_continue'.tr(),
-                ),
+    return OverlayLoadingCustom(
+        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            return LoadingCustom(
+                isOverlay: true, isLoading: state.getStartedRequesting!);
+          },
+        ),
+        child: Scaffold(
+            bottomNavigationBar: BottomAppBarCustom(
+              child: ButtonCustom(
+                onPressed: () {
+                  _submit();
+                },
+                title: 'key_continue'.tr(),
               ),
-              body: SingleChildScrollView(
-                  child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: AppConstrains.paddingVertical,
-                          horizontal: AppConstrains.paddingHorizontal),
-                      child: Column(
-                        children: [
-                          TextFieldCustom(
-                            controller: _controller,
-                            focusNode: _focusNode,
-                            validType: ValidType.email,
-                            onValid: (bool val) {
-                              _isValidEmail = val;
-                            },
-                            hintText: 'key_enter_a_email'.tr(),
-                            onFieldSubmitted: (text) {
-                              _submit();
-                            },
-                          ),
-                        ],
-                      )))));
-    });
+            ),
+            body: SingleChildScrollView(
+                child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppConstrains.paddingVertical,
+                        horizontal: AppConstrains.paddingHorizontal),
+                    child: Column(
+                      children: [
+                        TextFieldCustom(
+                          controller: _controller,
+                          focusNode: _focusNode,
+                          validType: ValidType.email,
+                          onValid: (bool val) {
+                            _isValidEmail = val;
+                          },
+                          hintText: 'key_enter_a_email'.tr(),
+                          onFieldSubmitted: (text) {
+                            _submit();
+                          },
+                        ),
+                      ],
+                    )))));
   }
 }

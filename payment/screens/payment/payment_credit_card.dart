@@ -4,6 +4,7 @@ import '../../widgets/overlay_loading_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
+import '../../widgets/loading_custom.dart';
 
 class PaymentCreditCard extends StatefulWidget {
   const PaymentCreditCard({Key? key}) : super(key: key);
@@ -24,41 +25,39 @@ class _PaymentCreditCardState extends State<PaymentCreditCard> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreditCardBloc, CreditCardState>(
+    return OverlayLoadingCustom(loadingWidget: BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
-        return OverlayLoadingCustom(
-            isLoading: _isLoading || state.addCardLoading!,
-            child: Scaffold(body: SingleChildScrollView(child: CreditCardCustom(
-              onSubmit: (CreditCardModel card) async {
-                if (card.cardNumber != '') {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                  String tokenId =
-                      await MyPluginPayment.createTokenWidthCreditCard(
-                          data: card);
-                  setState(() {
-                    _isLoading = false;
-                  });
-                  Map<String, dynamic> body = {
-                    'pm_id': tokenId,
-                  };
-                  BlocProvider.of<CreditCardBloc>(context).add(AddCreditCard(
-                      onSuccess: () {},
-                      onError: (code, message) {
-                        Helper.showErrorDialog(
-                            context: context,
-                            message: message,
-                            code: code,
-                            onPressPrimaryButton: () {
-                              Navigator.pop(context);
-                            });
-                      },
-                      body: body));
-                }
-              },
-            ))));
+        return LoadingCustom(
+            isOverlay: true, isLoading: _isLoading || state.addCardLoading!);
       },
-    );
+    ), child: Scaffold(body: SingleChildScrollView(child: CreditCardCustom(
+      onSubmit: (CreditCardModel card) async {
+        if (card.cardNumber != '') {
+          setState(() {
+            _isLoading = true;
+          });
+          String tokenId =
+              await MyPluginPayment.createTokenWidthCreditCard(data: card);
+          setState(() {
+            _isLoading = false;
+          });
+          Map<String, dynamic> body = {
+            'pm_id': tokenId,
+          };
+          BlocProvider.of<CreditCardBloc>(context).add(AddCreditCard(
+              onSuccess: () {},
+              onError: (code, message) {
+                Helper.showErrorDialog(
+                    context: context,
+                    message: message,
+                    code: code,
+                    onPressPrimaryButton: () {
+                      Navigator.pop(context);
+                    });
+              },
+              body: body));
+        }
+      },
+    ))));
   }
 }

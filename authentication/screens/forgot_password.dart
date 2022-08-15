@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
 import '../../widgets/bottom_appbar_custom.dart';
+import '../../widgets/loading_custom.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -85,84 +86,87 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-      return OverlayLoadingCustom(
-          isLoading: state.resetPasswordLoading!,
-          child: Scaffold(
-              bottomNavigationBar: BottomAppBarCustom(
-                child: ButtonCustom(
-                  onPressed: () {
-                    _submit();
-                  },
-                  title: 'key_reset_password'.tr(),
-                ),
+    return OverlayLoadingCustom(
+        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            return LoadingCustom(
+                isOverlay: true, isLoading: state.resetPasswordLoading!);
+          },
+        ),
+        child: Scaffold(
+            bottomNavigationBar: BottomAppBarCustom(
+              child: ButtonCustom(
+                onPressed: () {
+                  _submit();
+                },
+                title: 'key_reset_password'.tr(),
               ),
-              body: SingleChildScrollView(
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: AppConstrains.paddingVertical,
-                          horizontal: AppConstrains.paddingHorizontal),
-                      child: Column(
-                        children: [
-                          PinPutCustom(
-                            controller: _codeController,
-                            onChange: (val) {},
-                            onCompleted: (code) {},
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldCustom(
-                            controller: _passwordController,
-                            focusNode: _passwordFocusNode,
-                            validType: ValidType.password,
-                            hintText: 'key_password'.tr(),
-                            onValid: (bool valid) {
-                              _isValidPassword = valid;
-                            },
-                            textInputAction: TextInputAction.next,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldCustom(
-                            controller: _confirmPasswordController,
-                            focusNode: _confirmPasswordFocusNode,
-                            validType: ValidType.password,
-                            hintText: 'key_confirm_password'.tr(),
-                            textError: _errorConfirmPassword,
-                            onListenController: () {
-                              if (_confirmPasswordController.text.trim() !=
-                                  _passwordController.text.trim()) {
-                                if (_errorConfirmPassword == null) {
-                                  setState(() {
-                                    _errorConfirmPassword =
-                                        'key_password_not_match'.tr();
-                                  });
-                                }
-                              } else if (_errorConfirmPassword != null) {
+            ),
+            body: SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: AppConstrains.paddingVertical,
+                        horizontal: AppConstrains.paddingHorizontal),
+                    child: Column(
+                      children: [
+                        PinPutCustom(
+                          controller: _codeController,
+                          onChange: (val) {},
+                          onCompleted: (code) {},
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFieldCustom(
+                          controller: _passwordController,
+                          focusNode: _passwordFocusNode,
+                          validType: ValidType.password,
+                          hintText: 'key_password'.tr(),
+                          onValid: (bool valid) {
+                            _isValidPassword = valid;
+                          },
+                          textInputAction: TextInputAction.next,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFieldCustom(
+                          controller: _confirmPasswordController,
+                          focusNode: _confirmPasswordFocusNode,
+                          validType: ValidType.password,
+                          hintText: 'key_confirm_password'.tr(),
+                          textError: _errorConfirmPassword,
+                          onListenController: () {
+                            if (_confirmPasswordController.text.trim() !=
+                                _passwordController.text.trim()) {
+                              if (_errorConfirmPassword == null) {
                                 setState(() {
-                                  _errorConfirmPassword = null;
+                                  _errorConfirmPassword =
+                                      'key_password_not_match'.tr();
                                 });
                               }
+                            } else if (_errorConfirmPassword != null) {
+                              setState(() {
+                                _errorConfirmPassword = null;
+                              });
+                            }
+                          },
+                          onFieldSubmitted: (text) {
+                            _submit();
+                          },
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              MyPluginNavigation.instance
+                                  .replace(const GetStarted());
                             },
-                            onFieldSubmitted: (text) {
-                              _submit();
+                            child: Text('key_use_another_account'.tr())),
+                        GestureDetector(
+                            onTap: () {
+                              _resendCode();
                             },
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                MyPluginNavigation.instance
-                                    .replace(const GetStarted());
-                              },
-                              child: Text('key_use_another_account'.tr())),
-                          GestureDetector(
-                              onTap: () {
-                                _resendCode();
-                              },
-                              child: Text('key_resend_code'.tr())),
-                        ],
-                      )))));
-    });
+                            child: Text('key_resend_code'.tr())),
+                      ],
+                    )))));
   }
 }

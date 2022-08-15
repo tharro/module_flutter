@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/bottom_appbar_custom.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
+import '../../widgets/loading_custom.dart';
 
 class Verify extends StatefulWidget {
   const Verify({
@@ -102,46 +103,49 @@ class _VerifyState extends State<Verify> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-      return OverlayLoadingCustom(
-          isLoading: state.verifyCodeLoading!,
-          child: Scaffold(
-              bottomNavigationBar: BottomAppBarCustom(
-                child: ButtonCustom(
-                  onPressed: () {
-                    _submit();
-                  },
-                  title: 'key_verify'.tr(),
-                ),
+    return OverlayLoadingCustom(
+        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            return LoadingCustom(
+                isOverlay: true, isLoading: state.verifyCodeLoading!);
+          },
+        ),
+        child: Scaffold(
+            bottomNavigationBar: BottomAppBarCustom(
+              child: ButtonCustom(
+                onPressed: () {
+                  _submit();
+                },
+                title: 'key_verify'.tr(),
               ),
-              body: SingleChildScrollView(
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: AppConstrains.paddingVertical,
-                          horizontal: AppConstrains.paddingHorizontal),
-                      child: Column(
-                        children: [
-                          Text(widget.receiver),
-                          PinPutCustom(
-                            controller: _codeController,
-                            onChange: (code) {},
-                            onCompleted: (code) {
-                              _submit();
+            ),
+            body: SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: AppConstrains.paddingVertical,
+                        horizontal: AppConstrains.paddingHorizontal),
+                    child: Column(
+                      children: [
+                        Text(widget.receiver),
+                        PinPutCustom(
+                          controller: _codeController,
+                          onChange: (code) {},
+                          onCompleted: (code) {
+                            _submit();
+                          },
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              _resendCode(true);
                             },
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                _resendCode(true);
-                              },
-                              child: Text('key_resend_code'.tr())),
-                          GestureDetector(
-                              onTap: () {
-                                MyPluginNavigation.instance
-                                    .replace(const GetStarted());
-                              },
-                              child: Text('key_use_another_account'.tr())),
-                        ],
-                      )))));
-    });
+                            child: Text('key_resend_code'.tr())),
+                        GestureDetector(
+                            onTap: () {
+                              MyPluginNavigation.instance
+                                  .replace(const GetStarted());
+                            },
+                            child: Text('key_use_another_account'.tr())),
+                      ],
+                    )))));
   }
 }

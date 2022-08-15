@@ -8,6 +8,7 @@ import '../../widgets/text_field_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
+import '../../widgets/loading_custom.dart';
 
 class PaymentBank extends StatefulWidget {
   const PaymentBank({Key? key}) : super(key: key);
@@ -74,54 +75,55 @@ class _PaymentBankState extends State<PaymentBank> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BankBloc, BankState>(
-      builder: (context, state) {
-        return OverlayLoadingCustom(
-            isLoading: state.addBankLoading!,
-            child: Scaffold(
-                body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TextFieldCustom(
-                    controller: _accountHolderController,
-                    focusNode: _accountHolderFocusNode,
-                    validType: ValidType.notEmpty,
-                    hintText: 'key_account_holder_name'.tr(),
-                    onValid: (bool val) {
-                      _isValidAccountHolder = val;
-                    },
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(height: 10),
-                  TextFieldCustom(
-                    controller: _accountNumberController,
-                    focusNode: _accountNumberFocusNode,
-                    validType: ValidType.notEmpty,
-                    keyboardType: TextInputType.number,
-                    hintText: 'key_account_number'.tr(),
-                    onValid: (bool val) {
-                      _isValidAccountNumber = val;
-                    },
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(height: 10),
-                  TextFieldCustom(
-                    controller: _routingController,
-                    focusNode: _routingFocusNode,
-                    validType: ValidType.none,
-                    keyboardType: TextInputType.number,
-                    hintText: 'key_routing'.tr(),
-                    showError: false,
-                    onFieldSubmitted: (text) {
-                      _submit();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  ButtonCustom(title: 'Add Bank', onPressed: _submit)
-                ],
+    return OverlayLoadingCustom(
+        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            return LoadingCustom(
+                isOverlay: true, isLoading: state.addBankLoading!);
+          },
+        ),
+        child: Scaffold(
+            body: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextFieldCustom(
+                controller: _accountHolderController,
+                focusNode: _accountHolderFocusNode,
+                validType: ValidType.notEmpty,
+                hintText: 'key_account_holder_name'.tr(),
+                onValid: (bool val) {
+                  _isValidAccountHolder = val;
+                },
+                textInputAction: TextInputAction.next,
               ),
-            )));
-      },
-    );
+              const SizedBox(height: 10),
+              TextFieldCustom(
+                controller: _accountNumberController,
+                focusNode: _accountNumberFocusNode,
+                validType: ValidType.notEmpty,
+                keyboardType: TextInputType.number,
+                hintText: 'key_account_number'.tr(),
+                onValid: (bool val) {
+                  _isValidAccountNumber = val;
+                },
+                textInputAction: TextInputAction.next,
+              ),
+              const SizedBox(height: 10),
+              TextFieldCustom(
+                controller: _routingController,
+                focusNode: _routingFocusNode,
+                validType: ValidType.none,
+                keyboardType: TextInputType.number,
+                hintText: 'key_routing'.tr(),
+                showError: false,
+                onFieldSubmitted: (text) {
+                  _submit();
+                },
+              ),
+              const SizedBox(height: 10),
+              ButtonCustom(title: 'Add Bank', onPressed: _submit)
+            ],
+          ),
+        )));
   }
 }
