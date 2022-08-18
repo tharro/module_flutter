@@ -1,7 +1,6 @@
     ,
-    "key_card_name": "Name on card",
     "key_card_number": "Card number",
-    "key_expired": "Expiration date",
+    "key_expired": "Expiry",
     "key_cvv": "CVC/CVV",
     "key_add_card": "Add card",
     "key_account_name": "Account name",

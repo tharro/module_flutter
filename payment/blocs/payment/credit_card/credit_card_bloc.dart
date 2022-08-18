@@ -1,5 +1,4 @@
 import '../../../repositories/payment/payment_repositories.dart';
-import 'package:equatable/equatable.dart';
 import 'package:plugin_helper/index.dart';
 import '../../../index.dart';
 part 'credit_card_event.dart';

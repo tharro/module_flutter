@@ -1,3 +1,7 @@
+import '../blocs/payment/credit_card/credit_card_bloc.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+
+import '../../models/payment/card_model.dart';
 import '../../configs/app_constrains.dart';
 import '../../widgets/text_field_custom.dart';
 import '../../widgets/button_custom.dart';
@@ -6,7 +10,7 @@ import 'package:plugin_helper/index.dart';
 import '../../index.dart';
 
 class CreditCardCustom extends StatefulWidget {
-  final Function(CreditCardModel) onSubmit;
+  final Function() onSubmit;
   const CreditCardCustom({Key? key, required this.onSubmit}) : super(key: key);
 
   @override
@@ -14,28 +18,20 @@ class CreditCardCustom extends StatefulWidget {
 }
 
 class _CreditCardCustomState extends State<CreditCardCustom> {
-  late final CreditCardModel _card = CreditCardModel('', '', '', '', false);
+  late final CardModel _card = CardModel('', '', '', false);
   final FocusNode _cardNumberNode = FocusNode();
-  final FocusNode _cardHolderNode = FocusNode();
   final FocusNode _expiredNode = FocusNode();
   final FocusNode _cVVNode = FocusNode();
   final MaskedTextController _cardNumberController =
       MaskedTextController(mask: '0000 0000 0000 0000');
-  final TextEditingController _cardHolderController = TextEditingController();
   final MaskedTextController _expiredController =
       MaskedTextController(mask: '00/00');
   final MaskedTextController _cVVController =
       MaskedTextController(mask: '0000');
-  late bool _validCardHolder = false,
-      _validCardNumber = false,
-      _validExpired = false,
-      _validCvv = false;
+  late bool _validCardNumber = false, _validExpired = false, _validCvv = false;
 
   @override
   void initState() {
-    _cardHolderController.addListener(() {
-      _card.cardHolder = _cardHolderController.text;
-    });
     _cardNumberController.addListener(() {
       _card.cardNumber = _cardNumberController.text;
     });
@@ -45,23 +41,13 @@ class _CreditCardCustomState extends State<CreditCardCustom> {
     _cVVController.addListener(() {
       _card.cvvCode = _cVVController.text;
     });
+    Stripe.publishableKey = MyPluginAppEnvironment().stripePublicKey!;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      TextFieldCustom(
-        focusNode: _cardHolderNode,
-        controller: _cardHolderController,
-        validType: ValidType.notEmpty,
-        label: 'key_card_name'.tr(),
-        onValid: (bool valid) {
-          _validCardHolder = valid;
-        },
-        textInputAction: TextInputAction.next,
-      ),
-      const SizedBox(height: AppConstrains.paddingHorizontal),
       TextFieldCustom(
         focusNode: _cardNumberNode,
         controller: _cardNumberController,
@@ -72,7 +58,7 @@ class _CreditCardCustomState extends State<CreditCardCustom> {
         },
         textInputAction: TextInputAction.next,
       ),
-      const SizedBox(height: AppConstrains.paddingHorizontal),
+      8.h,
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,7 +74,7 @@ class _CreditCardCustomState extends State<CreditCardCustom> {
               textInputAction: TextInputAction.next,
             ),
           ),
-          const SizedBox(width: AppConstrains.paddingHorizontal),
+          8.w,
           Expanded(
               child: TextFieldCustom(
             focusNode: _cVVNode,
@@ -104,14 +90,38 @@ class _CreditCardCustomState extends State<CreditCardCustom> {
       const SizedBox(height: AppConstrains.paddingHorizontal),
       ButtonCustom(
           title: 'key_add_card'.tr(),
-          onPressed: () {
-            if (!_validCardHolder ||
-                !_validCardNumber ||
-                !_validExpired ||
-                !_validCvv) {
+          onPressed: () async {
+            if (!_validCardNumber || !_validExpired || !_validCvv) {
               return;
             }
-            widget.onSubmit(_card);
+            final CardDetails payment = CardDetails(
+              cvc: _card.cvvCode,
+              expirationMonth: int.parse(_card.expiryDate.split('/')[0]),
+              expirationYear: int.parse(_card.expiryDate.split('/')[1]),
+              number: _card.cardNumber,
+            );
+            await Stripe.instance.dangerouslyUpdateCardDetails(payment);
+            final paymentMethod = await Stripe.instance
+                .createPaymentMethod(const PaymentMethodParams.card(
+              paymentMethodData: PaymentMethodData(billingDetails: null),
+            ));
+
+            Map<String, dynamic> body = {
+              'pm_id': paymentMethod.id,
+            };
+
+            BlocProvider.of<CreditCardBloc>(context).add(AddCreditCard(
+                onSuccess: () {},
+                onError: (code, message) {
+                  Helper.showErrorDialog(
+                      context: context,
+                      message: message,
+                      code: code,
+                      onPressPrimaryButton: () {
+                        Navigator.pop(context);
+                      });
+                },
+                body: body));
           })
     ]);
   }
