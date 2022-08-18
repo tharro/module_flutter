@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import '../../utils/map_service.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
 
@@ -121,7 +122,7 @@ class _MapState extends State<Map> {
             //TODO
           },
           icon: cluster.items.length > 1
-              ? await MyPluginMap.defaultMarker(cluster.isMultiple ? max : min,
+              ? await MapService.defaultMarker(cluster.isMultiple ? max : min,
                   number: cluster.items.length)
               : cluster.items.first.bitmapDescriptor,
         );
