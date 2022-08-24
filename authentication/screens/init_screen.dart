@@ -44,7 +44,6 @@ class _InitScreenState extends State<InitScreen> {
                 goBack();
                 try {
                   if (await canLaunchUrl(Uri.parse(status.appStoreLink))) {
-                    //
                     await launchUrl(Uri.parse(status.appStoreLink));
                   } else {
                     throw 'Could not launch appStoreLink';
