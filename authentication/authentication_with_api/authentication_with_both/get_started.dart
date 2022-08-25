@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
 import '../../widgets/loading_custom.dart';
+import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);
@@ -24,14 +25,24 @@ class _GetStartedState extends State<GetStarted> {
   final FocusNode _focusNode = FocusNode();
   bool _isValid = false;
 
-  _submit() {
+  _submit() async {
     if (!_isValid) {
       return;
     }
     var _emailOrPhone = _controller.text.trim();
     if (_emailOrPhone.isPhoneNumber) {
-      _emailOrPhone =
-          MyPluginHelper.parsePhoneWithCountry(phone: _emailOrPhone);
+      try {
+        await PhoneNumber.getRegionInfoFromPhoneNumber(_emailOrPhone);
+      } catch (e) {
+        Helper.showErrorDialog(
+            code: code,
+            context: context,
+            message: 'key_invalid_phone'.tr(),
+            onPressPrimaryButton: () {
+              Navigator.pop(context);
+            });
+        return;
+      }
     }
     BlocProvider.of<AuthBloc>(context).add(AuthGetStarted(
         onError: (code, message) {

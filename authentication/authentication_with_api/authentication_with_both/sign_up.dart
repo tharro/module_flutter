@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
 import '../../index.dart';
 import '../../widgets/loading_custom.dart';
+import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key, required this.emailOrPhone}) : super(key: key);
@@ -75,14 +76,21 @@ class _SignUpState extends State<SignUp> {
 
   @override
   void initState() {
+    _init();
+    super.initState();
+  }
+
+  _init() async {
     if (widget.emailOrPhone.isPhoneNumber) {
       _phoneNumber = widget.emailOrPhone;
       _isValidPhone = true;
+      _initPhone =
+          await PhoneNumber.getRegionInfoFromPhoneNumber(widget.emailOrPhone);
+      _phoneController.text = _initPhone.phoneNumber!;
     } else {
       _emailController.text = widget.emailOrPhone;
       _isValidEmail = true;
     }
-    super.initState();
   }
 
   @override
