@@ -34,25 +34,13 @@ class _GetStartedState extends State<GetStarted> {
       try {
         await PhoneNumber.getRegionInfoFromPhoneNumber(_emailOrPhone);
       } catch (e) {
-        Helper.showErrorDialog(
-            code: code,
-            context: context,
-            message: 'key_invalid_phone'.tr(),
-            onPressPrimaryButton: () {
-              Navigator.pop(context);
-            });
+        showToastBottom(message: 'key_invalid_phone'.tr());
         return;
       }
     }
     BlocProvider.of<AuthBloc>(context).add(AuthGetStarted(
-        onError: (code, message) {
-          Helper.showErrorDialog(
-              code: code,
-              context: context,
-              message: message,
-              onPressPrimaryButton: () {
-                Navigator.pop(context);
-              });
+        onError: (message) {
+          showToastBottom(message: message);
         },
         onSuccess: (String value) {
           switch (value) {

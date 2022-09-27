@@ -39,14 +39,8 @@ class _GetStartedState extends State<GetStarted> {
     }
     print(phoneNumber);
     BlocProvider.of<AuthBloc>(context).add(AuthGetStarted(
-        onError: (code, message) {
-          Helper.showErrorDialog(
-              code: code,
-              context: context,
-              message: message,
-              onPressPrimaryButton: () {
-                Navigator.pop(context);
-              });
+        onError: (message) {
+          showToastBottom(message: message);
         },
         onSuccess: (String value) {
           switch (value) {

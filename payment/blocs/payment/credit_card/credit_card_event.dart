@@ -10,7 +10,7 @@ abstract class CreditCardEvent extends Equatable {
 class AddCreditCard extends CreditCardEvent {
   final Map<String, dynamic> body;
   final Function() onSuccess;
-  final Function(String, String) onError;
+  final Function(String) onError;
   const AddCreditCard(
       {required this.onSuccess, required this.onError, required this.body});
 }

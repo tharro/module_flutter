@@ -49,14 +49,8 @@ class _SignUpState extends State<SignUp> {
       return;
     }
     BlocProvider.of<AuthBloc>(context).add(AuthSignUp(
-        onError: (code, message) {
-          Helper.showErrorDialog(
-              code: code,
-              context: context,
-              message: message,
-              onPressPrimaryButton: () {
-                Navigator.pop(context);
-              });
+        onError: (message) {
+          showToastBottom(message: message);
         },
         body: {
           'username': BlocProvider.of<AuthBloc>(context)

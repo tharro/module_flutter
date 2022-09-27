@@ -10,7 +10,7 @@ abstract class BankEvent extends Equatable {
 class AddBank extends BankEvent {
   final Map<String, dynamic> body;
   final Function() onSuccess;
-  final Function(String, String) onError;
+  final Function(String) onError;
   const AddBank(
       {required this.onSuccess, required this.onError, required this.body});
 }

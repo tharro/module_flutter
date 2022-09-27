@@ -59,14 +59,8 @@ class _BankCustomState extends State<BankCustom> {
     };
     BlocProvider.of<BankBloc>(context).add(AddBank(
         onSuccess: () {},
-        onError: (code, message) {
-          Helper.showErrorDialog(
-              context: context,
-              message: message,
-              code: code,
-              onPressPrimaryButton: () {
-                Navigator.pop(context);
-              });
+        onError: (message) {
+          showToastBottom(message: message);
         },
         body: body));
   }

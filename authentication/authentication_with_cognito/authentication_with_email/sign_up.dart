@@ -46,14 +46,8 @@ class _SignUpState extends State<SignUp> {
               _lastNameController.text.trim()),
     ];
     BlocProvider.of<AuthBloc>(context).add(AuthSignUp(
-        onError: (code, message) {
-          Helper.showErrorDialog(
-              code: code,
-              context: context,
-              message: message,
-              onPressPrimaryButton: () {
-                Navigator.pop(context);
-              });
+        onError: (message) {
+          showToastBottom(message: message);
         },
         body: {
           'id': BlocProvider.of<AuthBloc>(context)

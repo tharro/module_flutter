@@ -19,7 +19,7 @@ class CreditCardBloc extends Bloc<CreditCardEvent, CreditCardState> {
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(addCardLoading: false));
-      event.onError(e.parseError.code, e.parseError.message);
+      event.onError(e.parseError.message);
     }
   }
 }

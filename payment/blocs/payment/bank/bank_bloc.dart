@@ -18,7 +18,7 @@ class BankBloc extends Bloc<BankEvent, BankState> {
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(addBankLoading: false));
-      event.onError(e.parseError.code, e.parseError.message);
+      event.onError(e.parseError.message);
     }
   }
 }

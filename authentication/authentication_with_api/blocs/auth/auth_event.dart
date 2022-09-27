@@ -11,21 +11,21 @@ abstract class AuthEvent extends Equatable {
 class AuthGetStarted extends AuthEvent {
   final Map<String, dynamic> body;
   final Function(String) onSuccess;
-  final Function(String, String) onError;
+  final Function(String) onError;
   const AuthGetStarted(
       {required this.onError, required this.onSuccess, required this.body});
 }
 
 class AuthResumeSession extends AuthEvent {
   final Function(bool isResume) onSuccess;
-  final Function(String, String) onError;
+  final Function(String) onError;
   const AuthResumeSession({required this.onSuccess, required this.onError});
 }
 
 class AuthLogin extends AuthEvent {
   final String userName, password;
   final Function onSuccess;
-  final Function(String, String) onError;
+  final Function(String) onError;
   const AuthLogin(
       {required this.onError,
       required this.userName,
@@ -36,7 +36,7 @@ class AuthLogin extends AuthEvent {
 class AuthSignUp extends AuthEvent {
   final Map<String, dynamic> body;
   final Function onSuccess;
-  final Function(String, String) onError;
+  final Function(String) onError;
   const AuthSignUp(
       {required this.onError, required this.body, required this.onSuccess});
 }
@@ -49,7 +49,7 @@ class AuthResendCode extends AuthEvent {
   final String userName;
   final String type;
   final Function onSuccess;
-  final Function(String code, String message) onError;
+  final Function(String) onError;
   const AuthResendCode(
       {required this.userName,
       required this.type,
@@ -63,7 +63,7 @@ class AuthVerifyCode extends AuthEvent {
   final String? password;
   final String code;
   final Function onSuccess;
-  final Function(String code, String message) onError;
+  final Function(String) onError;
   const AuthVerifyCode(
       {this.password,
       required this.code,
@@ -79,7 +79,7 @@ class AuthUpdatePassword extends AuthEvent {
   final String currentPassword;
   final String newPassword;
   final Function onSuccess;
-  final Function(String code, String message) onError;
+  final Function(String) onError;
   const AuthUpdatePassword(
       {required this.currentPassword,
       required this.newPassword,
@@ -91,7 +91,7 @@ class AuthUpdateProfile extends AuthEvent {
   final PickedFile? image;
   final Map<String, dynamic> body;
   final Function() onSuccess;
-  final Function(String code, String message) onError;
+  final Function(String) onError;
   const AuthUpdateProfile(
       {this.image,
       required this.body,
@@ -102,7 +102,7 @@ class AuthUpdateProfile extends AuthEvent {
 class AuthForgotPassword extends AuthEvent {
   final String userName;
   final Function onSuccess;
-  final Function(String code, String message) onError;
+  final Function(String) onError;
   const AuthForgotPassword(
       {required this.userName, required this.onError, required this.onSuccess});
 }
@@ -112,7 +112,7 @@ class AuthResetPassword extends AuthEvent {
   final String password;
   final String userName;
   final Function onSuccess;
-  final Function(String code, String message) onError;
+  final Function(String) onError;
   const AuthResetPassword({
     required this.code,
     required this.password,

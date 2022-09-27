@@ -112,14 +112,8 @@ class _CreditCardCustomState extends State<CreditCardCustom> {
 
             BlocProvider.of<CreditCardBloc>(context).add(AddCreditCard(
                 onSuccess: () {},
-                onError: (code, message) {
-                  Helper.showErrorDialog(
-                      context: context,
-                      message: message,
-                      code: code,
-                      onPressPrimaryButton: () {
-                        Navigator.pop(context);
-                      });
+                onError: (message) {
+                  showToastBottom(message: message);
                 },
                 body: body));
           })

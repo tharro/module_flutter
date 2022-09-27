@@ -34,14 +34,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       BlocProvider.of<AuthBloc>(context).add(AuthResetPassword(
           code: _codeController.text,
           password: _passwordController.text,
-          onError: (code, message) {
-            Helper.showErrorDialog(
-                context: context,
-                message: message,
-                onPressPrimaryButton: () {
-                  Navigator.pop(context);
-                },
-                code: code);
+          onError: (message) {
+            showToastBottom(message: message);
           },
           onSuccess: () {
             //TODO: go to home
@@ -57,23 +51,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     BlocProvider.of<AuthBloc>(context).add(AuthForgotPassword(
         userName:
             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
-        onError: (code, message) {
-          Helper.showErrorDialog(
-              context: context,
-              message: message,
-              code: code,
-              onPressPrimaryButton: () {
-                Navigator.pop(context);
-              });
+        onError: (message) {
+          showToastBottom(message: message);
         },
         onSuccess: () {
           if (isPopup) {
-            Helper.showSuccessDialog(
-                context: context,
+            showToastBottom(
                 message: 'key_resend_code_success'.tr(),
-                onPressPrimaryButton: () {
-                  Navigator.pop(context);
-                });
+                type: ToastType.success);
           }
         }));
   }

@@ -38,23 +38,14 @@ class _VerifyState extends State<Verify> {
     BlocProvider.of<AuthBloc>(context).add(AuthResendCode(
         userName:
             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
-        onError: (code, message) {
-          Helper.showErrorDialog(
-              context: context,
-              code: code,
-              message: message,
-              onPressPrimaryButton: () {
-                Navigator.pop(context);
-              });
+        onError: (message) {
+          showToastBottom(message: message);
         },
         onSuccess: () {
           if (isShowPopup) {
-            Helper.showSuccessDialog(
-                context: context,
+            showToastBottom(
                 message: 'key_resend_code_success'.tr(),
-                onPressPrimaryButton: () {
-                  Navigator.pop(context);
-                });
+                type: ToastType.success);
           }
         }));
   }
@@ -68,15 +59,9 @@ class _VerifyState extends State<Verify> {
               .state
               .getStartedModel!
               .username!,
-          onError: (code, message) {
+          onError: (message) {
             _codeController.clear();
-            Helper.showErrorDialog(
-                context: context,
-                message: message,
-                code: code,
-                onPressPrimaryButton: () {
-                  Navigator.pop(context);
-                });
+            showToastBottom(message: message);
           },
           onSuccess: () {
             if (widget.password != null) {
