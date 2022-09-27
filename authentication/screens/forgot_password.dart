@@ -35,7 +35,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           code: _codeController.text,
           password: _passwordController.text,
           onError: (message) {
-            showToastBottom(message: message);
+            Helper.showToastBottom(message: message);
           },
           onSuccess: () {
             //TODO: go to home
@@ -52,11 +52,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         userName:
             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
         onError: (message) {
-          showToastBottom(message: message);
+          Helper.showToastBottom(message: message);
         },
         onSuccess: () {
           if (isPopup) {
-            showToastBottom(
+            Helper.showToastBottom(
                 message: 'key_resend_code_success'.tr(),
                 type: ToastType.success);
           }

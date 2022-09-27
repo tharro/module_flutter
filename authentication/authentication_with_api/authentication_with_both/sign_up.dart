@@ -50,7 +50,7 @@ class _SignUpState extends State<SignUp> {
     }
     BlocProvider.of<AuthBloc>(context).add(AuthSignUp(
         onError: (message) {
-          showToastBottom(message: message);
+          Helper.showToastBottom(message: message);
         },
         body: {
           'username': BlocProvider.of<AuthBloc>(context)

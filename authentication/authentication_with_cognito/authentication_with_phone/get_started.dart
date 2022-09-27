@@ -40,7 +40,7 @@ class _GetStartedState extends State<GetStarted> {
     print(phoneNumber);
     BlocProvider.of<AuthBloc>(context).add(AuthGetStarted(
         onError: (message) {
-          showToastBottom(message: message);
+          Helper.showToastBottom(message: message);
         },
         onSuccess: (String value) {
           switch (value) {

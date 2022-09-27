@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
   _submit() {
     BlocProvider.of<AuthBloc>(context).add(AuthLogin(
         onError: (message) {
-          showToastBottom(message: message);
+          Helper.showToastBottom(message: message);
         },
         userName:
             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
@@ -97,7 +97,8 @@ class _LoginState extends State<Login> {
                                                 .getStartedModel!
                                                 .username!,
                                         onError: (message) {
-                                          showToastBottom(message: message);
+                                          Helper.showToastBottom(
+                                              message: message);
                                         },
                                         onSuccess: () {
                                           MyPluginNavigation.instance

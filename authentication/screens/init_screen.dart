@@ -67,7 +67,7 @@ class _InitScreenState extends State<InitScreen> {
       if (isHideSplashScreen) {
         MyPluginHelper.remove();
       }
-      showToastBottom(message: message);
+      Helper.showToastBottom(message: message);
       if (isFirst) {
         FlutterSecureStorage storage = const FlutterSecureStorage();
         await storage.deleteAll();

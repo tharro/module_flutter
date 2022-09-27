@@ -60,7 +60,7 @@ class _BankCustomState extends State<BankCustom> {
     BlocProvider.of<BankBloc>(context).add(AddBank(
         onSuccess: () {},
         onError: (message) {
-          showToastBottom(message: message);
+          Helper.showToastBottom(message: message);
         },
         body: body));
   }

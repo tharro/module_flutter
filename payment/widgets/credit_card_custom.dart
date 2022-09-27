@@ -113,7 +113,7 @@ class _CreditCardCustomState extends State<CreditCardCustom> {
             BlocProvider.of<CreditCardBloc>(context).add(AddCreditCard(
                 onSuccess: () {},
                 onError: (message) {
-                  showToastBottom(message: message);
+                  Helper.showToastBottom(message: message);
                 },
                 body: body));
           })

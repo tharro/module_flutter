@@ -40,11 +40,11 @@ class _VerifyState extends State<Verify> {
         userName:
             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
         onError: (message) {
-          showToastBottom(message: message);
+          Helper.showToastBottom(message: message);
         },
         onSuccess: () {
           if (isShowPopup) {
-            showToastBottom(
+            Helper.showToastBottom(
                 message: 'key_resend_code_success'.tr(),
                 type: ToastType.success);
           }
@@ -63,7 +63,7 @@ class _VerifyState extends State<Verify> {
               .username!,
           onError: (message) {
             _codeController.clear();
-            showToastBottom(message: message);
+            Helper.showToastBottom(message: message);
           },
           onSuccess: () {
             if (widget.password != null) {
