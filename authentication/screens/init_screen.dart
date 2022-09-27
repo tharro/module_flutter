@@ -28,7 +28,7 @@ class _InitScreenState extends State<InitScreen> {
       onUpdate: (status) {
         if (status.canUpdate) {
           MyPluginHelper.remove();
-          Helper.showErrorDialog(
+          Helper.showSuccessDialog(
               context: context,
               isShowSecondButton: true,
               message: 'key_update_detail'
