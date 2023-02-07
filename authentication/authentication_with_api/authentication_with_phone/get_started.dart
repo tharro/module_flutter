@@ -1,17 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:plugin_helper/index.dart';
 import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
-import '../../widgets/phone_number_custom.dart';
+
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
+import '../../index.dart';
 import '../../screens/auth/login.dart';
 import '../../screens/auth/sign_up.dart';
 import '../../screens/auth/verify.dart';
-import '../../widgets/button_custom.dart';
-import '../../widgets/overlay_loading_custom.dart';
-import 'package:flutter/material.dart';
-import 'package:plugin_helper/index.dart';
-import '../../index.dart';
 import '../../widgets/bottom_appbar_custom.dart';
+import '../../widgets/button_custom.dart';
 import '../../widgets/loading_custom.dart';
+import '../../widgets/overlay_loading_custom.dart';
+import '../../widgets/phone_number_custom.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);
@@ -35,11 +36,8 @@ class _GetStartedState extends State<GetStarted> {
     if (!_isValidPhone) {
       return;
     }
-    print(_phoneNumber);
+
     BlocProvider.of<AuthBloc>(context).add(AuthGetStarted(
-        onError: (message) {
-          Helper.showToastBottom(message: message);
-        },
         onSuccess: (String value) {
           switch (value) {
             case MyPluginAppConstraints.signUp:
@@ -86,7 +84,7 @@ class _GetStartedState extends State<GetStarted> {
             ),
             body: SingleChildScrollView(
                 child: Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         vertical: AppConstrains.paddingVertical,
                         horizontal: AppConstrains.paddingHorizontal),
                     child: Column(
