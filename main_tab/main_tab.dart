@@ -1,8 +1,9 @@
-import '../../blocs/auth/auth_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plugin_helper/index.dart';
+
+import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_text_styles.dart';
-import 'package:flutter/material.dart';
 
 class MainTab extends StatefulWidget {
   const MainTab({Key? key}) : super(key: key);
