@@ -25,9 +25,6 @@ class _LoginState extends State<Login> {
   final FocusNode _passwordFocusNode = FocusNode();
   _submit() {
     BlocProvider.of<AuthBloc>(context).add(AuthLogin(
-        onError: (message) {
-          Helper.showToastBottom(message: message);
-        },
         userName:
             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
         password: _passwordController.text,

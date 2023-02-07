@@ -1,15 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:plugin_helper/index.dart';
+
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
+import '../../index.dart';
 import '../../screens/auth/get_started.dart';
 import '../../screens/auth/verify.dart';
+import '../../widgets/bottom_appbar_custom.dart';
 import '../../widgets/button_custom.dart';
+import '../../widgets/loading_custom.dart';
 import '../../widgets/overlay_loading_custom.dart';
 import '../../widgets/text_field_custom.dart';
-import 'package:flutter/material.dart';
-import '../../widgets/bottom_appbar_custom.dart';
-import 'package:plugin_helper/index.dart';
-import '../../index.dart';
-import '../../widgets/loading_custom.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key, required this.email}) : super(key: key);
@@ -36,9 +37,6 @@ class _SignUpState extends State<SignUp> {
       return;
     }
     BlocProvider.of<AuthBloc>(context).add(AuthSignUp(
-        onError: (message) {
-          Helper.showToastBottom(message: message);
-        },
         body: {
           'username': BlocProvider.of<AuthBloc>(context)
               .state
@@ -78,7 +76,7 @@ class _SignUpState extends State<SignUp> {
             ),
             body: SingleChildScrollView(
                 child: Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         vertical: AppConstrains.paddingVertical,
                         horizontal: AppConstrains.paddingHorizontal),
                     child: Column(

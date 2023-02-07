@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:plugin_helper/index.dart';
 
 import '../../models/auth/token_model.dart';
@@ -84,9 +83,11 @@ class AuthRepository extends Api {
 
   Future<TokenModel> refreshToken({required String refreshToken}) async {
     final url = APIUrl.refreshToken;
-    final response = await request(url, Method.post, body: {
-      'refresh': refreshToken,
-    });
+    final response = await request(url, Method.post,
+        body: {
+          'refresh': refreshToken,
+        },
+        useIDToken: false);
     return TokenModel.fromJson(response.data);
   }
 

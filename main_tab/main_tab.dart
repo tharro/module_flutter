@@ -61,7 +61,8 @@ class _MainTabState extends State<MainTab> {
         iconNotification: 'icon_notification',
         chanelId: 'chanel',
         chanelName: 'app_channel',
-        channelDescription: 'chanel description');
+        channelDescription: 'chanel description',
+        onShowLocalNotification: (RemoteMessage message) => true);
     super.initState();
   }
 

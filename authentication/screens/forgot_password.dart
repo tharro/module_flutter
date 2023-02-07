@@ -1,15 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:plugin_helper/index.dart';
+
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
+import '../../index.dart';
 import '../../screens/auth/get_started.dart';
+import '../../widgets/bottom_appbar_custom.dart';
 import '../../widgets/button_custom.dart';
+import '../../widgets/loading_custom.dart';
 import '../../widgets/overlay_loading_custom.dart';
 import '../../widgets/pin_put_custom.dart';
 import '../../widgets/text_field_custom.dart';
-import 'package:flutter/material.dart';
-import 'package:plugin_helper/index.dart';
-import '../../index.dart';
-import '../../widgets/bottom_appbar_custom.dart';
-import '../../widgets/loading_custom.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -34,9 +35,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       BlocProvider.of<AuthBloc>(context).add(AuthResetPassword(
           code: _codeController.text,
           password: _passwordController.text,
-          onError: (message) {
-            Helper.showToastBottom(message: message);
-          },
           onSuccess: () {
             //TODO: go to home
           },
@@ -51,9 +49,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     BlocProvider.of<AuthBloc>(context).add(AuthForgotPassword(
         userName:
             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
-        onError: (message) {
-          Helper.showToastBottom(message: message);
-        },
         onSuccess: () {
           if (isPopup) {
             Helper.showToastBottom(

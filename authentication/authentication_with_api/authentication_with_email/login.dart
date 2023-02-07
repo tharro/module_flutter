@@ -1,15 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:plugin_helper/index.dart';
+
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
+import '../../index.dart';
 import '../../screens/auth/forgot_password.dart';
 import '../../screens/auth/get_started.dart';
+import '../../widgets/bottom_appbar_custom.dart';
 import '../../widgets/button_custom.dart';
+import '../../widgets/loading_custom.dart';
 import '../../widgets/overlay_loading_custom.dart';
 import '../../widgets/text_field_custom.dart';
-import 'package:flutter/material.dart';
-import '../../widgets/bottom_appbar_custom.dart';
-import 'package:plugin_helper/index.dart';
-import '../../index.dart';
-import '../../widgets/loading_custom.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key, required this.email}) : super(key: key);
@@ -25,9 +26,6 @@ class _LoginState extends State<Login> {
   final FocusNode _passwordFocusNode = FocusNode();
   _submit() {
     BlocProvider.of<AuthBloc>(context).add(AuthLogin(
-        onError: (message) {
-          Helper.showToastBottom(message: message);
-        },
         userName:
             BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
         password: _passwordController.text,
@@ -56,7 +54,7 @@ class _LoginState extends State<Login> {
             ),
             body: SingleChildScrollView(
                 child: Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         vertical: AppConstrains.paddingVertical,
                         horizontal: AppConstrains.paddingHorizontal),
                     child: Column(

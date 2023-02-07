@@ -1,8 +1,9 @@
-import '../../blocs/auth/auth_bloc.dart';
-import '../../screens/auth/get_started.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
+
+import '../../blocs/auth/auth_bloc.dart';
 import '../../index.dart';
+import '../../screens/auth/get_started.dart';
 
 class InitScreen extends StatefulWidget {
   const InitScreen({Key? key}) : super(key: key);

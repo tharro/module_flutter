@@ -1,10 +1,12 @@
-import '../../models/auth/token_model.dart';
+import 'package:plugin_helper/index.dart';
+
+import '../../index.dart';
 import '../../models/auth/get_started_model.dart';
 import '../../models/auth/profile_model.dart';
+import '../../models/auth/token_model.dart';
 import '../../repositories/auth/auth_repository.dart';
-import 'package:plugin_helper/index.dart';
-import '../../index.dart';
 import '../../screens/auth/get_started.dart';
+
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -80,9 +82,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(loginLoading: false));
-      event.onError(e.parseError.code == 'NotAuthorizedException'
-          ? 'key_wrong_password'.tr()
-          : e.parseError.message);
+      Helper.showToastBottom(
+          message: e.parseError.code == 'NotAuthorizedException'
+              ? 'key_wrong_password'.tr()
+              : e.parseError.message);
     }
   }
 
@@ -106,7 +109,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } catch (e) {
       emit(state.copyWith(getStartedRequesting: false));
-      event.onError(e.parseError.message);
+      Helper.showToastBottom(message: e.parseError.message);
     }
   }
 
@@ -119,7 +122,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(verifyCodeLoading: false));
-      event.onError(e.parseError.message);
+      Helper.showToastBottom(message: e.parseError.message);
     }
   }
 
@@ -131,7 +134,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(signUpLoading: false));
-      event.onError(e.parseError.message);
+      Helper.showToastBottom(message: e.parseError.message);
     }
   }
 
@@ -178,10 +181,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.onSuccess();
       emit(state.copyWith(resetPasswordLoading: false));
     } catch (e) {
-      emit(state.copyWith(
-        resetPasswordLoading: false,
-      ));
-      event.onError(e.parseError.message);
+      emit(state.copyWith(resetPasswordLoading: false));
+      Helper.showToastBottom(message: e.parseError.message);
     }
   }
 
@@ -215,7 +216,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(resetPasswordLoading: false));
-      event.onError(e.parseError.message);
+      Helper.showToastBottom(message: e.parseError.message);
     }
   }
 
@@ -235,7 +236,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(updateProfileLoading: false));
-      event.onError(e.parseError.message);
+      Helper.showToastBottom(message: e.parseError.message);
     }
   }
 
@@ -250,7 +251,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(updatePasswordLoading: false));
-      event.onError(e.parseError.message);
+      Helper.showToastBottom(message: e.parseError.message);
     }
   }
 
