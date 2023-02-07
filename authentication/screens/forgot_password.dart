@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
 
+import '../../widgets/button_custom.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
 import '../../index.dart';
 import '../../screens/auth/get_started.dart';
-import '../../widgets/bottom_appbar_custom.dart';
-import '../../widgets/button_custom.dart';
 import '../../widgets/loading_custom.dart';
 import '../../widgets/overlay_loading_custom.dart';
 import '../../widgets/pin_put_custom.dart';
@@ -20,29 +19,34 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  final TextEditingController _passwordController = TextEditingController();
-  final FocusNode _passwordFocusNode = FocusNode();
+  final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  final FocusNode _confirmPasswordFocusNode = FocusNode();
   final TextEditingController _codeController = TextEditingController();
-  bool _isValidPassword = false;
+
+  bool _isValidNewPassword = false,
+      _isValidConfirmPassword = false,
+      _isValidCode = false;
   String? _errorConfirmPassword;
+
+  bool get _enableButton {
+    return _isValidNewPassword &&
+        _isValidConfirmPassword &&
+        _errorConfirmPassword == null &&
+        _isValidCode;
+  }
+
   _submit() {
-    if (_codeController.text.length == 6 &&
-        _passwordController.text == _confirmPasswordController.text &&
-        _isValidPassword) {
-      BlocProvider.of<AuthBloc>(context).add(AuthResetPassword(
-          code: _codeController.text,
-          password: _passwordController.text,
-          onSuccess: () {
-            //TODO: go to home
-          },
-          userName: BlocProvider.of<AuthBloc>(context)
-              .state
-              .getStartedModel!
-              .username!));
-    }
+    BlocProvider.of<AuthBloc>(context).add(AuthResetPassword(
+        code: _codeController.text,
+        password: _newPasswordController.text,
+        onSuccess: () {
+          //TODO: go to home
+        },
+        userName: BlocProvider.of<AuthBloc>(context)
+            .state
+            .getStartedModel!
+            .username!));
   }
 
   _resendCode({bool isPopup = false}) {
@@ -56,6 +60,23 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 type: ToastType.success);
           }
         }));
+  }
+
+  _checkMatchPassword() {
+    if (_newPasswordController.text.trim().isEmpty ||
+        _confirmPasswordController.text.trim().isEmpty) {
+      return;
+    }
+    if (_newPasswordController.text.trim() !=
+        _confirmPasswordController.text.trim()) {
+      setState(() {
+        _errorConfirmPassword = 'key_password_not_match'.tr();
+      });
+      return;
+    }
+    setState(() {
+      _errorConfirmPassword = null;
+    });
   }
 
   @override
@@ -74,14 +95,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           },
         ),
         child: Scaffold(
-            bottomNavigationBar: BottomAppBarCustom(
-              child: ButtonCustom(
-                onPressed: () {
-                  _submit();
-                },
-                title: 'key_reset_password'.tr(),
-              ),
-            ),
             body: SingleChildScrollView(
                 child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -91,48 +104,44 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       children: [
                         PinPutCustom(
                           controller: _codeController,
-                          onChange: (val) {},
+                          onChange: (val) {
+                            bool isValid = val.length == 6;
+                            setState(() {
+                              _isValidCode = isValid;
+                            });
+                          },
                           onCompleted: (code) {},
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        10.h,
                         TextFieldCustom(
-                          controller: _passwordController,
-                          focusNode: _passwordFocusNode,
                           validType: ValidType.password,
-                          hintText: 'key_password'.tr(),
-                          onValid: (bool valid) {
-                            _isValidPassword = valid;
+                          label: 'key_new_password'.tr(),
+                          passwordValidType: PasswordValidType.notEmpty,
+                          controller: _newPasswordController,
+                          onListenController: () {
+                            _checkMatchPassword();
+                          },
+                          onValid: (valid) {
+                            setState(() {
+                              _isValidNewPassword = valid;
+                            });
                           },
                           textInputAction: TextInputAction.next,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        16.h,
                         TextFieldCustom(
-                          controller: _confirmPasswordController,
-                          focusNode: _confirmPasswordFocusNode,
                           validType: ValidType.password,
-                          hintText: 'key_confirm_password'.tr(),
-                          textError: _errorConfirmPassword,
+                          label: 'key_confirm_password'.tr(),
+                          controller: _confirmPasswordController,
+                          passwordValidType: PasswordValidType.notEmpty,
                           onListenController: () {
-                            if (_confirmPasswordController.text.trim() !=
-                                _passwordController.text.trim()) {
-                              if (_errorConfirmPassword == null) {
-                                setState(() {
-                                  _errorConfirmPassword =
-                                      'key_password_not_match'.tr();
-                                });
-                              }
-                            } else if (_errorConfirmPassword != null) {
-                              setState(() {
-                                _errorConfirmPassword = null;
-                              });
-                            }
+                            _checkMatchPassword();
                           },
-                          onFieldSubmitted: (text) {
-                            _submit();
+                          textError: _errorConfirmPassword,
+                          onValid: (valid) {
+                            setState(() {
+                              _isValidConfirmPassword = valid;
+                            });
                           },
                         ),
                         GestureDetector(
@@ -146,6 +155,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               _resendCode();
                             },
                             child: Text('key_resend_code'.tr())),
+                        16.h,
+                        ButtonCustom(
+                          onPressed: _submit,
+                          enabled: _enableButton,
+                          title: 'key_continue'.tr(),
+                        )
                       ],
                     )))));
   }
