@@ -1,18 +1,18 @@
-import '../../screens/auth/options_verify.dart';
-import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
-import '../../widgets/bottom_appbar_custom.dart';
-import '../../widgets/phone_number_custom.dart';
-import '../../blocs/auth/auth_bloc.dart';
-import '../../configs/app_constrains.dart';
-import '../../screens/auth/get_started.dart';
-import '../../widgets/button_custom.dart';
-import '../../widgets/overlay_loading_custom.dart';
-import '../../widgets/text_field_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
-import '../../index.dart';
-import '../../widgets/loading_custom.dart';
 import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
+
+import '../../blocs/auth/auth_bloc.dart';
+import '../../configs/app_constrains.dart';
+import '../../index.dart';
+import '../../screens/auth/get_started.dart';
+import '../../screens/auth/options_verify.dart';
+import '../../widgets/bottom_appbar_custom.dart';
+import '../../widgets/button_custom.dart';
+import '../../widgets/loading_custom.dart';
+import '../../widgets/overlay_loading_custom.dart';
+import '../../widgets/phone_number_custom.dart';
+import '../../widgets/text_field_custom.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key, required this.emailOrPhone}) : super(key: key);
@@ -38,7 +38,7 @@ class _SignUpState extends State<SignUp> {
       _isValidPhone = false,
       _isValidEmail = false;
   String _phoneNumber = '';
-  final PhoneNumber _initPhone = PhoneNumber(dialCode: '+61', isoCode: 'AU');
+  PhoneNumber _initPhone = PhoneNumber(dialCode: '+61', isoCode: 'AU');
 
   _submit() {
     if (!_isValidPassword ||
@@ -49,9 +49,6 @@ class _SignUpState extends State<SignUp> {
       return;
     }
     BlocProvider.of<AuthBloc>(context).add(AuthSignUp(
-        onError: (message) {
-          Helper.showToastBottom(message: message);
-        },
         body: {
           'username': BlocProvider.of<AuthBloc>(context)
               .state

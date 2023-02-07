@@ -1,12 +1,12 @@
-import '../../screens/auth/verify.dart';
-import '../../widgets/button_custom.dart';
+import 'package:flutter/material.dart';
+import 'package:plugin_helper/index.dart';
 
 import '../../blocs/auth/auth_bloc.dart';
 import '../../configs/app_constrains.dart';
-import '../../screens/auth/get_started.dart';
-import 'package:flutter/material.dart';
-import 'package:plugin_helper/index.dart';
 import '../../index.dart';
+import '../../screens/auth/get_started.dart';
+import '../../screens/auth/verify.dart';
+import '../../widgets/button_custom.dart';
 
 class OptionsVerify extends StatefulWidget {
   final String? password;

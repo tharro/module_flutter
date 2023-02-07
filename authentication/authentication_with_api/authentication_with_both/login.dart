@@ -1,15 +1,16 @@
-import '../../widgets/bottom_appbar_custom.dart';
-import '../../blocs/auth/auth_bloc.dart';
-import '../../configs/app_constrains.dart';
-import '../../screens/auth/forgot_password.dart';
-import '../../screens/auth/get_started.dart';
-import '../../widgets/button_custom.dart';
-import '../../widgets/overlay_loading_custom.dart';
-import '../../widgets/text_field_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
+
+import '../../blocs/auth/auth_bloc.dart';
+import '../../configs/app_constrains.dart';
 import '../../index.dart';
+import '../../screens/auth/forgot_password.dart';
+import '../../screens/auth/get_started.dart';
+import '../../widgets/bottom_appbar_custom.dart';
+import '../../widgets/button_custom.dart';
 import '../../widgets/loading_custom.dart';
+import '../../widgets/overlay_loading_custom.dart';
+import '../../widgets/text_field_custom.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key, required this.emailOrPhone}) : super(key: key);
