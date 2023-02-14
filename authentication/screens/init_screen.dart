@@ -32,7 +32,7 @@ class _InitScreenState extends State<InitScreen> {
           Helper.showSuccessDialog(
               context: context,
               isShowSecondButton: true,
-              message: 'key_update_detail'
+              message: 'key_update_version_detail'
                   .tr()
                   .replaceAll(':localVersion', status.localVersion)
                   .replaceAll(':storeVersion', status.storeVersion),
