@@ -64,12 +64,8 @@ class Api {
             userId: users.userId!,
             token: tokenModel.token,
             refreshToken: tokenModel.refreshToken,
-            expiredToken: DateTime.fromMillisecondsSinceEpoch(
-                    tokenModel.expiredToken * 1000)
-                .toString(),
-            expiredRefreshToken: DateTime.fromMillisecondsSinceEpoch(
-                    tokenModel.expiredRefreshToken * 1000)
-                .toString(),
+            expiredToken: tokenModel.expiredToken * 1000,
+            expiredRefreshToken: tokenModel.expiredRefreshToken * 1000,
           );
         }
       }

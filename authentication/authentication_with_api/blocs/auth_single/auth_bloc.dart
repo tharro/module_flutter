@@ -40,12 +40,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             userId: users.userId!,
             token: tokenModel.token,
             refreshToken: tokenModel.refreshToken,
-            expiredToken: DateTime.fromMillisecondsSinceEpoch(
-                    tokenModel.expiredToken * 1000)
-                .toString(),
-            expiredRefreshToken: DateTime.fromMillisecondsSinceEpoch(
-                    tokenModel.expiredRefreshToken * 1000)
-                .toString(),
+            expiredToken: tokenModel.expiredToken * 1000,
+            expiredRefreshToken: tokenModel.expiredRefreshToken * 1000,
           );
         }
         final profile = await authRepositories.getProfile();
@@ -70,12 +66,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         userId: event.userName,
         token: tokenModel.token,
         refreshToken: tokenModel.refreshToken,
-        expiredToken:
-            DateTime.fromMillisecondsSinceEpoch(tokenModel.expiredToken * 1000)
-                .toString(),
-        expiredRefreshToken: DateTime.fromMillisecondsSinceEpoch(
-                tokenModel.expiredRefreshToken * 1000)
-            .toString(),
+        expiredToken: tokenModel.expiredToken * 1000,
+        expiredRefreshToken: tokenModel.expiredRefreshToken * 1000,
       );
       ProfileModel profileModel = await authRepositories.getProfile();
       emit(state.copyWith(profileModel: profileModel, loginLoading: false));
@@ -153,12 +145,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           userId: event.userName,
           token: tokenModel.token,
           refreshToken: tokenModel.refreshToken,
-          expiredToken: DateTime.fromMillisecondsSinceEpoch(
-                  tokenModel.expiredToken * 1000)
-              .toString(),
-          expiredRefreshToken: DateTime.fromMillisecondsSinceEpoch(
-                  tokenModel.expiredRefreshToken * 1000)
-              .toString(),
+          expiredToken: tokenModel.expiredToken * 1000,
+          expiredRefreshToken: tokenModel.expiredRefreshToken * 1000,
         );
         ProfileModel profileModel = await authRepositories.getProfile();
         emit(state.copyWith(
@@ -203,12 +191,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         userId: event.userName,
         token: tokenModel.token,
         refreshToken: tokenModel.refreshToken,
-        expiredToken:
-            DateTime.fromMillisecondsSinceEpoch(tokenModel.expiredToken * 1000)
-                .toString(),
-        expiredRefreshToken: DateTime.fromMillisecondsSinceEpoch(
-                tokenModel.expiredRefreshToken * 1000)
-            .toString(),
+        expiredToken: tokenModel.expiredToken * 1000,
+        expiredRefreshToken: tokenModel.expiredRefreshToken * 1000,
       );
       ProfileModel profileModel = await authRepositories.getProfile();
       emit(state.copyWith(
