@@ -43,6 +43,7 @@ class _InitScreenState extends State<InitScreen> {
               },
               onPressPrimaryButton: () async {
                 goBack();
+                _getData();
                 try {
                   if (await canLaunchUrl(Uri.parse(status.appStoreLink))) {
                     await launchUrl(Uri.parse(status.appStoreLink));
@@ -50,7 +51,6 @@ class _InitScreenState extends State<InitScreen> {
                     throw 'Could not launch appStoreLink';
                   }
                 } catch (e) {}
-                _getData();
               });
         } else {
           _getData(isHideSplashScreen: true);
