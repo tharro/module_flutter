@@ -115,8 +115,7 @@ class _VerifyState extends State<Verify> {
                             child: Text('key_resend_code'.tr())),
                         GestureDetector(
                             onTap: () {
-                              MyPluginNavigation.instance
-                                  .replace(const GetStarted());
+                              replace(const GetStarted());
                             },
                             child: Text('key_use_another_account'.tr())),
                       ],

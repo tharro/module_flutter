@@ -118,6 +118,7 @@ class _InitScreenState extends State<InitScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // TODO: set background color
       body: Container(),
     );
   }

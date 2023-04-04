@@ -101,9 +101,7 @@ class _SignUpState extends State<SignUp> {
                           },
                           textInputAction: TextInputAction.next,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        10.h,
                         TextFieldCustom(
                           controller: _firstNameController,
                           focusNode: _firstNameFocusNode,
@@ -114,9 +112,7 @@ class _SignUpState extends State<SignUp> {
                           },
                           textInputAction: TextInputAction.next,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        10.h,
                         TextFieldCustom(
                           controller: _lastNameController,
                           focusNode: _lastNameFocusNode,
@@ -131,8 +127,7 @@ class _SignUpState extends State<SignUp> {
                         ),
                         GestureDetector(
                             onTap: () {
-                              MyPluginNavigation.instance
-                                  .replace(const GetStarted());
+                              replace(const GetStarted());
                             },
                             child: Text('key_use_another_account'.tr())),
                       ],

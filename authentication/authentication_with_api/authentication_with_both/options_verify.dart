@@ -72,7 +72,7 @@ class _OptionsVerifyState extends State<OptionsVerify> {
                                       }))
                             ],
                           )),
-                      const SizedBox(height: 20),
+                      20.h,
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 3),

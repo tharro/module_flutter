@@ -146,8 +146,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                         GestureDetector(
                             onTap: () {
-                              MyPluginNavigation.instance
-                                  .replace(const GetStarted());
+                              replace(const GetStarted());
                             },
                             child: Text('key_use_another_account'.tr())),
                         GestureDetector(

@@ -66,9 +66,7 @@ class _LoginState extends State<Login> {
                           hintText: widget.email,
                           enabled: false,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        10.h,
                         TextFieldCustom(
                           controller: _passwordController,
                           focusNode: _passwordFocusNode,
@@ -79,13 +77,10 @@ class _LoginState extends State<Login> {
                             _submit();
                           },
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        10.h,
                         GestureDetector(
                             onTap: () {
-                              MyPluginNavigation.instance
-                                  .replace(const GetStarted());
+                              replace(const GetStarted());
                             },
                             child: Text('key_use_another_account'.tr())),
                         GestureDetector(
