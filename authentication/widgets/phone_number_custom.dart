@@ -1,8 +1,9 @@
-import '../../configs/app_text_styles.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
 import 'package:plugin_helper/index.dart';
+import 'package:plugin_helper/widgets/phone_number/intl_phone_number_input.dart';
+
+import '../../configs/app_text_styles.dart';
 
 class PhoneNumberCustom extends StatefulWidget {
   final bool autoFocus;
@@ -12,7 +13,8 @@ class PhoneNumberCustom extends StatefulWidget {
   final String? label, labelSearch;
   final TextEditingController controller;
   final FocusNode focusNode;
-  final Function? onFieldSubmitted, onInputChanged, onSaved;
+  final Function()? onFieldSubmitted;
+  final Function(PhoneNumber)? onSaved, onInputChanged;
   final Function(bool)? onInputValidated;
   const PhoneNumberCustom({
     Key? key,
@@ -61,8 +63,10 @@ class _PhoneNumberCustomState extends State<PhoneNumberCustom> {
       selectorConfig: const SelectorConfig(
           selectorType: PhoneInputSelectorType.DIALOG,
           showFlags: true,
-          boxDecoration: BoxDecoration(),
-          trailingSpace: false),
+          boxDecoration: BoxDecoration()),
+      hintStyle: AppTextStyles.textSize12(),
+      labelStyle: AppTextStyles.textSize12(),
+      selectorTextStyle: AppTextStyles.textSize12(),
     );
   }
 }
