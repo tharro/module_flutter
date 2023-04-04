@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import './address_model.dart';
 
 class AddressDetailModel extends Equatable {
   const AddressDetailModel({
@@ -28,6 +29,52 @@ class AddressDetailModel extends Equatable {
         "result": result!.toMap(),
         "status": status,
       };
+
+  /// Use to send data
+  Address mapToAddress(Prediction value) {
+    String postcode = '';
+    String city = '';
+    String state = '';
+    String address = '';
+    String country = 'Australia';
+    final addressComponents = result?.addressComponents ?? [];
+    if (addressComponents.isNotEmpty) {
+      final type =
+          (addressComponents[addressComponents.length - 1].types ?? []);
+      if (type.isNotEmpty) {
+        if (type.first == 'postal_code') {
+          postcode = addressComponents[addressComponents.length - 1].longName!;
+        }
+      }
+    }
+
+    final arrAddress = value.description!.split(',');
+    if (arrAddress.length >= 2) {
+      address = '${arrAddress.first}, ${arrAddress[1]}';
+    } else {
+      address = arrAddress.first;
+    }
+
+    if (value.structuredFormatting != null) {
+      final arrAddress = value.structuredFormatting!.secondaryText!.split(',');
+      if (arrAddress.isNotEmpty) {
+        final arrStateAndCity = arrAddress.first.split(' ');
+        city = arrStateAndCity.first;
+        state = arrStateAndCity[arrStateAndCity.length - 1];
+      }
+    }
+
+    return Address(
+      address: address,
+      country: country,
+      postcode: postcode,
+      city: city,
+      state: state,
+      lat: result?.geometry?.location?.lat ?? 0,
+      lng: result?.geometry?.location?.lng ?? 0,
+      id: result?.placeId ?? '',
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -231,5 +278,49 @@ class Viewport {
   Map<String, dynamic> toMap() => {
         "northeast": northeast!.toMap(),
         "southwest": southwest!.toMap(),
+      };
+}
+
+class Address {
+  Address({
+    this.id,
+    required this.address,
+    required this.city,
+    required this.state,
+    required this.country,
+    required this.postcode,
+    required this.lat,
+    required this.lng,
+  });
+
+  String? id;
+  String address;
+  String city;
+  String state;
+  String country;
+  String postcode;
+  double lat;
+  double lng;
+
+  factory Address.fromJson(Map<String, dynamic> json) => Address(
+        id: json["id"] ?? "",
+        address: json["address"] ?? "",
+        city: json["city"] ?? "",
+        state: json["state"] ?? "",
+        country: json["country"] ?? "",
+        postcode: json["postcode"] ?? "",
+        lat: json["lat"] ?? 0,
+        lng: json["lng"] ?? 0,
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "address": address,
+        "city": city,
+        "state": state,
+        "country": country,
+        "postcode": postcode,
+        "lat": lat,
+        "lng": lng,
       };
 }

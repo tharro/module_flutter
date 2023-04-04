@@ -1,42 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-class ListAddressModel extends Equatable {
-  const ListAddressModel({
-    this.predictions,
-    this.status,
-  });
-
-  final List<Prediction>? predictions;
-  final String? status;
-
-  ListAddressModel copyWith({
-    List<Prediction>? predictions,
-    String? status,
-  }) =>
-      ListAddressModel(
-        predictions: predictions ?? this.predictions,
-        status: status ?? this.status,
-      );
-
-  factory ListAddressModel.fromJson(Map<String, dynamic> json) =>
-      ListAddressModel(
-        predictions: List<Prediction>.from(
-            json["predictions"].map((x) => Prediction.fromMap(x))),
-        status: json["status"],
-      );
-
-  Map<String, dynamic> toMap() => {
-        "predictions": List<dynamic>.from(predictions!.map((x) => x.toMap())),
-        "status": status,
-      };
-
-  @override
-  List<Object?> get props => [
-        predictions,
-        status,
-      ];
-}
-
 class Prediction extends Equatable {
   const Prediction({
     this.description,
