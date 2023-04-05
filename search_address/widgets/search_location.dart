@@ -263,6 +263,11 @@ class _SearchLocationState extends State<SearchLocation> {
                                         : Colors.grey.shade300))),
                         child: Row(
                           children: [
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.grey[400],
+                            ),
+                            8.w,
                             Expanded(
                                 child: Text(
                               address.description!,
