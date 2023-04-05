@@ -1,6 +1,6 @@
-"key_required": "Required",
-"key_address": "Address",
-"key_state": "State",
-"key_city": "City",
-"key_country": "Country",
-"key_postcode": "Postcode"
+    "key_required": "Required",
+    "key_address": "Address",
+    "key_state": "State",
+    "key_city": "City",
+    "key_country": "Country",
+    "key_postcode": "Postcode"
