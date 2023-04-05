@@ -188,43 +188,50 @@ class _SearchLocationState extends State<SearchLocation> {
                         },
                       ),
                       16.h,
-                      ButtonCustom(
-                          enabled: _isValidAddress &&
-                              _isValidCity &&
-                              _isValidState &&
-                              _isValidPostcode &&
-                              _isValidCountry,
-                          title: 'key_continue'.tr(),
-                          onPressed: () {
-                            goBack(
-                                context: context,
-                                callback: Address(
-                                  address: _addressController.text,
-                                  city: _cityController.text,
-                                  state: _stateController.text,
-                                  country: _countryController.text,
-                                  postcode: _postcodeController.text,
-                                  lat: _lat ?? 0.0,
-                                  lng: _lng ?? 0.0,
-                                ));
-                          }),
-                      8.h,
-                      ButtonCustom(
-                          title: 'key_cancel'.tr(),
-                          isSecondary: true,
-                          onPressed: () {
-                            if (widget.address != null) {
-                              goBack();
-                              return;
-                            }
+                      Row(
+                        children: [
+                          Expanded(
+                              child: ButtonCustom(
+                                  enabled: _isValidAddress &&
+                                      _isValidCity &&
+                                      _isValidState &&
+                                      _isValidPostcode &&
+                                      _isValidCountry,
+                                  title: 'key_continue'.tr(),
+                                  onPressed: () {
+                                    goBack(
+                                        context: context,
+                                        callback: Address(
+                                          address: _addressController.text,
+                                          city: _cityController.text,
+                                          state: _stateController.text,
+                                          country: _countryController.text,
+                                          postcode: _postcodeController.text,
+                                          lat: _lat ?? 0.0,
+                                          lng: _lng ?? 0.0,
+                                        ));
+                                  })),
+                          16.w,
+                          Expanded(
+                            child: ButtonCustom(
+                                title: 'key_cancel'.tr(),
+                                isSecondary: true,
+                                onPressed: () {
+                                  if (widget.address != null) {
+                                    goBack();
+                                    return;
+                                  }
 
-                            _addressController.clear();
-                            _cityController.clear();
-                            _stateController.clear();
-                            _countryController.clear();
-                            _postcodeController.clear();
-                            setState(() {});
-                          }),
+                                  _addressController.clear();
+                                  _cityController.clear();
+                                  _stateController.clear();
+                                  _countryController.clear();
+                                  _postcodeController.clear();
+                                  setState(() {});
+                                }),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: context.safeViewBottom)
                     ],
                   ),
