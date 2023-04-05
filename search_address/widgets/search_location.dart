@@ -22,6 +22,7 @@ class SearchLocation extends StatefulWidget {
 }
 
 class _SearchLocationState extends State<SearchLocation> {
+  final SearchAddressBloc _searchAddressBloc = SearchAddressBloc();
   List<Prediction> _addresses = [];
   bool _isValidAddress = false,
       _isValidCity = false,
@@ -36,7 +37,7 @@ class _SearchLocationState extends State<SearchLocation> {
   double? _lat = 0, _lng = 0;
 
   _getData({required String text}) {
-    BlocProvider.of<SearchAddressBloc>(context).add(SearchAddressOSM(
+    _searchAddressBloc.add(SearchAddressOSM(
         address: text,
         onSuccess: (predictions) {
           if (!mounted) return;
@@ -47,7 +48,7 @@ class _SearchLocationState extends State<SearchLocation> {
   }
 
   _onGetAddressDetails(Prediction prediction) {
-    BlocProvider.of<SearchAddressBloc>(context).add(GetAddressOSMDetails(
+    _searchAddressBloc.add(GetAddressOSMDetails(
         prediction: prediction,
         onSuccess: (address) {
           _addressController.text = address.address;
@@ -79,6 +80,7 @@ class _SearchLocationState extends State<SearchLocation> {
   Widget build(BuildContext context) {
     return OverlayLoadingCustom(
       loadingWidget: BlocBuilder<SearchAddressBloc, SearchAddressState>(
+        bloc: _searchAddressBloc,
         builder: (context, state) {
           return LoadingCustom(
             isOverlay: true,
@@ -111,6 +113,7 @@ class _SearchLocationState extends State<SearchLocation> {
           context: context,
         ),
         body: BlocBuilder<SearchAddressBloc, SearchAddressState>(
+          bloc: _searchAddressBloc,
           builder: (context, state) {
             if (state.searchAddressLoading!) {
               return const Center(child: LoadingCustom());
