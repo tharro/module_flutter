@@ -1,3 +1,4 @@
+import 'package:boilerplatemobile/widgets/error_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
 
@@ -119,6 +120,11 @@ class _SearchLocationState extends State<SearchLocation> {
               return const Center(child: LoadingCustom());
             }
 
+            if (state.errorSearchAddress!.isNotEmpty) {
+              return Center(
+                  child: ErrorCustom(error: state.errorSearchAddress!));
+            }
+
             if (_addressController.text.trim().isNotEmpty) {
               return SingleChildScrollView(
                 child: Padding(
@@ -126,7 +132,7 @@ class _SearchLocationState extends State<SearchLocation> {
                       horizontal: AppConstrains.paddingHorizontal),
                   child: Column(
                     children: [
-                      32.h,
+                      16.h,
                       TextFieldCustom(
                         controller: _addressController,
                         validType: ValidType.notEmpty,
@@ -139,7 +145,7 @@ class _SearchLocationState extends State<SearchLocation> {
                         },
                         textInputAction: TextInputAction.next,
                       ),
-                      8.h,
+                      16.h,
                       TextFieldCustom(
                         label: 'key_city'.tr(),
                         hintText: 'key_required'.tr(),
@@ -152,7 +158,7 @@ class _SearchLocationState extends State<SearchLocation> {
                         },
                         textInputAction: TextInputAction.next,
                       ),
-                      8.h,
+                      16.h,
                       TextFieldCustom(
                         label: 'key_state'.tr(),
                         hintText: 'key_required'.tr(),
@@ -165,7 +171,7 @@ class _SearchLocationState extends State<SearchLocation> {
                         },
                         textInputAction: TextInputAction.next,
                       ),
-                      8.h,
+                      16.h,
                       TextFieldCustom(
                         label: 'key_country'.tr(),
                         hintText: 'key_required'.tr(),
@@ -178,7 +184,7 @@ class _SearchLocationState extends State<SearchLocation> {
                         validType: ValidType.notEmpty,
                         textInputAction: TextInputAction.next,
                       ),
-                      8.h,
+                      16.h,
                       TextFieldCustom(
                         label: 'key_postcode'.tr(),
                         hintText: 'key_required'.tr(),
@@ -264,14 +270,14 @@ class _SearchLocationState extends State<SearchLocation> {
                         child: Row(
                           children: [
                             Icon(
-                              Icons.location_on,
+                              Icons.location_on_outlined,
                               color: Colors.grey[400],
                             ),
                             8.w,
                             Expanded(
                                 child: Text(
                               address.description!,
-                              style: AppTextStyles.textSize12(),
+                              style: AppTextStyles.textSize14(),
                             )),
                           ],
                         ),

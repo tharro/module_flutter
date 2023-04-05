@@ -22,6 +22,8 @@ class SearchAddressBloc extends Bloc<SearchAddressEvent, SearchAddressState> {
       List<Prediction> addresses =
           await addressRepository.searchAddress(address: event.address);
       event.onSuccess(addresses);
+    } catch (e) {
+      emit(state.copyWith(errorSearchAddress: e.parseError.message));
     } finally {
       emit(state.copyWith(searchAddressLoading: false));
     }
