@@ -1,0 +1,9 @@
+    "key_add_payment_method": "Add payment method",
+    "key_provide_your_credit_card_information": "Provide your credit card information",
+    "key_card_number": "Card number",
+    "key_expired": "Expiration",
+    "key_cvv": "CVV/CVC",
+    "key_add_card": "Submit payment method",
+    "key_add_payment_success": "This card has been added successfully!",
+    "key_payment_method": "Payment method",
+    "key_ask_delete_card": "Are you sure to delete this card?"
