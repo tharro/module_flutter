@@ -2,7 +2,7 @@ import 'package:plugin_helper/index.dart';
 
 import '../../api/apiUrl.dart';
 import '../../index.dart';
-import '../../models/templateList/templateList_model.dart';
+import '../../models/template_list/template_list_model.dart';
 import '../../repositories/template_list/template_list_repository.dart';
 
 part 'template_list_event.dart';
