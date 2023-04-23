@@ -11,12 +11,12 @@ part 'template_list_state.dart';
 class TemplateListBloc extends Bloc<TemplateListEvent, TemplateListState> {
   TemplateListRepository templateListRepositories = TemplateListRepository();
   TemplateListBloc() : super(TemplateListState.empty()) {
-    on<GetListTemplateList>(_getListTemplateList);
+    on<GetTemplateList>(_getTemplateList);
   }
 
   // Handle load data
-  void _getListTemplateList(
-      GetListTemplateList event, Emitter<TemplateListState> emit) async {
+  void _getTemplateList(
+      GetTemplateList event, Emitter<TemplateListState> emit) async {
     if (event.isLoadingMore &&
         (state.listTemplateList.next == null ||
             state.listTemplateList.isLoadingMore)) {
