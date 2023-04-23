@@ -34,7 +34,7 @@ class TemplateListBloc extends Bloc<TemplateListEvent, TemplateListState> {
               isLoading: !event.isLoadingMore && !event.isFreshing,
               isRefreshing: !event.isLoadingMore && event.isFreshing)));
       ListModel<TemplateListModel> newTemplateListList =
-          await TemplateListRepositories.getListTemplateList(
+          await templateListRepositories.getListTemplateList(
               url: event.isLoadingMore
                   ? state.listTemplateList.next!
                   : APIUrl.listTemplateList);
