@@ -7,13 +7,12 @@ abstract class TemplateListEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetListTemplateList extends TemplateListEvent {
+class GetTemplateList extends TemplateListEvent {
   /// When user pull to refresh
   final bool isFreshing;
 
   /// When user scroll to end the list
   final bool isLoadingMore;
 
-  const GetListTemplateList(
-      {this.isFreshing = false, this.isLoadingMore = false});
+  const GetTemplateList({this.isFreshing = false, this.isLoadingMore = false});
 }
