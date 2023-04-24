@@ -1,0 +1,155 @@
+/* 
+  To use task, 
+    - Press CMD + Shift + P
+    - Enter `Task: Run Tasks`, then select task that you want
+*/
+{
+  "version": "2.0.0",
+  "tasks": [
+    //================================================================================
+    //================================= BUILD ========================================
+    //================================================================================
+    {
+      "label": "Build Dev (Android & iOS)",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "chmod +x .vscode/build/build_dev.sh; .vscode/build/build_dev.sh"
+    },
+    {
+      "label": "Build Android dev",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "cd android; ./gradlew -PfinalDev; flutter build apk --flavor dev -t lib/main_dev.dart"
+    },
+    {
+      "label": "Build iOS Dev",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "chmod +x .vscode/build/build_ios_dev.sh; .vscode/build/build_ios_dev.sh"
+    },
+    {
+      "label": "Build Stage (Android & iOS)",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "chmod +x .vscode/build/build_stage.sh; .vscode/build/build_stage.sh"
+    },
+    {
+      "label": "Build Android Stage",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "cd android; ./gradlew -PfinalStage; flutter build apk --flavor stage -t lib/main_stage.dart"
+    },
+    {
+      "label": "Build iOS Stage",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "chmod +x .vscode/build/build_ios_stage.sh; .vscode/build/build_ios_stage.sh"
+    },
+    {
+      "label": "Build Prod (Android & iOS)",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "chmod +x .vscode/build/build_prod.sh; .vscode/build/build_prod.sh"
+    },
+    {
+      "label": "Build Android Prod",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "cd android; ./gradlew -PfinalProd; flutter build appbundle --flavor prod -t lib/main.dart"
+    },
+    {
+      "label": "Build iOS Prod",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "chmod +x .vscode/build/build_ios_prod.sh; .vscode/build/build_ios_prod.sh"
+    },
+    {
+      "label": "Build Prod (Android & iOS - only increase number)",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "chmod +x .vscode/build/build_prod_increase_number.sh; .vscode/build/build_prod_increase_number.sh"
+    },
+    {
+      "label": "Build Android Prod (only increase number)",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "cd android; ./gradlew -PfinalProdOnlyIncreaseBuildNumber; flutter build appbundle --flavor prod -t lib/main.dart"
+    },
+    {
+      "label": "Build APK Prod (only increase number)",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "cd android; ./gradlew -PfinalProdOnlyIncreaseBuildNumber; flutter build apk --flavor prod -t lib/main.dart"
+    },
+    {
+      "label": "Build iOS (only increase number)",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "chmod +x .vscode/build/build_ios_prod_increase_number.sh; .vscode/build/build_ios_prod_increase_number.sh"
+    },
+    {
+      "label": "Build APK Prod",
+      "type": "shell",
+      "icon": {"id": "run", "color": "terminal.ansiGreen"},
+      "command": "flutter build apk --flavor prod -t lib/main.dart"
+    },
+    
+    //================================================================================
+    //================================== FLOW ========================================
+    //================================================================================
+    {
+      "label": "Reset tools",
+      "type": "shell",
+      "icon": {"id": "type-hierarchy-super", "color": "terminal.ansiYellow"},
+      "command": "chmod +x .vscode/flow/flow_reset_tools.sh; .vscode/flow/flow_reset_tools.sh"
+    },
+    {
+      "label": "Flow Authentication via API (using Email)",
+      "type": "shell",
+      "icon": {"id": "type-hierarchy-super", "color": "terminal.ansiYellow"},
+      "command": "chmod +x .vscode/flow/flow_authentication_using_email.sh; .vscode/flow/flow_authentication_using_email.sh"
+    },
+    {
+      "label": "Flow Authentication via API (using Phone)",
+      "type": "shell",
+      "icon": {"id": "type-hierarchy-super", "color": "terminal.ansiYellow"},
+      "command": "chmod +x .vscode/flow/flow_authentication_using_phone.sh; .vscode/flow/flow_authentication_using_phone.sh"
+    },
+    {
+      "label": "Flow Authentication via API (using Email & Phone)",
+      "type": "shell",
+      "icon": {"id": "type-hierarchy-super", "color": "terminal.ansiYellow"},
+      "command": "chmod +x .vscode/flow/flow_authentication_using_both.sh; .vscode/flow/flow_authentication_using_both.sh"
+    },
+    {
+      "label": "Flow Main Tab (for Bottom Tab)",
+      "type": "shell",
+      "icon": {"id": "type-hierarchy-super", "color": "terminal.ansiYellow"},
+      "command": "chmod +x .vscode/flow/flow_main_tab.sh; .vscode/flow/flow_main_tab.sh"
+    },
+    {
+      "label": "Flow Search Address",
+      "type": "shell",
+      "icon": {"id": "type-hierarchy-super", "color": "terminal.ansiYellow"},
+      "command": "chmod +x .vscode/flow/flow_search_address.sh; .vscode/flow/flow_search_address.sh"
+    },
+    {
+      "label": "Flow Payment",
+      "type": "shell",
+      "icon": {"id": "type-hierarchy-super", "color": "terminal.ansiYellow"},
+      "command": "chmod +x .vscode/flow/flow_payment.sh; .vscode/flow/flow_payment.sh"
+    },
+    {
+      "label": "Generate List View (Horizontal, Vertical or Gridview)",
+      "type": "shell",
+      "icon": {"id": "type-hierarchy-super", "color": "terminal.ansiYellow"},
+      "command": "chmod +x .vscode/flow/generate_list_view.sh; .vscode/flow/generate_list_view.sh"
+    },
+    {
+      "label": "Generate Assets",
+      "type": "shell",
+      "icon": {"id": "type-hierarchy-super", "color": "terminal.ansiYellow"},
+      "command": "chmod +x .vscode/flow/generate_assets.sh; .vscode/flow/generate_assets.sh"
+    },
+  ]
+}
