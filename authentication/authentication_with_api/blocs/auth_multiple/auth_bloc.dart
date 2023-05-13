@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:plugin_firebase/index.dart';
 import 'package:plugin_helper/index.dart';
 
 import '../../index.dart';

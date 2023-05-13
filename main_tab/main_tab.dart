@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plugin_firebase/index.dart';
 import 'package:plugin_helper/index.dart';
 
 import '../../blocs/auth/auth_bloc.dart';
