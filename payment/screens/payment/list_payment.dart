@@ -47,55 +47,49 @@ class _ListPaymentState extends State<ListPayment> {
         },
       ),
       child: Scaffold(
-        appBar: HeaderCustom(
-          context: context,
-          textTitle: 'key_payment_method'.tr(),
-          actions: [
-            Center(
-                child: Padding(
-              padding:
-                  const EdgeInsets.only(right: AppConstrains.paddingHorizontal),
-              child: AddIcon(onTap: () {
-                push(const AddCreditCard());
-              }),
-            ))
-          ],
-        ),
-        body: Column(
-          children: [
-            Expanded(
-                child: BlocBuilder<PaymentBloc, PaymentState>(
-              bloc: _paymentBloc,
-              builder: (context, state) {
-                var payments = state.payment.results ?? [];
-                return AppListViewCustom(
-                    onRefresh: () {
-                      _getData(isRefreshing: true);
-                    },
-                    onLoadMore: () {
-                      _getData(isLoadingMore: true);
-                    },
-                    data: state.payment,
-                    renderItem: (int index) => PaymentMethodItem(
-                        isSelected: payments[index].isDefault!,
-                        onSelect: () {
-                          if (payments[index].isDefault!) {
-                            return;
-                          }
+          appBar: HeaderCustom(
+            context: context,
+            textTitle: 'key_payment_method'.tr(),
+            actions: [
+              Center(
+                  child: Padding(
+                padding: const EdgeInsets.only(
+                    right: AppConstrains.paddingHorizontal),
+                child: AddIcon(onTap: () {
+                  push(const AddCreditCard());
+                }),
+              ))
+            ],
+          ),
+          body: BlocBuilder<PaymentBloc, PaymentState>(
+            bloc: _paymentBloc,
+            builder: (context, state) {
+              var payments = state.payment.results ?? [];
+              return AppListViewCustom(
+                  onRefresh: () {
+                    _getData(isRefreshing: true);
+                  },
+                  onLoadMore: () {
+                    _getData(isLoadingMore: true);
+                  },
+                  data: state.payment,
+                  renderItem: (int index) => PaymentMethodItem(
+                      isSelected: payments[index].isDefault!,
+                      onSelect: () {
+                        if (payments[index].isDefault!) {
+                          return;
+                        }
 
-                          _paymentBloc.add(SetDefaultPayment(
-                              paymentId: payments[index].id!));
-                        },
-                        onDelete: () {
-                          _paymentBloc.add(SubmitDeletePaymentMethod(
-                              paymentId: payments[index].id!));
-                        },
-                        payment: payments[index]));
-              },
-            ))
-          ],
-        ),
-      ),
+                        _paymentBloc.add(
+                            SetDefaultPayment(paymentId: payments[index].id!));
+                      },
+                      onDelete: () {
+                        _paymentBloc.add(SubmitDeletePaymentMethod(
+                            paymentId: payments[index].id!));
+                      },
+                      payment: payments[index]));
+            },
+          )),
     );
   }
 }

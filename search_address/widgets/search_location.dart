@@ -1,4 +1,3 @@
-import 'package:boilerplatemobile/widgets/error_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:plugin_helper/index.dart';
 
@@ -9,6 +8,7 @@ import '../index.dart';
 import '../models/address/address_detail_model.dart';
 import '../models/address/address_model.dart';
 import '../widgets/button_custom.dart';
+import '../widgets/error_custom.dart';
 import '../widgets/header_custom.dart';
 import '../widgets/loading_custom.dart';
 import '../widgets/overlay_loading_custom.dart';
@@ -77,6 +77,29 @@ class _SearchLocationState extends State<SearchLocation> {
     super.initState();
   }
 
+  Widget get _titleBuilder {
+    if (_addressController.text.trim().isNotEmpty || widget.address != null) {
+      return Text(
+        'key_address'.tr(),
+        style: AppTextStyles.textSize12(),
+      );
+    }
+
+    return SearchTextField(
+        autofocus: true,
+        padding: const EdgeInsets.only(right: AppConstrains.paddingHorizontal),
+        onChange: (text) {
+          if (text.isEmpty) {
+            setState(() {
+              _addresses = [];
+            });
+            return;
+          }
+
+          _getData(text: text);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return OverlayLoadingCustom(
@@ -91,26 +114,7 @@ class _SearchLocationState extends State<SearchLocation> {
       ),
       child: Scaffold(
         appBar: HeaderCustom(
-          widgetTitle: _addressController.text.trim().isNotEmpty ||
-                  widget.address != null
-              ? Text(
-                  'key_address'.tr(),
-                  style: AppTextStyles.textSize12(),
-                )
-              : SearchTextField(
-                  autofocus: true,
-                  padding: const EdgeInsets.only(
-                      right: AppConstrains.paddingHorizontal),
-                  onChange: (text) {
-                    if (text.isEmpty) {
-                      setState(() {
-                        _addresses = [];
-                      });
-                      return;
-                    }
-
-                    _getData(text: text);
-                  }),
+          widgetTitle: _titleBuilder,
           context: context,
         ),
         body: BlocBuilder<SearchAddressBloc, SearchAddressState>(

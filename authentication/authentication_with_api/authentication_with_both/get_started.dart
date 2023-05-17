@@ -69,37 +69,41 @@ class _GetStartedState extends State<GetStarted> {
   @override
   Widget build(BuildContext context) {
     return OverlayLoadingCustom(
-        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            return LoadingCustom(
-                isOverlay: true, isLoading: state.getStartedRequesting!);
-          },
+      loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          return LoadingCustom(
+              isOverlay: true, isLoading: state.getStartedRequesting!);
+        },
+      ),
+      child: Scaffold(
+        bottomNavigationBar: BottomAppBarCustom(
+          child: ButtonCustom(
+            onPressed: () {
+              _submit();
+            },
+            title: 'key_continue'.tr(),
+          ),
         ),
-        child: Scaffold(
-            bottomNavigationBar: BottomAppBarCustom(
-              child: ButtonCustom(
-                onPressed: () {
-                  _submit();
-                },
-                title: 'key_continue'.tr(),
-              ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: AppConstrains.paddingVertical,
+                horizontal: AppConstrains.paddingHorizontal),
+            child: Column(
+              children: [
+                TextFieldCustom(
+                  controller: _controller,
+                  focusNode: _focusNode,
+                  validType: ValidType.notEmpty,
+                  onValid: (valid) {
+                    _isValid = valid;
+                  },
+                ),
+              ],
             ),
-            body: SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: AppConstrains.paddingVertical,
-                        horizontal: AppConstrains.paddingHorizontal),
-                    child: Column(
-                      children: [
-                        TextFieldCustom(
-                          controller: _controller,
-                          focusNode: _focusNode,
-                          validType: ValidType.notEmpty,
-                          onValid: (valid) {
-                            _isValid = valid;
-                          },
-                        ),
-                      ],
-                    )))));
+          ),
+        ),
+      ),
+    );
   }
 }

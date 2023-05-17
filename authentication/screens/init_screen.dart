@@ -21,44 +21,45 @@ class _InitScreenState extends State<InitScreen> {
   }
 
   _checkUpdate() async {
-    await Future.delayed(const Duration(milliseconds: 100));
-    MyPluginHelper.checkUpdateApp(
-      onError: () {
-        _getData(isHideSplashScreen: true);
-      },
-      onUpdate: (status) {
-        if (status.canUpdate) {
-          MyPluginHelper.remove();
-          Helper.showSuccessDialog(
-              context: context,
-              isShowSecondButton: true,
-              message: 'key_update_version_detail'
-                  .tr()
-                  .replaceAll(':localVersion', status.localVersion)
-                  .replaceAll(':storeVersion', status.storeVersion),
-              title: 'key_update'.tr(),
-              onPressSecondButton: () {
-                goBack();
-                _getData();
-              },
-              onPressPrimaryButton: () async {
-                goBack();
-                _getData();
-                try {
-                  if (await canLaunchUrl(Uri.parse(status.appStoreLink))) {
-                    await launchUrl(Uri.parse(status.appStoreLink));
-                  } else {
-                    throw 'Could not launch appStoreLink';
-                  }
-                } catch (e) {}
-              });
-        } else {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      MyPluginHelper.checkUpdateApp(
+        onError: () {
           _getData(isHideSplashScreen: true);
-        }
-      },
-      androidId: '',
-      iOSId: '',
-    );
+        },
+        onUpdate: (status) {
+          if (status.canUpdate) {
+            MyPluginHelper.remove();
+            Helper.showSuccessDialog(
+                context: context,
+                isShowSecondButton: true,
+                message: 'key_update_version_detail'
+                    .tr()
+                    .replaceAll(':localVersion', status.localVersion)
+                    .replaceAll(':storeVersion', status.storeVersion),
+                title: 'key_update'.tr(),
+                onPressSecondButton: () {
+                  goBack();
+                  _getData();
+                },
+                onPressPrimaryButton: () async {
+                  goBack();
+                  _getData();
+                  try {
+                    if (await canLaunchUrl(Uri.parse(status.appStoreLink))) {
+                      await launchUrl(Uri.parse(status.appStoreLink));
+                    } else {
+                      throw 'Could not launch appStoreLink';
+                    }
+                  } catch (e) {}
+                });
+          } else {
+            _getData(isHideSplashScreen: true);
+          }
+        },
+        androidId: '',
+        iOSId: '',
+      );
+    });
   }
 
   _getData({bool isHideSplashScreen = false}) {
