@@ -10,6 +10,6 @@ RESULT_BUILD_NUMBER=$(sed "s/BUILD_NUMBER = //g" <<< $BUILD_NUMBER)
 sed -i "" "s/BUILD_NUMBER = ${RESULT_BUILD_NUMBER}/BUILD_NUMBER = 1/g" config/prod/Version.txt 
 VERSION_STRING=$(awk "/^VERSION_STRING/{print $NF}" config/prod/Version.txt) 
 RESULT_VERSION_STRING=$(sed "s/VERSION_STRING = //g" <<< $VERSION_STRING) 
-/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $RESULT_BUILD_NUMBER" "Runner/Info.plist" 
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion 1" "Runner/Info.plist" 
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${RESULT_VERSION_STRING}.${INCREASE_NUMBER}" "Runner/Info.plist" 
 flutter build ipa --flavor prod -t lib/main.dart
