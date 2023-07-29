@@ -35,18 +35,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       var hasToken = await MyPluginAuthentication.hasToken();
       if (hasToken) {
-        final users = await MyPluginAuthentication.getUser();
-        if (!await MyPluginAuthentication.checkTokenValidity()) {
-          final TokenModel tokenModel = await authRepositories.refreshToken(
-              refreshToken: users.refreshToken!);
-          await MyPluginAuthentication.persistUser(
-            userId: users.userId!,
-            token: tokenModel.token,
-            refreshToken: tokenModel.refreshToken,
-            expiredToken: tokenModel.expiredToken * 1000,
-            expiredRefreshToken: tokenModel.expiredRefreshToken * 1000,
-          );
-        }
         final profile = await authRepositories.getProfile();
         emit(state.copyWith(profileModel: profile));
         event.onSuccess(true);
