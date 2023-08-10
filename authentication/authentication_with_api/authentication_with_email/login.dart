@@ -24,10 +24,11 @@ class _LoginState extends State<Login> {
   final FocusNode _emailFocusNode = FocusNode();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _passwordFocusNode = FocusNode();
+  late final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
+
   _submit() {
-    BlocProvider.of<AuthBloc>(context).add(AuthLogin(
-        userName:
-            BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
+    _authBloc.add(AuthLogin(
+        id: _authBloc.state.getStartedModel!.id!,
         password: _passwordController.text,
         onSuccess: () {
           //TODO: go to home
@@ -37,58 +38,61 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return OverlayLoadingCustom(
-        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            return LoadingCustom(
-                isOverlay: true, isLoading: state.loginLoading!);
-          },
+      loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          return LoadingCustom(isOverlay: true, isLoading: state.loginLoading!);
+        },
+      ),
+      child: Scaffold(
+        bottomNavigationBar: BottomAppBarCustom(
+          child: ButtonCustom(
+            onPressed: () {
+              _submit();
+            },
+            title: 'key_login'.tr(),
+          ),
         ),
-        child: Scaffold(
-            bottomNavigationBar: BottomAppBarCustom(
-              child: ButtonCustom(
-                onPressed: () {
-                  _submit();
-                },
-                title: 'key_login'.tr(),
-              ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: AppConstrains.paddingVertical,
+                horizontal: AppConstrains.paddingHorizontal),
+            child: Column(
+              children: [
+                TextFieldCustom(
+                  controller: _emailController,
+                  focusNode: _emailFocusNode,
+                  validType: ValidType.email,
+                  hintText: widget.email,
+                  enabled: false,
+                ),
+                10.h,
+                TextFieldCustom(
+                  controller: _passwordController,
+                  focusNode: _passwordFocusNode,
+                  validType: ValidType.password,
+                  hintText: 'key_password'.tr(),
+                  showError: false,
+                  onFieldSubmitted: (text) {
+                    _submit();
+                  },
+                ),
+                10.h,
+                GestureDetector(
+                    onTap: () {
+                      replace(const GetStarted());
+                    },
+                    child: Text('key_use_another_account'.tr())),
+                GestureDetector(
+                    onTap: () {
+                      push(const ForgotPassword());
+                    },
+                    child: Text('key_forgot_password'.tr())),
+              ],
             ),
-            body: SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: AppConstrains.paddingVertical,
-                        horizontal: AppConstrains.paddingHorizontal),
-                    child: Column(
-                      children: [
-                        TextFieldCustom(
-                          controller: _emailController,
-                          focusNode: _emailFocusNode,
-                          validType: ValidType.email,
-                          hintText: widget.email,
-                          enabled: false,
-                        ),
-                        10.h,
-                        TextFieldCustom(
-                          controller: _passwordController,
-                          focusNode: _passwordFocusNode,
-                          validType: ValidType.password,
-                          hintText: 'key_password'.tr(),
-                          showError: false,
-                          onFieldSubmitted: (text) {
-                            _submit();
-                          },
-                        ),
-                        10.h,
-                        GestureDetector(
-                            onTap: () {
-                              replace(const GetStarted());
-                            },
-                            child: Text('key_use_another_account'.tr())),
-                        GestureDetector(
-                            onTap: () {
-                              push(const ForgotPassword());
-                            },
-                            child: Text('key_forgot_password'.tr())),
-                      ],
-                    )))));
+          ),
+        ),
+      ),
+    );
   }
 }

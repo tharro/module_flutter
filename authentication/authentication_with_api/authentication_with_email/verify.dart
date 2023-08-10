@@ -25,6 +25,7 @@ class Verify extends StatefulWidget {
 
 class _VerifyState extends State<Verify> {
   final TextEditingController _codeController = TextEditingController();
+  late final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
 
   @override
   void initState() {
@@ -35,10 +36,9 @@ class _VerifyState extends State<Verify> {
   }
 
   _resendCode(bool isShowPopup) {
-    BlocProvider.of<AuthBloc>(context).add(AuthResendCode(
+    _authBloc.add(AuthResendCode(
         type: 'email',
-        userName:
-            BlocProvider.of<AuthBloc>(context).state.getStartedModel!.username!,
+        id: _authBloc.state.getStartedModel!.id!,
         onSuccess: () {
           if (isShowPopup) {
             Helper.showToastBottom(
@@ -50,14 +50,11 @@ class _VerifyState extends State<Verify> {
 
   _submit() {
     if (_codeController.text.length == 6) {
-      BlocProvider.of<AuthBloc>(context).add(AuthVerifyCode(
+      _authBloc.add(AuthVerifyCode(
           type: 'email',
           password: widget.password,
           code: _codeController.text,
-          userName: BlocProvider.of<AuthBloc>(context)
-              .state
-              .getStartedModel!
-              .username!,
+          id: _authBloc.state.getStartedModel!.id!,
           onError: (message) {
             _codeController.clear();
             Helper.showToastBottom(message: message);
@@ -67,10 +64,7 @@ class _VerifyState extends State<Verify> {
               //TODO: go to home
             } else {
               replace(Login(
-                email: BlocProvider.of<AuthBloc>(context)
-                    .state
-                    .getStartedModel!
-                    .email!,
+                email: _authBloc.state.getStartedModel!.email!,
               ));
             }
           }));
@@ -80,45 +74,49 @@ class _VerifyState extends State<Verify> {
   @override
   Widget build(BuildContext context) {
     return OverlayLoadingCustom(
-        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            return LoadingCustom(
-                isOverlay: true, isLoading: state.verifyCodeLoading!);
-          },
+      loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          return LoadingCustom(
+              isOverlay: true, isLoading: state.verifyCodeLoading!);
+        },
+      ),
+      child: Scaffold(
+        bottomNavigationBar: BottomAppBarCustom(
+          child: ButtonCustom(
+            onPressed: () {
+              _submit();
+            },
+            title: 'key_verify'.tr(),
+          ),
         ),
-        child: Scaffold(
-            bottomNavigationBar: BottomAppBarCustom(
-              child: ButtonCustom(
-                onPressed: () {
-                  _submit();
-                },
-                title: 'key_verify'.tr(),
-              ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: AppConstrains.paddingVertical,
+                horizontal: AppConstrains.paddingHorizontal),
+            child: Column(
+              children: [
+                Text(widget.email),
+                PinPutCustom(
+                  controller: _codeController,
+                  onChange: (code) {},
+                  onCompleted: (code) {},
+                ),
+                GestureDetector(
+                    onTap: () {
+                      _resendCode(true);
+                    },
+                    child: Text('key_resend_code'.tr())),
+                GestureDetector(
+                    onTap: () {
+                      replace(const GetStarted());
+                    },
+                    child: Text('key_use_another_account'.tr())),
+              ],
             ),
-            body: SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: AppConstrains.paddingVertical,
-                        horizontal: AppConstrains.paddingHorizontal),
-                    child: Column(
-                      children: [
-                        Text(widget.email),
-                        PinPutCustom(
-                          controller: _codeController,
-                          onChange: (code) {},
-                          onCompleted: (code) {},
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              _resendCode(true);
-                            },
-                            child: Text('key_resend_code'.tr())),
-                        GestureDetector(
-                            onTap: () {
-                              replace(const GetStarted());
-                            },
-                            child: Text('key_use_another_account'.tr())),
-                      ],
-                    )))));
+          ),
+        ),
+      ),
+    );
   }
 }

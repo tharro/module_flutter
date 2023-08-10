@@ -22,7 +22,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   final TextEditingController _newPasswordController = TextEditingController(),
       _confirmPasswordController = TextEditingController(),
       _codeController = TextEditingController();
-  late final authBloc = BlocProvider.of<AuthBloc>(context);
+  late final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
 
   bool _isValidNewPassword = false,
       _isValidConfirmPassword = false,
@@ -37,18 +37,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   _submit() {
-    authBloc.add(AuthResetPassword(
+    _authBloc.add(AuthResetPassword(
         code: _codeController.text,
         password: _newPasswordController.text,
         onSuccess: () {
           //TODO: go to home
         },
-        userName: authBloc.state.getStartedModel!.username!));
+        id: _authBloc.state.getStartedModel!.id!));
   }
 
   _resendCode({bool isPopup = false}) {
-    authBloc.add(AuthForgotPassword(
-        userName: authBloc.state.getStartedModel!.username!,
+    _authBloc.add(AuthForgotPassword(
+        id: _authBloc.state.getStartedModel!.id!,
         onSuccess: () {
           if (isPopup) {
             Helper.showToastBottom(

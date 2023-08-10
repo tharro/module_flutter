@@ -21,12 +21,10 @@ class AuthResumeSession extends AuthEvent {
 }
 
 class AuthLogin extends AuthEvent {
-  final String userName, password;
+  final String id, password;
   final Function onSuccess;
   const AuthLogin(
-      {required this.userName,
-      required this.password,
-      required this.onSuccess});
+      {required this.id, required this.password, required this.onSuccess});
 }
 
 class AuthSignUp extends AuthEvent {
@@ -40,15 +38,15 @@ class AuthLogout extends AuthEvent {
 }
 
 class AuthResendCode extends AuthEvent {
-  final String userName;
+  final String id;
   final String type;
   final Function onSuccess;
   const AuthResendCode(
-      {required this.userName, required this.type, required this.onSuccess});
+      {required this.id, required this.type, required this.onSuccess});
 }
 
 class AuthVerifyCode extends AuthEvent {
-  final String userName;
+  final String id;
   final String type;
   final String? password;
   final String code;
@@ -57,7 +55,7 @@ class AuthVerifyCode extends AuthEvent {
   const AuthVerifyCode(
       {this.password,
       required this.code,
-      required this.userName,
+      required this.id,
       required this.type,
       required this.onError,
       required this.onSuccess});
@@ -84,21 +82,21 @@ class AuthUpdateProfile extends AuthEvent {
 }
 
 class AuthForgotPassword extends AuthEvent {
-  final String userName;
+  final String id;
   final Function onSuccess;
-  const AuthForgotPassword({required this.userName, required this.onSuccess});
+  const AuthForgotPassword({required this.id, required this.onSuccess});
 }
 
 class AuthResetPassword extends AuthEvent {
   final String code;
   final String password;
-  final String userName;
+  final String id;
   final Function onSuccess;
   const AuthResetPassword({
     required this.code,
     required this.password,
     required this.onSuccess,
-    required this.userName,
+    required this.id,
   });
 }
 

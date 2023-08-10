@@ -25,11 +25,11 @@ class _GetStartedState extends State<GetStarted> {
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   bool _isValid = false;
+  late final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
 
   _submit() async {
-    if (!_isValid) {
-      return;
-    }
+    if (!_isValid) return;
+
     var emailOrPhone = _controller.text.trim();
     if (emailOrPhone.isPhoneNumber) {
       try {
@@ -40,30 +40,32 @@ class _GetStartedState extends State<GetStarted> {
       }
     }
 
-    BlocProvider.of<AuthBloc>(
-            MyPluginNavigation.instance.navigationKey!.currentContext!)
-        .add(AuthGetStarted(
-            onSuccess: (String value) {
-              switch (value) {
-                case MyPluginAppConstraints.signUp:
-                  push(SignUp(
-                    emailOrPhone: _controller.text.trim(),
-                  ));
-                  break;
-                case MyPluginAppConstraints.login:
-                  push(Login(emailOrPhone: _controller.text.trim()));
-                  break;
-                case MyPluginAppConstraints.verify:
-                  push(OptionsVerify(
-                    emailOrPhone: _controller.text.trim(),
-                  ));
-                  break;
-                default:
-              }
-            },
-            body: {
-          'email_or_phone': emailOrPhone,
-        }));
+    if (!mounted) return;
+
+    _authBloc.add(
+      AuthGetStarted(
+          onSuccess: (String value) {
+            switch (value) {
+              case MyPluginAppConstraints.signUp:
+                push(SignUp(
+                  emailOrPhone: _controller.text.trim(),
+                ));
+                break;
+              case MyPluginAppConstraints.login:
+                push(Login(emailOrPhone: _controller.text.trim()));
+                break;
+              case MyPluginAppConstraints.verify:
+                push(OptionsVerify(
+                  emailOrPhone: _controller.text.trim(),
+                ));
+                break;
+              default:
+            }
+          },
+          body: {
+            'email_or_phone': emailOrPhone,
+          }),
+    );
   }
 
   @override

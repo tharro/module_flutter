@@ -14,7 +14,7 @@ class MainTab extends StatefulWidget {
 }
 
 class _MainTabState extends State<MainTab> {
-  List<MyWidgetAppFlow>? _appFlows;
+  late List<MyWidgetAppFlow> _appFlows;
   GlobalKey<AdaptiveBottomNavigationScaffoldState>? _adapterKey;
 
   @override
@@ -78,7 +78,7 @@ class _MainTabState extends State<MainTab> {
   Widget build(BuildContext context) {
     return AdaptiveBottomNavigationScaffold(
       key: _adapterKey,
-      navigationBarItems: _appFlows!.map((flow) {
+      navigationBarItems: _appFlows.map((flow) {
         return MyWidgetBottomNavigationTab(
           bottomNavigationBarItem: BottomNavigationBarItem(
             label: flow.title,

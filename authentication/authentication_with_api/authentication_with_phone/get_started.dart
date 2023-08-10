@@ -26,6 +26,7 @@ class _GetStartedState extends State<GetStarted> {
   final FocusNode _focusNode = FocusNode();
   bool _isValidPhone = false;
   String _phoneNumber = '';
+  late final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
 
   @override
   void initState() {
@@ -37,72 +38,77 @@ class _GetStartedState extends State<GetStarted> {
       return;
     }
 
-    BlocProvider.of<AuthBloc>(context).add(AuthGetStarted(
-        onSuccess: (String value) {
-          switch (value) {
-            case MyPluginAppConstraints.signUp:
-              push(SignUp(
-                phone: _phoneNumber,
-              ));
-              break;
-            case MyPluginAppConstraints.login:
-              push(Login(
-                phone: _phoneNumber,
-              ));
-              break;
-            case MyPluginAppConstraints.verify:
-              push(Verify(
-                isResend: true,
-                phone: _phoneNumber,
-              ));
-              break;
-            default:
-          }
-        },
-        body: {
-          'phone': _phoneNumber,
-        }));
+    _authBloc.add(AuthGetStarted(
+      onSuccess: (String value) {
+        switch (value) {
+          case MyPluginAppConstraints.signUp:
+            push(SignUp(
+              phone: _phoneNumber,
+            ));
+            break;
+          case MyPluginAppConstraints.login:
+            push(Login(
+              phone: _phoneNumber,
+            ));
+            break;
+          case MyPluginAppConstraints.verify:
+            push(Verify(
+              isResend: true,
+              phone: _phoneNumber,
+            ));
+            break;
+          default:
+        }
+      },
+      body: {
+        'phone': _phoneNumber,
+      },
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return OverlayLoadingCustom(
-        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            return LoadingCustom(
-                isOverlay: true, isLoading: state.getStartedRequesting!);
-          },
+      loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          return LoadingCustom(
+              isOverlay: true, isLoading: state.getStartedRequesting!);
+        },
+      ),
+      child: Scaffold(
+        bottomNavigationBar: BottomAppBarCustom(
+          child: ButtonCustom(
+            onPressed: () {
+              _submit();
+            },
+            title: 'key_continue'.tr(),
+          ),
         ),
-        child: Scaffold(
-            bottomNavigationBar: BottomAppBarCustom(
-              child: ButtonCustom(
-                onPressed: () {
-                  _submit();
-                },
-                title: 'key_continue'.tr(),
-              ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: AppConstrains.paddingVertical,
+                horizontal: AppConstrains.paddingHorizontal),
+            child: Column(
+              children: [
+                PhoneNumberCustom(
+                    autoFocus: true,
+                    onInputValidated: (bool val) {
+                      setState(() {
+                        _isValidPhone = val;
+                      });
+                    },
+                    hasError: _isValidPhone,
+                    onInputChanged: (PhoneNumber number) {
+                      _phoneNumber = number.phoneNumber!;
+                    },
+                    controller: _controller,
+                    focusNode: _focusNode)
+              ],
             ),
-            body: SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: AppConstrains.paddingVertical,
-                        horizontal: AppConstrains.paddingHorizontal),
-                    child: Column(
-                      children: [
-                        PhoneNumberCustom(
-                            autoFocus: true,
-                            onInputValidated: (bool val) {
-                              setState(() {
-                                _isValidPhone = val;
-                              });
-                            },
-                            hasError: _isValidPhone,
-                            onInputChanged: (PhoneNumber number) {
-                              _phoneNumber = number.phoneNumber!;
-                            },
-                            controller: _controller,
-                            focusNode: _focusNode)
-                      ],
-                    )))));
+          ),
+        ),
+      ),
+    );
   }
 }

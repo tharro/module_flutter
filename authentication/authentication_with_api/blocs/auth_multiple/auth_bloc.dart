@@ -51,10 +51,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(loginLoading: true));
       final TokenModel tokenModel = await authRepositories.login(
         password: event.password,
-        userName: event.userName,
+        id: event.id,
       );
       await MyPluginAuthentication.persistUser(
-        userId: event.userName,
+        userId: event.id,
         token: tokenModel.token,
         refreshToken: tokenModel.refreshToken,
         expiredToken: tokenModel.expiredToken * 1000,
@@ -98,8 +98,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void authResendCode(AuthResendCode event, Emitter<AuthState> emit) async {
     try {
       emit(state.copyWith(verifyCodeLoading: true));
-      await authRepositories.resendCode(
-          userName: event.userName, type: event.type);
+      await authRepositories.resendCode(id: event.id, type: event.type);
       emit(state.copyWith(verifyCodeLoading: false));
       event.onSuccess();
     } catch (e) {
@@ -129,17 +128,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(state.copyWith(verifyCodeLoading: true));
       await authRepositories.verify(
-          userName: event.userName, code: event.code, type: event.type);
+          id: event.id, code: event.code, type: event.type);
       GetStartedModel? getStartedModel = event.type == 'email'
           ? state.getStartedModel!.copyWith(isVerifiedEmail: true)
           : state.getStartedModel!.copyWith(isVerifiedPhone: true);
       if (event.password != null) {
         final TokenModel tokenModel = await authRepositories.login(
           password: event.password!,
-          userName: event.userName,
+          id: event.id,
         );
         await MyPluginAuthentication.persistUser(
-          userId: event.userName,
+          userId: event.id,
           token: tokenModel.token,
           refreshToken: tokenModel.refreshToken,
           expiredToken: tokenModel.expiredToken * 1000,
@@ -176,7 +175,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       AuthForgotPassword event, Emitter<AuthState> emit) async {
     try {
       emit(state.copyWith(resetPasswordLoading: true));
-      await authRepositories.resendPassword(userName: event.userName);
+      await authRepositories.resendPassword(id: event.id);
       event.onSuccess();
       emit(state.copyWith(resetPasswordLoading: false));
     } catch (e) {
@@ -192,14 +191,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authRepositories.resetPassword(
         code: event.code,
         newPassword: event.password,
-        userName: event.userName,
+        id: event.id,
       );
       final TokenModel tokenModel = await authRepositories.login(
         password: event.password,
-        userName: event.userName,
+        id: event.id,
       );
       await MyPluginAuthentication.persistUser(
-        userId: event.userName,
+        userId: event.id,
         token: tokenModel.token,
         refreshToken: tokenModel.refreshToken,
         expiredToken: tokenModel.expiredToken * 1000,

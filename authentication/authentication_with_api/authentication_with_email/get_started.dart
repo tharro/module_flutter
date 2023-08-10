@@ -24,6 +24,7 @@ class _GetStartedState extends State<GetStarted> {
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   bool _isValidEmail = false;
+  late final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
 
   @override
   void initState() {
@@ -34,71 +35,76 @@ class _GetStartedState extends State<GetStarted> {
     if (!_isValidEmail) {
       return;
     }
-    BlocProvider.of<AuthBloc>(context).add(AuthGetStarted(
-        onSuccess: (String value) {
-          switch (value) {
-            case MyPluginAppConstraints.signUp:
-              push(SignUp(
-                email: _controller.text.trim(),
-              ));
-              break;
-            case MyPluginAppConstraints.login:
-              push(Login(
-                email: _controller.text.trim(),
-              ));
-              break;
-            case MyPluginAppConstraints.verify:
-              push(Verify(
-                isResend: true,
-                email: _controller.text.trim(),
-              ));
-              break;
-            default:
-          }
-        },
-        body: {
-          'email': _controller.text.trim(),
-        }));
+    _authBloc.add(AuthGetStarted(
+      onSuccess: (String value) {
+        switch (value) {
+          case MyPluginAppConstraints.signUp:
+            push(SignUp(
+              email: _controller.text.trim(),
+            ));
+            break;
+          case MyPluginAppConstraints.login:
+            push(Login(
+              email: _controller.text.trim(),
+            ));
+            break;
+          case MyPluginAppConstraints.verify:
+            push(Verify(
+              isResend: true,
+              email: _controller.text.trim(),
+            ));
+            break;
+          default:
+        }
+      },
+      body: {
+        'email': _controller.text.trim(),
+      },
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return OverlayLoadingCustom(
-        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            return LoadingCustom(
-                isOverlay: true, isLoading: state.getStartedRequesting!);
-          },
+      loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          return LoadingCustom(
+              isOverlay: true, isLoading: state.getStartedRequesting!);
+        },
+      ),
+      child: Scaffold(
+        bottomNavigationBar: BottomAppBarCustom(
+          child: ButtonCustom(
+            onPressed: () {
+              _submit();
+            },
+            title: 'key_continue'.tr(),
+          ),
         ),
-        child: Scaffold(
-            bottomNavigationBar: BottomAppBarCustom(
-              child: ButtonCustom(
-                onPressed: () {
-                  _submit();
-                },
-                title: 'key_continue'.tr(),
-              ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: AppConstrains.paddingVertical,
+                horizontal: AppConstrains.paddingHorizontal),
+            child: Column(
+              children: [
+                TextFieldCustom(
+                  controller: _controller,
+                  focusNode: _focusNode,
+                  validType: ValidType.email,
+                  onValid: (bool val) {
+                    _isValidEmail = val;
+                  },
+                  hintText: 'key_enter_a_email'.tr(),
+                  onFieldSubmitted: (text) {
+                    _submit();
+                  },
+                ),
+              ],
             ),
-            body: SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: AppConstrains.paddingVertical,
-                        horizontal: AppConstrains.paddingHorizontal),
-                    child: Column(
-                      children: [
-                        TextFieldCustom(
-                          controller: _controller,
-                          focusNode: _focusNode,
-                          validType: ValidType.email,
-                          onValid: (bool val) {
-                            _isValidEmail = val;
-                          },
-                          hintText: 'key_enter_a_email'.tr(),
-                          onFieldSubmitted: (text) {
-                            _submit();
-                          },
-                        ),
-                      ],
-                    )))));
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -31,17 +31,15 @@ class _SignUpState extends State<SignUp> {
   bool _isValidPassword = false,
       _isValidFirstName = false,
       _isValidLastName = false;
+  late final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
 
   _submit() {
     if (!_isValidPassword || !_isValidFirstName || !_isValidLastName) {
       return;
     }
-    BlocProvider.of<AuthBloc>(context).add(AuthSignUp(
+    _authBloc.add(AuthSignUp(
         body: {
-          'username': BlocProvider.of<AuthBloc>(context)
-              .state
-              .getStartedModel!
-              .username!,
+          'id': _authBloc.state.getStartedModel!.id!,
           'phone': widget.phone,
           'first_name': _firstNameController.text.trim(),
           'last_name': _lastNameController.text.trim(),
@@ -59,77 +57,81 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return OverlayLoadingCustom(
-        loadingWidget: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            return LoadingCustom(
-                isOverlay: true, isLoading: state.signUpLoading!);
-          },
+      loadingWidget: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          return LoadingCustom(
+              isOverlay: true, isLoading: state.signUpLoading!);
+        },
+      ),
+      child: Scaffold(
+        bottomNavigationBar: BottomAppBarCustom(
+          child: ButtonCustom(
+            onPressed: () {
+              _submit();
+            },
+            title: 'key_sign_up'.tr(),
+          ),
         ),
-        child: Scaffold(
-            bottomNavigationBar: BottomAppBarCustom(
-              child: ButtonCustom(
-                onPressed: () {
-                  _submit();
-                },
-                title: 'key_sign_up'.tr(),
-              ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: AppConstrains.paddingVertical,
+                horizontal: AppConstrains.paddingHorizontal),
+            child: Column(
+              children: [
+                TextFieldCustom(
+                  controller: _phoneController,
+                  focusNode: _phoneFocusNode,
+                  hintText: widget.phone,
+                  enabled: false,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFieldCustom(
+                  controller: _passwordController,
+                  focusNode: _passwordFocusNode,
+                  validType: ValidType.password,
+                  hintText: 'key_password'.tr(),
+                  onValid: (bool val) {
+                    _isValidPassword = val;
+                  },
+                  textInputAction: TextInputAction.next,
+                ),
+                10.h,
+                TextFieldCustom(
+                  controller: _firstNameController,
+                  focusNode: _firstNameFocusNode,
+                  validType: ValidType.notEmpty,
+                  hintText: 'key_first_name'.tr(),
+                  onValid: (bool val) {
+                    _isValidFirstName = val;
+                  },
+                  textInputAction: TextInputAction.next,
+                ),
+                10.h,
+                TextFieldCustom(
+                  controller: _lastNameController,
+                  focusNode: _lastNameFocusNode,
+                  validType: ValidType.notEmpty,
+                  hintText: 'key_last_name'.tr(),
+                  onValid: (bool val) {
+                    _isValidLastName = val;
+                  },
+                  onFieldSubmitted: (text) {
+                    _submit();
+                  },
+                ),
+                GestureDetector(
+                    onTap: () {
+                      replace(const GetStarted());
+                    },
+                    child: Text('key_use_another_account'.tr())),
+              ],
             ),
-            body: SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: AppConstrains.paddingVertical,
-                        horizontal: AppConstrains.paddingHorizontal),
-                    child: Column(
-                      children: [
-                        TextFieldCustom(
-                          controller: _phoneController,
-                          focusNode: _phoneFocusNode,
-                          hintText: widget.phone,
-                          enabled: false,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFieldCustom(
-                          controller: _passwordController,
-                          focusNode: _passwordFocusNode,
-                          validType: ValidType.password,
-                          hintText: 'key_password'.tr(),
-                          onValid: (bool val) {
-                            _isValidPassword = val;
-                          },
-                          textInputAction: TextInputAction.next,
-                        ),
-                        10.h,
-                        TextFieldCustom(
-                          controller: _firstNameController,
-                          focusNode: _firstNameFocusNode,
-                          validType: ValidType.notEmpty,
-                          hintText: 'key_first_name'.tr(),
-                          onValid: (bool val) {
-                            _isValidFirstName = val;
-                          },
-                          textInputAction: TextInputAction.next,
-                        ),
-                        10.h,
-                        TextFieldCustom(
-                          controller: _lastNameController,
-                          focusNode: _lastNameFocusNode,
-                          validType: ValidType.notEmpty,
-                          hintText: 'key_last_name'.tr(),
-                          onValid: (bool val) {
-                            _isValidLastName = val;
-                          },
-                          onFieldSubmitted: (text) {
-                            _submit();
-                          },
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              replace(const GetStarted());
-                            },
-                            child: Text('key_use_another_account'.tr())),
-                      ],
-                    )))));
+          ),
+        ),
+      ),
+    );
   }
 }
