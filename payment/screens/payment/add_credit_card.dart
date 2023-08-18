@@ -114,6 +114,7 @@ class _AddCreditCardState extends State<AddCreditCard> {
               TextFieldCustom(
                 focusNode: _cardNumberNode,
                 controller: _cardNumberController,
+                keyboardType: TextInputType.number,
                 validType: ValidType.cardNumber,
                 label: 'key_card_number'.tr(),
                 hintText: '0000 0000 0000 0000',
@@ -143,6 +144,7 @@ class _AddCreditCardState extends State<AddCreditCard> {
                     child: TextFieldCustom(
                       focusNode: _expiredNode,
                       controller: _expiredController,
+                      keyboardType: TextInputType.number,
                       validType: ValidType.expired,
                       prefixIcon: Icon(
                         Icons.date_range_rounded,
@@ -164,6 +166,7 @@ class _AddCreditCardState extends State<AddCreditCard> {
                       child: TextFieldCustom(
                     focusNode: _cVVNode,
                     controller: _cVVController,
+                    keyboardType: TextInputType.number,
                     validType: ValidType.cvv,
                     label: 'key_cvv'.tr(),
                     hintText: '0000',
