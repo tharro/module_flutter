@@ -36,15 +36,17 @@ for path in "assets/images"/*; do
   fi
 done
 
-for path in "assets/videos"/*; do
-  if [[ -d $path ]]; then
-    filename=$(basename "$path")
-    for files in "${path}"/*; do
-      generateFileName "$files"
-    done
-  else 
-    generateFileName "$path"
-  fi
-done
+if [[ -d "assets/videos/*" ]]; then
+  for path in "assets/videos"/*; do
+    if [[ -d $path ]]; then
+      filename=$(basename "$path")
+      for files in "${path}"/*; do
+        generateFileName "$files"
+      done
+    else 
+      generateFileName "$path"
+    fi
+  done
+fi
 
 echo "}" >> ./lib/configs/app_assets.dart
