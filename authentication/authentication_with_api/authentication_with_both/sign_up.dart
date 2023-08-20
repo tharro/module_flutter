@@ -51,7 +51,6 @@ class _SignUpState extends State<SignUp> {
     }
     _authBloc.add(AuthSignUp(
         body: {
-          'id': _authBloc.state.getStartedModel!.id!,
           'email': _emailController.text.trim(),
           'phone': _phoneNumber,
           'first_name': _firstNameController.text.trim(),

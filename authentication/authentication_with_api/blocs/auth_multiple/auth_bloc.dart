@@ -110,11 +110,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void authSignUp(AuthSignUp event, Emitter<AuthState> emit) async {
     try {
       emit(state.copyWith(signUpLoading: true));
-      await authRepositories.signUp(event.body);
+      String id = await authRepositories.signUp(event.body);
       GetStartedModel getStartedModel = state.getStartedModel!.copyWith(
-        email: event.body['email'],
-        phone: event.body['phone'],
-      );
+          email: event.body['email'], phone: event.body['phone'], id: id);
       emit(state.copyWith(
           getStartedModel: getStartedModel, signUpLoading: false));
       event.onSuccess();

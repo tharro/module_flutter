@@ -111,8 +111,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void authSignUp(AuthSignUp event, Emitter<AuthState> emit) async {
     try {
       emit(state.copyWith(signUpLoading: true));
-      await authRepositories.signUp(event.body);
-      emit(state.copyWith(signUpLoading: false));
+      String id = await authRepositories.signUp(event.body);
+      emit(state.copyWith(
+          signUpLoading: false,
+          getStartedModel: state.getStartedModel!.copyWith(id: id)));
       event.onSuccess();
     } catch (e) {
       emit(state.copyWith(signUpLoading: false));

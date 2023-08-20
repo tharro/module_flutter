@@ -39,7 +39,6 @@ class _SignUpState extends State<SignUp> {
     }
     _authBloc.add(AuthSignUp(
       body: {
-        'id': _authBloc.state.getStartedModel!.id!,
         'email': widget.email,
         'first_name': _firstNameController.text.trim(),
         'last_name': _lastNameController.text.trim(),
