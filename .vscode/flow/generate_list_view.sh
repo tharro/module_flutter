@@ -178,7 +178,7 @@ class _${new_converted_file_name}PageState extends State<${new_converted_file_na
     $(if [ $selected_options != 2 ]; then echo "
     return Scaffold(
       appBar:
-          HeaderCustom(textTitle: 'key_${lowercase_new_string}'.tr(), context: context),
+          HeaderCustom(textTitle: 'key_${lowercase_new_string}'.tr()),
       body: $content
     );"; else echo "
     return Column(

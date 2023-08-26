@@ -113,10 +113,7 @@ class _SearchLocationState extends State<SearchLocation> {
         },
       ),
       child: Scaffold(
-        appBar: HeaderCustom(
-          widgetTitle: _titleBuilder,
-          context: context,
-        ),
+        appBar: HeaderCustom(widgetTitle: _titleBuilder),
         body: BlocBuilder<SearchAddressBloc, SearchAddressState>(
           bloc: _searchAddressBloc,
           builder: (context, state) {

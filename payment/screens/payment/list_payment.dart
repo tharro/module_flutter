@@ -48,7 +48,6 @@ class _ListPaymentState extends State<ListPayment> {
       ),
       child: Scaffold(
           appBar: HeaderCustom(
-            context: context,
             textTitle: 'key_payment_method'.tr(),
             actions: [
               Center(
