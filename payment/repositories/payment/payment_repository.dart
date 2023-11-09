@@ -1,7 +1,7 @@
 import 'package:plugin_helper/index.dart';
 
 import '../../../api/api.dart';
-import '../../api/apiUrl.dart';
+import '../../../api/apiUrl.dart';
 import '../../models/payment/payment_model.dart';
 
 enum PaymentAction { setDefault, delete }

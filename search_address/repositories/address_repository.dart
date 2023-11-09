@@ -1,5 +1,5 @@
 import '../../../api/api.dart';
-import '../../api/apiUrl.dart';
+import '../../../api/apiUrl.dart';
 import '../../models/address/address_detail_model.dart';
 import '../../models/address/address_model.dart';
 
