@@ -1,5 +1,5 @@
 # module_flutter
-Widgets or logic are use in most projects. Based on your project, you can clone a module into your project and customize it.
+Widgets or logics are use in most projects. Based on your project, you can clone a module into your project and customize it.
 
 ## SDK
  - Flutter
