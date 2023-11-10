@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo -n "" > ./lib/configs/app_assets.dart
+echo "/// The class contains all paths of the assets"
 echo "class AppAssets {" >> ./lib/configs/app_assets.dart
 default_extension='Default'
 
