@@ -12,6 +12,12 @@ old_folder_name=template_list
 # Prompt the user to enter the new folder name
 read -p "Enter the name list: " new_folder_name
 
+if [[ ! "$new_folder_name" =~ ^[a-z-]+$ ]];
+then
+    echo "$new_folder_name  unvalid. Please enter other name with format name1-name2 or name"
+    exit 0
+fi
+
 read -p "Enter the title shown: " title
 
 read -p "Enter the API url: " api
